@@ -1,0 +1,21 @@
+{
+  "file": "ai-draft-report.md",
+  "args": ["--genre", "개조식"],
+  "by_rule": {
+    "AT-08": 1,
+    "AT-15": 1,
+    "AT-17": 1,
+    "AT-19": 1,
+    "AT-23": 1,
+    "AT-34": 1,
+    "AT-35": 2,
+    "AT-39": 2,
+    "AT-44": 1,
+    "AT-45": 1,
+    "AT-46": 1
+  },
+  "zero": ["AT-03", "AT-06", "AT-11", "AT-20", "AT-29", "AT-30", "AT-31"],
+  "min_by_severity": {"S1": 3},
+  "strict_fail": true,
+  "notes": "by_rule 는 정확 일치, zero 는 0(모두 줄글 전용이라 개조식에서 비활성), 나머지 규칙은 무제약. 이 문서는 prose 세그먼트가 0이라 AT-17·19·45·46 은 범위 prose,list 덕에 발화한다."
+}

@@ -1,0 +1,570 @@
+Department of the Army
+Pamphlet 600–67
+Personnel—General
+Effective
+Writing for
+Army Leaders
+Headquarters
+Department of the Army
+Washington, DC
+02 June 1986
+Unclassified
+
+SUMMARY of CHANGE
+DA PAM 600–67
+Effective Writing for Army Leaders
+This pamphlet provides staff writing standards and guidelines to Army leaders,
+and outlines two editing tools and one organizational technique for use by
+leaders in achieving those standards and for obtaining them from their
+subordinates.
+ 
+ 
+
+
+RESERVED
+
+Headquarters
+Department of the Army
+Washington, DC
+02 June 1986
+Personnel—General
+Effective Writing for Army Leaders
+Department of the Army
+Pamphlet 600–67
+History. The UPDATE printing publishes a
+new Department of the Army pamphlet.
+S u m m a r y .  T h i s  p a m p h l e t  o u t l i n e s ,  f o r
+Army leaders, the standards of AR 600–70
+and sets staff writing guidelines to achieve
+those standards.
+Applicability. This pamphlet applies to the
+A c t i v e  A r m y ,  A r m y  N a t i o n a l  G u a r d ,  U . S .
+Army Reserve, and Department of the Army
+civilians.
+P r o p o n e n t  a n d  e x c e p t i o n  a u t h o r i t y .
+Not applicable.
+Impact on new Manning System. This
+pamphlet does not contain information that
+affects the New Manning System.
+Interim changes. Interim changes to this
+pamphlet are not official unless they are au-
+thenticated by The Adjutant General. Users
+will destroy interim changes on their expira-
+tion dates unless sooner superseded or re-
+scinded.
+S u g g e s t e d I m p r o v e m e n t s . T h e  p r o p o -
+nent agency of this pamphlet is the Office of
+the Assistant Chief of Staff for Information
+Management. Users are invited to send com-
+ments and suggested improvements on DA
+Form 2028 (Recommended Changes to Publi-
+cations and Blank Forms) directly to Com-
+mander, U.S. Army Training and Doctrine
+Command, ATTN: ATCG–W, Ft. Monroe,
+VA 23651–5000.
+Distribution. Distribution of this issue has
+b e e n  m a d e  i n  a c c o r d a n c e  w i t h  D A  F o r m
+12–9A–R requirements for 600–series publi-
+cations. The number of copies distributed to
+a given subscriber is the number of copies
+requested in Blocks 378, 379 and 380 of the
+subscriber’s DA Form 12–9A–R. DA Pam
+600–67 distribution is highest quantity under
+B, C, or D for Active Army, ARNG, and
+USAR. Future distribution of this publication
+will remain the same unless the Publications
+Account Officer adjusts the quantities using
+the enclosed subscription card.
+Contents (Listed by paragraph and page number)
+Chapter 1
+Introduction, page 1
+Purpose • 1–1, page 1
+References • 1–2, page 1
+Why there is an Army Writing Program • 1–3, page 1
+Defining the standard • 1–4, page 1
+Chapter 2
+Leadership and Writing, page 1
+Why we need a leader writing pamphlet • 2–1, page 1
+A different kind of writing pamphlet • 2–2, page 1
+Your role as an Army leader • 2–3, page 1
+Chapter 3
+Issuing the Guidance, page 1
+Style Rules • 3–1, page 1
+Two essential changes • 3–2, page 1
+Chapter 4
+Being a mentor, page 1
+General • 4–1, page 2
+The quick–screen edit • 4–2, page 2
+The clarity index • 4–3, page 2
+Chapter 5
+Showing the New Standards, page 2
+Establishing the guidelines • 5–1, page 2
+Setting the examples • 5–2, page 2
+Figure List
+Figure 3–1: Example of writing without packaging, page 2
+Figure 3–2: Example of writing with packaging, page 3
+Figure 4–1: Example of a quick–screen edit highlight, page 3
+Figure 4–2: Example of a quick– screen edit highlight, page 3
+Figure 4–3: Computing clarity index, page 3
+Figure 4–4: Clarity index of original writing, page 4
+Figure 4–5: Clarity index of revised writing., page 4
+Figure 5–1: Clarity index of revised writing, page 5
+Figure 5–2: Memorandum—Example of good writing, page 6
+Figure 5–3: Military letter—Example of poor writing, page 6
+Figure 5–4: Military letter—Example of good writing, page 7
+Figure 5–5: DA Form 4697 (Report of Survey), block 29—
+example of poor writing, page 7
+Figure 5–6: DA Form 4697 (Report of Survey), block 26—
+Example of good writing, page 7
+DA PAM 600–67 • 02 June 1986 
+i
+Unclassified
+9
+
+RESERVED
+ii 
+DA PAM 600–67 • 02 June 1986
+
+Chapter 1
+Introduction
+1–1. Purpose
+This pamphlet is a leader’s manual. It –
+a. Provides accessible information on what kind of staff writing
+to demand and how to have it produced.
+b. Explains in detail what good Army writing is and how to
+establish uniform Army writing standards.
+c. Describes two quantifiable tools to reinforce better writing.
+d. Provides examples of the new standard for Army writing.
+1–2. References
+a. Required publication. AR 600–70, The Army Writing Pro-
+gram, is a required publication. (Cited in para 2–1d.)
+b. Related publication. (A related publication is merely a source
+of additional information. The user does not have to read it to
+understand the pamphlet.) AR 340–15, Preparing and Managing
+Correspondence, is a related publication.
+1–3. Why there is an Army Writing Program
+a. Too much Army writing does not communicate well. It con-
+fuses rather than clarifies; it is wordy rather than concise; it hides
+the main idea rather than getting to the point.
+b. We all recognize the particular style described in a above as
+“Army” writing. The Army has developed this style collectively.
+That means that, collectively, we can build a better style.
+c. Information overload and the complexity of the modern Army
+demand a more effective style and a new standard for writing.
+1–4. Defining the standard
+a. According to AR 600–70, the standard for Army writing is
+writing you can understand in a single rapid reading, and is gener-
+ally free of errors in grammar, mechanics, and usage.
+b. Good Army writing is clear, concise, organized, and right to
+the point.
+Chapter 2
+Leadership and Writing
+2–1. Why we need a leader writing pamphlet
+a. Leaders lose too much time grappling with poor writing.
+b. Poor writing hinders decisions.
+c. Only leaders can make this new style happen.
+d. Paragraph 2e of AR 600–70 requires all commanders to up-
+hold a common standard.
+2–2. A different kind of writing pamphlet
+a. This is a leader’s manual, not a thick staff officer’s guide. This
+pamphlet provides accessible information on what kind of writing to
+demand and how to get your staff to produce it.
+b. Most significantly, the Army has set a standard for good writ-
+ing and developed staff writing rules to reach that standard. You’ll
+find those in this pamphlet as well.
+2–3. Your role as an Army leader
+This pamphlet has three primary sections and will assist you as an
+Army leader to —
+a .  I s s u e  t h e  g u i d a n c e  t o  e s t a b l i s h  u n i f o r m ,  e f f e c t i v e  w r i t i n g
+standards.
+b. Be a mentor to your subordinates using specific tools.
+c. Show the new standards using sets of examples.
+Chapter 3
+Issuing the Guidance
+3–1. Style Rules
+Take these guidelines and publish them as your office writing rules
+to establish the new Army writing rules to establish the new Army
+writing standard. Require all people who write for you–
+a. Put the recommendation, conclusion, or reason for writing—
+the “ bottom line ”—in the first or second paragraph, not at the end.
+b. Use the active voice.
+c. Use short sentences (an average of 15 or fewer words).
+d. Use short words (three syllables or fewer). (See the clarity
+index in paragraph 4–3.)
+e. Write paragraphs that, with few exceptions, are no more than 1
+inch deep.
+f. Use correct spelling, grammar, and punctuation.
+g. Use “I,”“you” and “we” as subjects of sentences instead of
+“this office,”“this headquarters,”“all individuals,” and so forth, for
+most kinds of writing.
+3–2. Two essential changes
+These new writing guidelines mandate two critical changes that
+leaders must demand. The first change alters the structure of all
+Army writing; the second change transforms the style.
+a. Structure—main idea first.
+(1) Require all staff writing to begin with the main idea. The
+greatest weakness in ineffective writing is that it doesn’t quickly
+transmit a focused message. Too much Army writing hides the main
+point. Insist, as business writers do, on the “bottom line” first. Have
+subordinates start with the information they would keep if they had
+to get rid of all the rest.
+(2) Require specific packaging of all writing. Focusing first on
+the main point changes the overall construction of Army writing.
+This restructuring, called packaging, is the framework of the new
+writing style. Packaging is not format. Formatting begins after pack-
+aging to tailor the writing to a specific purpose. To package–
+(a) Open with a short, clear purpose sentence.
+(b) Put the recommendation, conclusion, or most important infor-
+mation (the main point) next. (Some writing combines the purpose
+and the main point.)
+(c) Clearly separate each major section. Use paragraphs, head-
+ings, or section titles.
+(d) Use a specific format if one is appropriate.
+b. Style – the active voice.
+(1) The major style change that makes Army writing clear, direct
+communication is using the active voice rather than passive voice.
+Many Army writers overuse the passive voice and create sentences
+that are indirect and unfocused, and that slow communication. The
+passive voice hides the doer of the action, blocking communication.
+Active example: Army beat Navy. Passive example: The Navy has
+been beaten by Army.
+(2) The active voice is direct, natural, and forceful.
+(3) The active voice does more than make sentences clearer – it
+shortens sentences. Eliminating the passive voice reduces a piece of
+writing by about 20 percent.
+(4) The passive voice is actually very easy to recognize: it uses
+one of the eight forms of to be plus a verb usually ending in –en or
+–ed. Example: am, is, are, was, were, be, being, been plus the –en,
+–ed word (is requested, were eaten).
+(5) When you see verb constructions like the examples in (4)
+above, you know the writing is passive. Although sometimes the
+passive is appropriate, most of the time it is not. Examples: The
+passive voice is abused in Army writing. When vagueness is wan-
+ted, the passive voice is selected by many writers. A direct style, on
+the other hand, is created by the active voice.
+(6) When you see writing in the passive voice, have the writers
+change it to active voice. Tell your subordinates to put the subject
+first in sentences and they will become active writers. Example:
+Army writing abuses the passive voice. Army writers select the
+1
+DA PAM 600–67 • 02 June 1986
+
+passive voice when they want to be vague. The active voice, on the
+other hand, creates a direct style.
+Chapter 4
+Being a mentor
+4–1. General
+Despite clear staff writing guidelines and focusing on only two
+essential changes, some of the writing you see won’t meet the new
+standards. Most supervisors have little trouble identifying poor writ-
+ing. Many, however, have problems knowing how to fix it or coun-
+sel someone else on how to fix it. Use the tools discussed in
+paragraphs 4–2 and 4–3 to give your subordinates specific, quantifi-
+able feedback.
+4–2. The quick–screen edit
+This editing tool identifies major violations of the Army standard
+for writing. To use the quick–screen edit, simply do the following:
+a. use a highlighter, pencil or pen.
+b. In a single, rapid reading highlight, circle, or underline–
+(1) The “bottom line,” the purpose of the piece of writing.
+(2) Any forms of the verb to be used with a past participle ( a
+verb ending in “–en” or “–ed”). This identifies the passive voice.
+(3) Any unnecessary long words or jargon.
+(4) Spelling, punctuation, or grammar mistakes.
+c .  H a v e  y o u r  p e o p l e  r e v i s e  t h e  f o u r  t a r g e t e d  a r e a s .  I n  t h e
+revision–
+(1) Move the “bottom line” to the beginning of the writing if it is
+not there already.
+(2) Change only the other highlighted problems.
+(3) Check the writing for packaging.
+d. See figure 4–1 for an example of highlighting, using the qui-
+ck–screen edit. (The reverse type in fig 4–1 represents use of high-
+lighting.) Figure 4–2 shows the revised example.
+e. This quick–screen edit is a quick, effective screen. It’s quick
+because you only read it once. It’s effective because you highlight
+specific errors. It’s a screen because you highlight only those errors
+that are distracting.
+f. With this technique, you chow subordinates exactly what to
+revise without requiring a complete rewrite.
+4–3. The clarity index
+Some writing problems do not lend themselves to a quick–screen
+edit. A second tool, the clarity index, pinpoints tow other major
+reasons why writing that arrives on the desk is often confusing and
+difficult to read.
+a. Long words and long sentences make writing difficult to read.
+Such writing does not meet the new standards of Army writing. The
+clarity index provides a yardstick to measure how readable writing
+is. If you suspect that writing is not effective, this yardstick is
+helpful to quantify the problem.
+b. The clarity index is based on word and sentence length. Select-
+ing a sample of 200 words or less, use the formula below. (For
+graphic representation of the formula, see fig 4–3.)
+(1) Count the number of sentences.
+(2) Count the number of words.
+(3) Divide the number of words by the number of sentences to
+get the average sentence length. (The target average is 15 words per
+sentence.
+(4) Count the number of words that have three syllables or more.
+(5) Divide the number of long words by the total of words to
+determine the percentage of long words. (The target is 15 percent.)
+(6) Add the average sentence length to the percentage of long
+words.
+(7) The sum is the clarity index. (The target is 30.)
+c. If a writer eliminates long words and long sentences without
+changing meaning, writing becomes clearer. The writer is not pro-
+ducing simplistic papers or insulting the reader’s intelligence. In-
+stead, time–savings and understanding increase.
+d. Use the clarity index once to quantify the density of a piece of
+writing for subordinates. Then have them periodically monitor their
+own writing. See figures 4–4 and 4–5 for examples of how to
+compute a clarity index.
+e. Use the following Rules of thumb for the clarity index:
+(1) Below 20, writing is too abrupt.
+(2) Over 40, writing is difficult to understand.
+(3) Aim for an index of 30.
+Chapter 5
+Showing the New Standards
+5–1. Establishing the guidelines
+a. The two essential changes – packaging and active writing –
+and the seven style techniques create a new standard for Army
+writing.
+b. The quick–screen edit and the clarity index help enforce the
+new standard.
+5–2. Setting the examples
+a. The examples in figures 5–1 through 5–6 demonstrate the
+results of applying the leadership guidelines in this pamphlet to
+Army writing. Read and compare the examples. Do not accept
+writing like that labeled “poor writing.” Only accept writing like
+that labeled “good writing.” Use figures 5–1 through 5–6 as exam-
+ples for your subordinates.
+b. The memorandum at figure 5–1 has a clarity index of 42.
+That’s too high. The paper is far too long, is filled with jargon, the
+passive voice, and is not focused. Packaging in figure 5–2 brings the
+recommendation to the top and eliminates unnecessary verbiage.
+The example in figure 5–2 has a clarity index of 23.
+c. Much of figure 5–3 is error–riddled or Army jargon. It’s an
+attempt to sound “serious” and military. Writing like this slows
+communication and sends the wrong message about the writer. Note
+the difference in figure 5–4.
+d. The other examples of standards in this pamphlet reflect the
+dramatic difference brevity makes to bring about more effective
+writing. Although the example at figure 5–5 is short, it has a more
+basic problem – packaging. Notice that figure 5–6 does not look
+markedly shorter, although it is. This document’s legal nature does
+mean some things cannot be cut out. It’s much improved, however,
+because the “bottom line” is up front and the paragraphs are short.
+Packaging speeds communication.
+A microcomputer can help this office speed up actions which is very important to getting all missions accomplished. By using the data base
+software, we can keep track of all training and not allow repetitive training. WE can use the work processor to do our administrative actions
+and speed up our ability to do work. We need such and instrument at this time.
+Figure 3-1. Example of writing without packaging
+2 
+DA PAM 600–67 • 02 June 1986
+
+1. I request a microcomputer for this office.
+2. We need a microcomputer to:
+a. Monitor training.
+b. Increase the amount of work we can do.
+c. Handle our administrative jobs.
+Figure 3-2. Example of writing with packaging
+Figure 4-1. Example of a quick–screen edit highlight
+1. We need to prepare requests immediately to get the furniture new purchasing data authorizes.
+2. The Army permits buying overseas quarters furniture if it is cheaper than shipping personnel furniture. We have conducted new cost
+comparison studies that entitle us to buy furniture.
+Figure 4-2. Example of revised writing
+A. Number of sentences ____ 
+B ÷ A = words/sentence _____
+B. Number of words ____ 
+C ÷ B = % long words + _____
+C. Number of long words ____ 
+Clarity Index = _____
+Figure 4-3. Computing clarity index
+3
+DA PAM 600–67 • 02 June 1986
+
+Example: Summary of Action
+1. Herewith is the Summary of action concerning the elimination case of the captioned officer. You will recall that when I briefed you on
+this case, I suggested that the Vice Chief be informed of my recommendation since he, as CG FORSCOM, initiated the Board of Inquiry and
+ultimately recommended approval of that Board’s recommendation for elimination under other than honorable conditions. You left the matter
+of briefing the Vice Chief up to me and advised that after I had made up my mind in that regard you would make your decision in the case.
+2. I asked for and had an interview with the Vice Chief. I explained that I wanted him to know about my recommendation to you in the case
+since he had initiated the Board of Inquiry and had ultimately recommended approval of that Board’s recommendation for the elimination of
+LTC Jones with an under other than honorable conditions discharge. The Vice Chief was grateful for my courtesy but made no comment as to
+whether he was in agreement or nonconcurred with my recommendation.
+A. Number of sentences 6 
+B ÷ A = words/sentence 29
+B. Number of words 176 
+C ÷ B = % long words + 16
+C. Number of long words 29 
+Clarity Index = 45
+Figure 4-4. Clarity index of original writing
+Sample Solution: Summary of Action
+Here is LTC Jone’s case summary.
+I did decide to meet with the Vice Chief. I felt that since General Smith, as CG FORSCOM, started the case and recommended discharging
+Jones, he ought to get the update.
+The Vice Chief appreciated my visit but did not comment on my recommendations.
+Total words: 50
+Number of sentences: 4
+Words per sentence: 12
+Number of long words: 9
+Percentage of long words: 6 ÷ 50 = 12%
+Clarity index: 12 + 12 = 24
+Figure 4-5. Clarity index of revised writing.
+4 
+DA PAM 600–67 • 02 June 1986
+
+MEMORANDUM THRU DEPUTY CHIEF OF STAFF FOR OPERATIONS AND PLANS FOR VICE CHIEF OF STAFF, UNITED
+STATES ARMY
+SUBJECT: Reserve Component Mobilization Exercises
+1. The purpose of this memorandum is to reply to your not to the Director of the Army Staff which requested an evaluation be made to
+determine the feasibility of conducting mobilization exercises for NG and USAR units.
+2. A feasibility study of such exercises has been initiated. Representatives from the NGB and OCAR have participated in a preliminary
+planning session, and FORSCOM has provided informal comments and suggestions.
+3. It appears feasible to conduct an exercise of this nature within the current year; however, funding restraints, available planning time, and
+personnel and training disruptions will tend to limit the scope and participation. In line with these restraints, considerations applicable to such
+and exercise in the immediate future are:
+a. Exercise should be conducted in conjunction with scheduled annual training (AT). Alert of participants should be made just prior to
+departure from home station for AT. This procedure should minimized individual disruptions while permitting the unit to exercise its
+mobilization plans and actions during a period normally allocated for preparation for AT. Further, this method would make use of funds
+already allotted for movement of unit.
+b. Announcement of the exercise and its objective should be made in advance; however, selected participants should be alerted at a point in
+time which would allow realistic implementation and evaluation of their mobilization procedures. Early announcement of objectives, followed
+later by actual selection and alert of participants, would require all concerned to plan an prepare for the exercises even if not required to
+participate. Valuable planning and evaluation could be accomplished during this pre–exercise phase prior to the alert of participants.
+c. In order to prohibit serious disruption of planned AT and pre–programmed testing schedules for RC units, close examination is required in
+the selection of participants. Units should be selected that have mobilization stations and equipment pools at the same location or in close
+proximity to each other. On the surface this appears a token approach; however, training time and funding limitations indicate that this is the
+most viable option within the near time frame.
+d. Only active and semi–active installations previously programmed to support AT should be used. Funding restrictions and training
+considerations preclude opening or greatly expanding support facilities not already programmed for AT.
+e. While total transportation requirements for units should be planned and determined during the pre–alert phase, costs and other restraints on
+movements may necessitate only partial or selected movement of equipment of the participating units.
+f. Units to participate must be initially limited in number and size. These should include both USAR and NG units with priority of selection
+going to affiliated and early deploying (D+60) units. The selection of RC units to participate should be made by FORSCOM in coordination
+with NGB and OCAR.
+4. Subject to further analysis, it appears feasible to conduct a mobilization exercise in conjunction with next year’s AT. FORSCOM is receptive
+to the concept as outlined, but desires to examine the result of its Mobilization Evaluation Exercise which terminated 30 January, prior to the
+recommending or developing specific exercise objectives. Therefore, this is an interim reply.
+Figure 5-1. Memorandum—Example of poor writing
+5
+DA PAM 600–67 • 02 June 1986
+
+MEMORANDUM THRU DEPUTY CHIEF OF STAFF FOR OPERATIONS AND PLANS FOR VICE CHIEF OF STAFF, UNITED
+STATES ARMY
+SUBJECT: Reserve Component Mobilization Exercises
+1. Purpose. To answer this question: Can we conduct mobilization exercise for NG and USAR units this year?
+2. Recommendation. Yes, we can, but with these constraints:
+a. That FORSCOM sees the results of the last such exercise before planning begins.
+b. That FORSCOM, together with NGB and OCAR, choose participating units.
+c. That we use this year’s training and testing money.
+d. that the exercise is well–timed.
+3. Discussion.
+a. FORSCOM wants to help develop exercise objectives.
+b. FORSCOM, NGB, and OCAR should—
+(1) Select priority units first.
+(2) Select units whose mobilization stations and equipment pools are close together.
+(3) Not disrupt scheduled training and testing.
+c. The budget does not include enough money to—
+(1) Open new support facilities.
+(2) Expand existing support facilities.
+(3) Not disrupt scheduled training and testing.
+d. Timing of the exercise should—
+(1) Not change soldier’s summer training periods
+(2) Follow the actual mobilization time sequence.
+(3) Permit as many units as possible to participate in the planning phase, even though they may not execute their plans.
+Figure 5-2. Memorandum—Example of good writing
+6 
+DA PAM 600–67 • 02 June 1986
+
+DEPARTMENT OF THE ARMY
+HHB, 3/13th Field Artillery
+Schofield Barracks, HI 96857
+MACC–D–XO 
+12 March 1986
+SUBJECT: Request to be Assigned to Participate in JTX “Frostbite”
+Commander
+3d Battalion
+13th Field Artillery
+Schofield Barracks, HI 96857
+1. It has recently come to my attention that this Battalion stands in dire need of a volunteer to participate on a voluntary basis in an evaluative
+capacity on Joint Training Exercise “Frostbite” to be held in the State of Alaska on or about this summer time–frame.
+2. I graduated fourth in a class of seventy–three from the U.S. Army Northern Warfare School on 17 August 1985 and was awarded the
+distinction of a distinguished graduate. I learned the latest in cold weather tactics while on patrol in the DMZ last winter which make me
+current in that area. In looking at the training forecast, it doesn’t seem that I will be mission–essential during that training cycle. Much can be
+learned by seeing how other units operate in the boonies.
+3. The S–3 indicated to me that anyone interested should submit a copy of their last physical. As you can see, I have no previous cold–weather
+injuries and, therefore, would perhaps be less suspectible to such injury.
+4. It is my opinion that I am fully qualified to participate in this Joint Training Exercise at this point in time.
+GERALD A. SANDERS
+1LT, FA
+FIST Chief
+Figure 5-3. Military letter—Example of poor writing
+7
+DA PAM 600–67 • 02 June 1986
+
+DEPARTMENT OF THE ARMY
+HHB, 3/13th Field Artillery
+Schofield Barracks, HI 96857
+MACC–D–XO 
+12 March 1986
+SUBJECT: Request for JTX “Frostbite” Assignment
+Commander
+3d Battalion
+13th Field Artillery
+Schofield Barracks, HI 96857
+1. I request to represent the Battalion on JTX “Frostbite” in Alaska this summer.
+2. I feel qualified for this assignment since I have some expertise in cold–weather operations. I was an evaluator during JTX “Team Spirit” in
+Korea last winter, and am a distinguished graduate of the Northern Warfare School.
+3. I have attached a copy of my latest physical examination.
+Encl 
+GERALD A. SANDERS
+   2LT, FA
+     FIST Chief
+Figure 5-4. Military letter—Example of good writing
+8 
+DA PAM 600–67 • 02 June 1986
+
+DA form 4697 (Report of Survey), block 26:
+I have examined all available evidence as shown in exhibits A to G and as indicated below have personally investigated the same and it is my
+belief that the article (s) listed hereon and/or on attached sheets, total cost $433.50 was not damaged in an accidental manner. Something like
+this does not just happen; therefore, the soldier is responsible if negligent. As SP4 Farmer states in his statement (Exhibit B) the tailgate of the
+M113 was down when Private Thomas laid his M16 down on it to don his protective mask, (Exhibit A), because he thought he smelled CS.
+This act was in direct contravention of the Division, Brigade, Battalion, and Company Field SOP which states in part that “at no time will
+equipment be placed on the ramp of M113 personnel carriers” (Exhibit G). It also is expressly prohibited by the proper masking procedure
+which is to hold the rifle between the legs while masking (Exhibit F, “Soldier’s Manual of Common Tasks,” p. 37). When the squad leader
+(SSG Young) told the driver to raise the ramp (Exhibit C), he didn’t know that Thomas had set his weapon down on the ramp. It was dark and
+nobody could see anything and Thomas was still adjusting his mask. Well, one thing led to another and the next thing you know Thomas’ M16
+is only good for shooting around corners. Such actions show negligence and make SP4 Farmer liable for restitution. (Exhibit D—statement
+from DS maintenance saying the M16 is irreparably damaged beyond repair).
+Figure 5-5. DA Form 4697 (Report of Survey), block 29—example of poor writing
+DA Form 4697 (Report of Survey), block 26:
+I have investigated the evidence and find PVT John T. Thomas as negligent. PVT Thomas damaged his M16 by carelessly leaving it on an
+M113 ramp. Private Thomas admits that he laid his M16 on the tailgate of the M113 to put on his protective mask. By doing so, he violated
+two specific directives. Private Thomas neither followed proper masking procedure (Exhibit F, “Soldier’s Manual of Common Tasks,” p.37)
+nor obeyed his field SOP that “at not time will equipment be placed on the ramp of personnel carriers” (Exhibit G). His squad leader, SSG
+Young, attests (Exhibit C) that Private Thomas knew the SOP.
+Direct support maintenance confirms that the M16 (total cost–$433.40) is damaged beyond repair (Exhibit D).
+Figure 5-6. DA Form 4697 (Report of Survey), block 26— Example of good writing
+9
+DA PAM 600–67 • 02 June 1986
+
+Unclassified
+PIN 059937–000
+
+USAPA
+ELECTRONIC PUBLISHING SYSTEM
+TEXT FORMATTER ... Version 2.52
+PIN:
+059937–000
+DATE:
+06-04-98
+TIME:
+14:31:40
+PAGES SET:
+15
+DATA FILE:
+p600-67.fil
+DOCUMENT:
+DA PAM 600–67
+DOC STATUS:
+FORMAL

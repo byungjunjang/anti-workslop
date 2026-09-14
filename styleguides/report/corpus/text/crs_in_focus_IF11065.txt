@@ -1,0 +1,207 @@
+ 
+https://crsreports.congress.gov 
+ 
+January 8, 2019
+Introduction to Financial Services: The Regulatory Framework
+This In Focus provides a brief introduction to the federal 
+agencies that regulate U.S. financial markets. For more 
+detail, see CRS Report R44918, Who Regulates Whom? An 
+Overview of the U.S. Financial Regulatory Framework, by 
+Marc Labonte. 
+The Financial System 
+Financial firms match the available funds of savers and 
+investors with borrowers and others seeking to raise funds 
+in exchange for future payouts. The products, instruments, 
+and markets used to facilitate this matching are myriad, and 
+they are overseen by a complex system of regulators. The 
+financial system is often divided into banking, insurance, 
+and securities markets. Securities are financial contracts 
+that pledge to make payments from the issuer to the holder 
+and are traded on markets. Contracts take the form of debt 
+(a borrower and creditor relationship) and equity (an 
+ownership relationship). 
+Financial activity is inherently risky, but without risk-
+taking, businesses could not expand or innovate and 
+households would be unable to purchase durable goods, 
+education, and housing that could not be financed out of 
+current income. Financial regulation aims to balance the 
+benefits of finance with the risks that it poses. 
+The Financial Regulatory Framework 
+Table 1 lists the federal financial regulators and whom they 
+regulate. It categorizes those regulators as follows: 
+ 
+Depository regulators—regulate institutions 
+(commercial banks, thrifts (savings associations), 
+and credit unions) that accept customer deposits; 
+ 
+Securities markets regulators—regulate 
+securities products, markets, and market 
+participants. For regulatory purposes, securities 
+markets can be divided into derivatives (whose 
+value is based on an underlying commodity, 
+financial indicator, or financial instrument) and 
+other types of securities; 
+ 
+Government-sponsored enterprise (GSE) 
+regulators—Congress created GSEs as privately 
+owned institutions with limited missions and 
+charters to support the mortgage and agricultural 
+credit markets. It also created dedicated regulators 
+exclusively to oversee the GSEs. 
+ 
+Consumer protection regulator—the Dodd-
+Frank Wall Street Reform and Consumer 
+Protection Act in 2010 (Dodd-Frank Act; P.L. 
+111-203) consolidated and expanded jurisdiction 
+over various consumer protection laws for certain 
+financial products in a newly created agency, the 
+Consumer Financial Protection Bureau. 
+These regulators regulate financial institutions, markets, 
+and products using licensing, registration, rulemaking, 
+supervisory, enforcement, and resolution powers.  
+Other entities that play a role in financial regulation are 
+self-regulatory organizations, interagency bodies, state 
+regulators, and international regulatory fora. Federal 
+regulators generally play a secondary role in insurance 
+markets, where state regulation predominates. 
+Regulatory Fragmentation 
+The financial regulatory system has been described as 
+fragmented, with multiple overlapping regulators and a dual 
+state-federal regulatory system. The system evolved 
+piecemeal, as Congress responded to emerging issues, 
+punctuated by major changes in response to historical 
+financial crises. The most recent financial crisis also 
+resulted in changes to the regulatory system through the 
+Dodd-Frank Act and the Housing and Economic Recovery 
+Act of 2008 (P.L. 110-289). To address the fragmented 
+nature of the system, the Dodd-Frank Act created the 
+Financial Stability Oversight Council (FSOC), a council of 
+regulators and experts chaired by the Treasury Secretary. 
+In practice, regulatory jurisdiction is typically based on 
+charter type, not function. In other words, how and by 
+whom a firm is regulated depends more on the firm’s legal 
+status than the types of activities that it is conducting. This 
+means that a similar activity being conducted by two 
+different types of firms can be regulated differently by 
+different regulators. Financial firms may be subject to more 
+than one regulator because they may engage in multiple 
+financial activities. For example, a firm may be overseen by 
+an institution regulator and by an activity regulator when it 
+engages in a regulated activity and by a market regulator 
+when it participates in a regulated market.  
+Drawbacks to the fragmented regulatory system are the 
+potential for jurisdictional gaps, which may cause 
+regulatory myopia, and overlaps, which may cause 
+redundant regulation. These gaps and overlaps could be 
+exploited by financial firms to elude regulation or benefit 
+from a “race to the bottom” in regulatory standards between 
+competing regulators. Advantages to the fragmented system 
+include more specialized regulators, with a deeper and more 
+targeted knowledge of firms, products, and markets. In 
+addition, overlapping regulators could reduce the likelihood 
+of blind spots or “group think” in regulation. 
+
+Introduction to Financial Services: The Regulatory Framework 
+https://crsreports.congress.gov 
+Table 1. Federal Financial Regulators and Whom They Regulate 
+Regulatory Agency 
+Institutions Regulated 
+Other Notable 
+Authority 
+Depository Regulators 
+Federal Reserve 
+Bank holding companies and certain subsidiaries (e.g., foreign 
+subsidiaries), financial holding companies, securities holding companies, 
+and savings and loan holding companies 
+Primary regulator of state banks that are members of the Federal 
+Reserve System, foreign banking organizations operating in the United 
+States, Edge Corporations, and any firm or payment system designated 
+as systemically significant by the FSOC 
+Operates discount window 
+(“lender of last resort”) for 
+depositories; operates 
+certain payment systems; 
+conducts monetary policy 
+Office of the Comptroller 
+of the Currency (OCC) 
+National banks, U.S. federal branches of foreign banks, and federally 
+chartered thrift institutions 
+ 
+Federal Deposit Insurance 
+Corporation (FDIC) 
+Federally insured depository institutions 
+Primary regulator of state banks that are not members of the Federal 
+Reserve System and state-chartered thrift institutions 
+Operates deposit insurance 
+for banks; resolves failing 
+banks 
+National Credit Union 
+Administration (NCUA) 
+Federally chartered or federally insured credit unions 
+Operates deposit insurance 
+for credit unions; resolves 
+failing credit unions 
+Securities Markets Regulators 
+Securities and Exchange 
+Commission (SEC) 
+Securities exchanges, broker-dealers; clearing and settlement agencies; 
+investment funds, including mutual funds; investment advisers, including 
+hedge funds with assets over $150 million; and investment companies 
+Nationally recognized statistical rating organizations  
+Security-based swap (SBS) dealers, major SBS participants, and SBS 
+execution facilities 
+Corporations selling securities to the public 
+Approves rulemakings by 
+self-regulated organizations 
+Commodity Futures 
+Trading Commission 
+(CFTC) 
+Futures exchanges, futures commission merchants, commodity pool 
+operators, commodity trading advisors, derivatives, clearing 
+organizations, and designated contract markets 
+Swap dealers, major swap participants, swap execution facilities, and 
+swap data repositories 
+Approves rulemakings by 
+self-regulated organizations 
+Government-Sponsored Enterprise Regulators 
+Federal Housing Finance 
+Agency (FHFA) 
+Fannie Mae, Freddie Mac, and Federal Home Loan Banks 
+Acting as conservator 
+(since Sept. 2008) for 
+Fannie and Freddie 
+Farm Credit 
+Administration (FCA) 
+Farm Credit System, Farmer Mac 
+ 
+Consumer Protection Regulator 
+Consumer Financial 
+Protection Bureau (CFPB) 
+Nonbank mortgage-related firms, private student lenders, payday 
+lenders, and larger “consumer financial entities” determined by the 
+CFPB  
+Statutory exemptions for certain markets 
+Rulemaking authority for consumer protection for all banks; 
+supervisory authority for banks with over $10 billion in assets 
+ 
+Source: CRS Report R44918, Who Regulates Whom? An Overview of the U.S. Financial Regulatory Framework, by Marc Labonte.      
+ 
+ 
+ 
+Marc Labonte, Specialist in Macroeconomic Policy   
+IF11065
+
+Introduction to Financial Services: The Regulatory Framework 
+https://crsreports.congress.gov | IF11065 · VERSION 2 · NEW 
+ 
+ 
+Disclaimer 
+This document was prepared by the Congressional Research Service (CRS). CRS serves as nonpartisan shared staff to 
+congressional committees and Members of Congress. It operates solely at the behest of and under the direction of Congress. 
+Information in a CRS Report should not be relied upon for purposes other than public understanding of information that has 
+been provided by CRS to Members of Congress in connection with CRS’s institutional role. CRS Reports, as a work of the 
+United States Government, are not subject to copyright protection in the United States. Any CRS Report may be 
+reproduced and distributed in its entirety without permission from CRS. However, as a CRS Report may include 
+copyrighted images or material from a third party, you may need to obtain the permission of the copyright holder if you 
+wish to copy or otherwise use copyrighted material. 
+ 

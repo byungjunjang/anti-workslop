@@ -1,0 +1,22 @@
+{
+ "author": "장병준",
+ "created_by": "styleguide-builder",
+ "display": "장피엠",
+ "genre": "blog",
+ "paths": {
+  "corpus": "corpus",
+  "guideline": "장피엠 글쓰기 문체 가이드라인.md",
+  "profile": "profile.json",
+  "profile_report": "docs/style-profile.md",
+  "reading_pack": "reading-pack.md",
+  "stats": "stats.json",
+  "stats_md": "stats.md",
+  "targets": "targets.json",
+  "verification": "verification.json",
+  "worksheet": "reading-worksheet.md"
+ },
+ "schema_version": 1,
+ "site": "blog.nocodecamp.kr",
+ "skill_version": "0.1.0",
+ "slug": "jangpm"
+}

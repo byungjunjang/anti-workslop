@@ -1,0 +1,63 @@
+{
+ "checks": [
+  {
+   "check": "① 스냅샷 해시 일치",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "① render-manifest 입력 해시 일치",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "② 재렌더 결과가 완성본과 바이트 동일",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "③ 템플릿 표제가 정확히 1회·같은 순서",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "④ 잔여 슬롯·TODO·깨진 문자 없음",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "⑤ §11-1 표가 targets.json 과 일치",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "⑥ 워크시트 인용이 코퍼스에 존재",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "⑦a 코퍼스 원문 전부 hard 통과",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "⑦b 대조군 hard 실패 ≥ 5",
+   "detail": "8개",
+   "ok": true
+  },
+  {
+   "check": "⑦c 변환 예시 '후' 문장이 counts 규칙 통과",
+   "detail": "",
+   "ok": true
+  },
+  {
+   "check": "⑧ selftest 통과",
+   "detail": "",
+   "ok": true
+  }
+ ],
+ "corpus_sha256": "d8eb458f6450db05c29320c6610f898e68662dd24fd602c30ff4b7b832f3c066",
+ "doc": "장피엠 글쓰기 문체 가이드라인.md",
+ "doc_sha256": "227b99baa6a0faf572a41a98fe062cab292d1b3bf4aebd31131b00eaeda67e76",
+ "passed": true
+}

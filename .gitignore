@@ -1,0 +1,20 @@
+# third-party source documents (copyright / bulk)
+*.pdf
+styleguides/report/analysis-codex/sources/
+# scratch
+__pycache__/
+*.pyc
+tests/.tmp/
+.claude/skills/*/tests/.tmp/
+.claude/settings.local.json
+.superpowers/
+.claude/skills/*/tests/.acceptance/
+.claude/skills/*/tests/.smoke/
+
+# git worktrees created by Claude Code (EnterWorktree)
+.claude/worktrees/
+
+# 취향은 쓰는 사람 각자의 것이고 코멘트 원문·인용이 쌓인다. 공개 저장소에 올리지 않는다.
+# 비공개 저장소로 여러 PC 에서 동기화하려면 아래 두 줄을 지운다.
+taste/*
+!taste/README.md

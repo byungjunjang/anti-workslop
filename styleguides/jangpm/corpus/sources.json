@@ -1,0 +1,86 @@
+{
+ "be-maker": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "16a7bf1eb3b568ddf3bdae2d3e25434fa2da169f1b491476d01b49f97bdc70aa",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/be-maker/"
+ },
+ "career-positioning": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "c5bfae033a3e895696201d286482c33b13025bcbf5c8db712ba7648addddbf33",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/career-positioning/"
+ },
+ "creator-community-strategy": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "64c643579b3eda5ca7f9a84a2c3c8e5740bf259924dffb7e08aa2a1ee9f8e0da",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/creator-community-strategy/"
+ },
+ "how-to-build-online-class-with-nocode": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "5e0d6d5eb99b4649f8da0fac4da55a9fa0fcd90886f78c1a782b01fca1d4ae40",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/how-to-build-online-class-with-nocode/"
+ },
+ "knowledge-creator-monetization": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "03a5d69f9f5561559fc27888fcc9f8c2919ca1c5989398576d78af870abb5297",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/knowledge-creator-monetization/"
+ },
+ "landingpage-for-startup": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "b841f2cf41a3626b6129f86517c726d6a00234eede747a37017ea351e887debc",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/landingpage-for-startup/"
+ },
+ "lesson-learned-from-chatgpt": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "95d62d4fa4329dcde6171abf08f43f44b7029087e6c8a243ce0cce7f35adedef",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/lesson-learned-from-chatgpt/"
+ },
+ "nocode-bizdev": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "987e9b848889a4c6df238436b2386102b66c72ed59b163e540d0d92c119bed79",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/nocode-bizdev/"
+ },
+ "nocode-course-direction": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "d36a7db652c4c099eaebcbf370d2bc757ffa3fd556bf6e3bb6b56ca3b85f8e48",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/nocode-course-direction/"
+ },
+ "nocode-era": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "e634fdd59d6c8dd79eb17753535a89d8bfb54f126116b49f1ec8b254fba71e7e",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/nocode-era/"
+ },
+ "nocode-for-landing-page": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "73ef88e5ef171d216b1b8529fb94f1a9098ac927d9136a9d13c36fcc8fc26cf0",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/nocode-for-landing-page/"
+ },
+ "shortcut-for-good-career": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "8fcdf1bb214070081fd2dd34233babbf150a0bbda958baf1d887312b1ba4241b",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/shortcut-for-good-career/"
+ },
+ "why-online-writing": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "ccba91a761a1aa58257cb1bc4b903b77cab7f300f169bed71914614f07b917b0",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/why-online-writing/"
+ },
+ "work-automation": {
+  "author": "https://www.facebook.com/byungjun.jang.1",
+  "html_sha256": "2bf2412f5d07239e38f0f32337a715cd2658d835c1d255ec80142be97817421d",
+  "strategy": "chain:section.gh-content",
+  "url": "https://blog.nocodecamp.kr/work-automation/"
+ }
+}

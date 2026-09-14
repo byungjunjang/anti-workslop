@@ -1,0 +1,32 @@
+{
+ "exact": [],
+ "note": "블록은 코퍼스에 그대로 두었고 boilerplate 키로만 표시했다. 제외 여부는 analyze_corpus.py --exclude-boilerplate 로 정한다.",
+ "tail": {
+  "creator-community-strategy": [
+   14,
+   15
+  ],
+  "how-to-build-online-class-with-nocode": [
+   72
+  ],
+  "knowledge-creator-monetization": [
+   45,
+   46
+  ],
+  "landingpage-for-startup": [
+   55
+  ],
+  "lesson-learned-from-chatgpt": [
+   39,
+   40
+  ],
+  "nocode-bizdev": [
+   44,
+   45
+  ],
+  "nocode-era": [
+   35,
+   36
+  ]
+ }
+}

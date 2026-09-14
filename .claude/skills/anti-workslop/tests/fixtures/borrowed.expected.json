@@ -1,0 +1,18 @@
+[
+  {
+    "file": ".claude/skills/styleguide-builder/assets/samples/ai_draft.md",
+    "args": ["--genre", "줄글"],
+    "by_rule": {},
+    "min_by_severity": {"S1": 2},
+    "strict_fail": true,
+    "notes": "빌려온 대조군. 규칙별 수는 고정하지 않고 하한과 strict 실패만 본다."
+  },
+  {
+    "file": "styleguides/report/samples/bad_draft.md",
+    "args": ["--genre", "개조식"],
+    "by_rule": {},
+    "min_by_severity": {"S1": 1},
+    "strict_fail": true,
+    "notes": "빌려온 대조군. 규칙별 수는 고정하지 않고 하한과 strict 실패만 본다."
+  }
+]

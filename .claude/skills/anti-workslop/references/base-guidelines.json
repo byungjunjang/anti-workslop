@@ -1,0 +1,99 @@
+{
+  "장피엠": [
+    "styleguides/jangpm/장피엠 글쓰기 문체 가이드라인.md"
+  ],
+  "개조식": [
+    "styleguides/report/개조식 보고서 작성 가이드라인.md"
+  ],
+  "_builtin": [
+    "장피엠",
+    "개조식"
+  ],
+  "_checker_kind": {
+    "장피엠": "style",
+    "개조식": "report"
+  },
+  "_checks": {
+    "장피엠": {
+      "md": "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit styleguides/jangpm --json {file}",
+      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 장피엠 {file}"
+    },
+    "개조식": {
+      "md": "python -X utf8 styleguides/report/scripts/check_report.py {file}",
+      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 개조식 {file}"
+    }
+  },
+  "_short_chars": 800,
+  "_checks_short": {
+    "장피엠": {
+      "md": "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit styleguides/jangpm --subset counts --json {file}",
+      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 장피엠 --short {file}"
+    },
+    "개조식": {
+      "md": "python -X utf8 styleguides/report/scripts/check_report.py {file}",
+      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 개조식 {file}"
+    }
+  },
+  "_checks_common": {
+    "ai_tells": "python -X utf8 .claude/skills/anti-workslop/scripts/check_ai_tells.py --genre {genre} --strict --json {file}",
+    "taste": "python -X utf8 .claude/skills/anti-workslop/scripts/check_taste.py --strict --json {file}",
+    "fidelity": "python -X utf8 .claude/skills/anti-workslop/scripts/check_fidelity.py --strict --json {orig} {file}"
+  },
+  "_check_all": "python -X utf8 .claude/skills/anti-workslop/scripts/check_all.py --guide {guide} --orig {orig} {file}",
+  "_check_order": [
+    "genre",
+    "ai_tells",
+    "taste",
+    "fidelity"
+  ],
+  "_pack_sections": {
+    "장피엠": [
+      "8",
+      "11-2",
+      "14"
+    ],
+    "개조식": [
+      "8",
+      "11-1",
+      "11-3",
+      "14"
+    ]
+  },
+  "_s14_blocks": {
+    "장피엠": [
+      "작업",
+      "보존",
+      "문장",
+      "종결",
+      "접속",
+      "어휘",
+      "금지",
+      "AI 티"
+    ],
+    "개조식": [
+      "작업",
+      "보존",
+      "항목",
+      "종결",
+      "서술형",
+      "어휘·접속",
+      "AI 티",
+      "표기"
+    ]
+  },
+  "_genre_of": {
+    "장피엠": "줄글",
+    "개조식": "개조식"
+  },
+  "_pass": {
+    "genre": "hard 0",
+    "ai_tells": "S1 0, S2 finding 0 (임계 미만 raw 는 보고만)",
+    "taste": "[규칙] 0 ([경향]·[관찰] 은 보고만. 적용 범위 밖 W-NN 은 호출자가 check_all --taste-skip 으로 뺀다)",
+    "fidelity": "S1 0 (S2 는 경고)"
+  },
+  "_loop": {
+    "max_rounds": 2,
+    "fix_scope": "flagged_only"
+  },
+  "_note": "상대 경로는 anti-workslop/ 기준. 가이드 후보는 순서대로 첫 실존 파일을 쓴다. 어느 가이드를 고를지는 SKILL.md Step 1의 글 종류 판단을 따른다. _checks 는 확장자별 검수 명령이고 html 은 check_html.py 가 산문 블록을 md 로 뽑아 같은 md 검사기에 넘긴다. 줄글이 공백 제외 _short_chars 이하면 _checks_short(비율·불리언 규칙 제외)를 쓴다. 개조식은 짧은 글 구분이 없다(1쪽≈900자가 표준 분량).\n_checks_common 은 확장자 무관(셋 다 .html 을 산문 블록으로 받는다). 순서는 _check_order.\n_check_all 은 넷을 한 번에 돌려 막는 항목과 판정 한 줄만 낸다(검수). --orig 없이 부르면 진단(장르·원칙·취향, finding 한 줄씩), --pack 이면 서브에이전트가 읽는 묶음(가이드 §8·§11-2·§14 가운데 _s14_blocks 의 윤문 블록만, 원칙 human 행·§4, 취향 §0~§6), --bundle 이면 브리프 + 묶음 + 진단, --hint 면 장르 힌트 한 줄이다. 짧은 글 판정과 _checks_short 선택은 check_all 이 한다.\n가이드는 밑줄 없는 최상위 키다. _builtin 은 저장소에 딸린 기본 가이드이고, 사용자가 styleguide-builder 로 만든 가이드는 register_guide.py 가 같은 표들에 한 줄씩 더한다. _checker_kind 는 장르 검사기 출력 형식이다(style = check_style JSON, report = check_report 텍스트)."
+}

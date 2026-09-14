@@ -1,0 +1,23 @@
+{
+ "schema_version": 1,
+ "slug": "report",
+ "genre": "report",
+ "display": "개조식 보고서",
+ "created_by": "manual-merge",
+ "guideline": "개조식 보고서 작성 가이드라인.md",
+ "paths": {
+  "corpus": "corpus",
+  "corpus_text": "corpus/text",
+  "corpus_items": "corpus/items_ko.jsonl",
+  "sources": "corpus/sources.json",
+  "raw_hashes": "corpus/raw_hashes.json",
+  "stats": "stats.json",
+  "stats_md": "stats.md",
+  "scripts": "scripts",
+  "samples": "samples",
+  "profile_report": "docs/style-profile.md",
+  "second_analysis": "analysis-codex",
+  "readme": "README.md"
+ },
+ "note": "styleguide-builder 가 만든 키트가 아니다. 가이드라인은 Claude 분석(이 키트의 scripts/·corpus/)과 Codex 분석(analysis-codex/, 축약본. 전체는 원본 저장소의 태그 provenance/report-2026-09-07)을 사람이 병합한 정적 문서이며, 렌더·verify 파이프라인이 없다. 수치의 출처는 stats.md, 재생성 절차는 README.md."
+}

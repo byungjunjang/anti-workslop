@@ -1,0 +1,128 @@
+Military Applications of Extended Reality - EveryCRSReport.com
+
+Military Applications of Extended Reality
+
+ January 4, 2022 –
+ June 17, 2025
+ IF12010
+
+Military Applications of Extended Reality 
+
+Updated June 17, 2025
+ (IF12010)
+
+Although commercial and consumer industries have been investing in extended reality (XR) for decades, recent advances have expanded the number of potential applications for the U.S. military. As such, the Office of the Under Secretary of Defense for Research and Engineering has identified human-machine interfaces for XR as 1 of 14 critical technology areas for the Department of Defense (DOD). As DOD continues to develop XR and related applications, Congress may consider implications for defense authorizations and appropriations, military force structure, and cybersecurity.
+
+Overview
+
+XR encompasses three main categories of physical and digital environments (Figure 1):
+
+Virtual reality (VR), a fully immersive digital environment (e.g., video games that place the user within the virtual world of the game).
+
+Augmented reality (AR), an overlay of digital objects on physical environments (e.g., Instagram filters that overlay preset digital effects on a user's videos or photographs).
+
+Mixed reality (MR), a hybrid of physical and digital environments in which physical and digital objects can interact. Unlike AR, MR could enable a user to manipulate physical or digital objects and share their view of those objects with other users within the same mixed reality environment (e.g., collaboratively marking adversary troop locations on a projected digital map).
+
+Figure 1. Main Categories of Extended Reality
+
+Source: Tutorials Link, "Difference Between AR, VR, MR," at https://tutorialslink.com/Articles/Difference-Between-AR-VR-MR/973.
+
+A number of advanced enabling capabilities, such as 5G and edge computing—a type of computing that is done "at or near the source of data"—are likely to expand XR applications in the future. These capabilities could improve data rates, increase user capacity, and reduce latency (i.e., time delay), all of which could support large-scale, networked applications. DOD has tested 5G-enabled applications of XR at Joint Base Lewis–McChord (WA) and Joint Base San Antonio (TX).
+
+Military Applications of Extended Reality
+
+The U.S. military is exploring a range of applications for XR, with research and development programs in each of the services. These applications include tactical, flight, maintenance, medical, and other training, as well as warfighting.
+
+Training
+
+According to former Under Secretary of Defense for Research and Engineering Heidi Shyu, DOD intends to leverage "AR/VR and live training ... [that is being matured] by the gaming industry" as a basis for developing its own tailored XR programs. Doing so could enable the military to conduct training exercises that are too costly or dangerous to conduct in physical environments, as well as enable servicemembers in distant locations to train together. 
+
+For example, the Army's Synthetic Training Environment (STE)—an XR training environment intended to complement or integrate with live training—seeks to enable soldiers "to train where they will fight, with the partners they will fight with, and in complex operational environments to include dense urban, woodland, jungle, desert, and sub-terrain, before the first fight begins." STE is to be designed to enable soldiers to more efficiently "increase proficiency through repetition." These factors could, in turn, increase both readiness and lethality. 
+
+The Air Force uses XR for flight training—with the intent of reducing cost, training time, and wear on aircraft. It is also exploring XR for maintenance training and is in the process of building virtual training hangars "to enable training anywhere and anytime" on a variety of airframes. Similarly, the Navy seeks to use XR to connect engineers and maintainers, who could work together to address maintenance issues across the globe in real-time. 
+
+DOD is also examining applications of XR for medical training. According to the Air Force, XR could "[increase] the availability of training, without a need to increase manpower availability for training setup." This application could allow for distributed learning and create greater efficiencies for understaffed medical training courses. 
+
+Warfighting
+
+The military is continuing to explore applications of XR for warfighting (Figure 2). It has long incorporated XR into the heads-up and helmet-mounted displays (HUD and HMD, respectively) used by pilots and aircrew. These displays can provide dynamic flight and sensor information intended to increase the users' situational awareness and improve weapons' targeting. In the case of the F-35 fighter aircraft's HMD, inputs from the F-35's external cameras provide pilots with a 360-degree view of their surroundings; it also displays night vision and thermal imagery—all of which can be overlaid with the technical details (e.g., altitude, speed) of any detected objects.
+
+Likewise, the Army is developing the Integrated Visual Augmentation System (IVAS), a ruggedized (i.e., strengthened) HUD that is currently based on Microsoft's commercially available HoloLens. Army documents state that IVAS is to "[integrate] next generation 24/7 situational awareness tools and high-resolution digital sensors to deliver a single platform that improves soldier sensing, decision making, target acquisition, and target engagement." 
+
+Figure 2. Illustrative Battlefield Use of XR
+
+Source: https://jasoren.com/augmented-reality-military/.
+
+Potential Issues for Congress
+
+Congress may consider a number of issues as it continues to evaluate DOD investments in current and emerging military applications of XR.
+
+Affordability 
+
+Military applications of XR vary considerably in terms of up-front development costs, with one of the U.S. military's largest XR programs, IVAS, costing at least $22 billion to field over 10 years. Once fielded, however, XR systems may reduce training costs by removing the need to centralize personnel, use live ammunition, or operate platforms during training scenarios. To assess these issues, Congress could direct an independent analysis of the potential benefits and drawbacks (e.g., cognitive overload) of XR training and warfighting applications against both their costs and their anticipated savings. This analysis may determine whether there are less costly, alternative means of achieving any identified benefits. Congress may also seek to obtain information about the projected lifecycle costs—including maintenance requirements—for XR systems.
+
+Technological Maturity
+
+While some applications of XR are relatively mature—particularly those incorporating standalone AR—others are at a more nascent stage of development, require greater levels of technology integration, or have otherwise experienced delays in fielding or testing. Congress may continue to seek information about the technological maturity of XR systems and subsequently determine whether those systems warrant the requested funding levels. Congress may also assess the technological maturity of any necessary enabling capabilities to determine whether they are sufficiently mature and funded. 
+
+Personnel
+
+XR applications may have a number of implications for military personnel and force structure. If the U.S. military is able to achieve efficiencies in training or warfighting, for example, it may be able to shift personnel away from training units or reduce overall manpower requirements—with a smaller number of troops retained at higher levels of readiness. Conversely, XR applications may produce greater demand for maintainers or IT and cybersecurity personnel. This demand could offset reductions occurring elsewhere in the force or even increase overall manpower requirements.
+
+Cybersecurity and Information Security
+
+Some analysts have raised concerns about the potential cybersecurity and information security vulnerabilities of XR systems, noting the possibility of an "inception attack" that could allow an adversary to steal data or manipulate social interactions. Such vulnerabilities could grant an adversary access to high-value-target databases for training, weapons maintenance, image classification, mapping, and other functions, or information about the location of U.S. forces.
+
+If an adversary were to gain control of XR systems, the adversary could distort the common operational picture used to coordinate military actions or cause the system to misidentify people and platforms—potentially resulting in fratricide or unintended civilian casualties. The adversary could also gain command and control of U.S. uncrewed systems. (One potential use case of IVAS, for example, is to fly microdrones for intelligence, surveillance, and reconnaissance missions.) Congress may request briefings on the findings of DOD cybersecurity tests of XR systems or withhold funds from systems found to have significant vulnerabilities. 
+
+Related CRS Products
+
+CRS In Focus IF13022, Army's Integrated Visual Augmentation System (IVAS): Background and Issues for Congress, by Kelley M. Sayler. 
+
+CRS In Focus IF11251, National Security Implications of Fifth Generation (5G) Mobile Technologies, by John R. Hoehn and Kelley M. Sayler. 
+
+CRS In Focus IF10159, Cybersecurity, by Eric A. Fischer and Catherine A. Theohary. 
+
+ Download PDF
+
+ Download EPUB
+
+Revision History
+
+Jun. 17, 2025
+
+ HTML
+ · 
+
+ PDF
+
+ 83% changed
+
+Feb. 5, 2025
+
+ HTML
+ · 
+
+ PDF
+
+May. 26, 2022
+
+ HTML
+ · 
+
+ PDF
+
+Jan. 4, 2022
+
+ HTML
+ · 
+
+ PDF
+
+Metadata
+
+Report Type: In Focus
+
+Source: Congress.gov, CRSReports.Congress.gov
+
+Raw Metadata: JSON

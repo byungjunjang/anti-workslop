@@ -1,0 +1,14 @@
+# 줄바꿈을 LF로 고정한다. 키트 검증(verify_guideline ①·②, posts.sha256)이 바이트 해시를 쓰므로
+# core.autocrlf=true 환경에서 체크아웃하면 CRLF 변환으로 해시가 어긋난다 (2026-09-08, 워크트리에서 확인).
+* text=auto eol=lf
+*.pdf binary
+*.png binary
+*.jpg binary
+*.woff2 binary
+
+# 배포본(tools/export_public.py 가 git archive 로 뽑는 트리)에서 뺄 것.
+# taste/ 는 저장소 주인의 취향과 코멘트 원문(고객 문서 인용 포함)이라 README 만 남긴다.
+docs export-ignore
+tools export-ignore
+taste/** export-ignore
+taste/README.md -export-ignore

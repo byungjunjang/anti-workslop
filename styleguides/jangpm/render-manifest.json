@@ -1,0 +1,13 @@
+{
+ "allow_todo": false,
+ "output": "장피엠 글쓰기 문체 가이드라인.md",
+ "output_sha256": "227b99baa6a0faf572a41a98fe062cab292d1b3bf4aebd31131b00eaeda67e76",
+ "profile_sha256": "e31fe77e0b0a052da5c8cae92e44d27aae60f423452b194531633962c6809708",
+ "skill_version": "0.1.0",
+ "stats_sha256": "fccfd76f6565ba3797ce3d73c1e78b993b012817a9369e61573f99bd2013bae4",
+ "targets_sha256": "d0f00833b29f538b8fc5cece06c2630b99f0f4191a6a75e26f1a9c47a35ba6d3",
+ "template": "assets\\templates\\blog.template.md",
+ "template_sha256": "8df04c1ffa350c4256105f690907342b09fe3bb95ee3a204ab91409e740e8897",
+ "version": "2026-09-08",
+ "worksheet_sha256": "7c84ac96afbea17f18adaa643ed1fd1373b7fbe64f8241d88a8370b279644b6f"
+}

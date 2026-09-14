@@ -1,0 +1,58 @@
+{
+ "nabo_focus_082": {
+  "sha256": "0ef886ab63bdf85abcde4a96c7db8e42138ddb0c4e3bbb11a19951c29dbb74cf",
+  "bytes": 1153256
+ },
+ "nabo_focus_084": {
+  "sha256": "001484ba2a866a9ff638922a3f8b330a83347fa6a179896b33a8e4e73fcd4949",
+  "bytes": 1242061
+ },
+ "nabo_focus_085": {
+  "sha256": "d5ee97f3ac73692356bb30d0f9c7892abd84c6e992e60d1161b4a53283d452ff",
+  "bytes": 2038509
+ },
+ "nabo_focus_086": {
+  "sha256": "3dfe55c3a995065bac16f775a84870dfd9ddf41d7ea0e13ebe6ec76b28967549",
+  "bytes": 2133297
+ },
+ "nabo_focus_100_compilation": {
+  "sha256": "5e2caa45594ba11f7e93ea51042c6fbdddd43ca45edb9469d87a2ec9a5bc1bc6",
+  "bytes": 390400576
+ },
+ "crs_in_focus_IF11065": {
+  "sha256": "e6bd28209c8392592bf405f72553fc5f270ef1f74babbaca9e7b2a23ce2b757f",
+  "bytes": 450456
+ },
+ "da_pam_600-67": {
+  "sha256": "49b291528cc56b65ddb269c6a5859e0515d747d63fcba542839bc994fc197ffd",
+  "bytes": 104478
+ },
+ "axios_smart_brevity_101": {
+  "sha256": "b832293940a3e892381bbed3183bda49cad82949b63b9aa70100d1e37807f367",
+  "bytes": 3863516
+ },
+ "af_tongue_and_quill": {
+  "sha256": "fe3e485a72d6575097f3f55f8b86ded1e768152e68616eb08aec5bae303dbbed",
+  "bytes": 7830060
+ },
+ "nikl_public_language_2022": {
+  "sha256": "d7df841aa63dc9bfda88804549a9060b2f256843cdbffc545aecb986925a80ac",
+  "bytes": 4186230
+ },
+ "mois_admin_handbook_2025": {
+  "sha256": "7cfb1d6db7097062d2469564618c56f7a75a7f3bb3a79dd15876f100ccc76f5f",
+  "bytes": 8109851
+ },
+ "nhi_policy_planning_practice_2018": {
+  "sha256": "099a5de3113118ab44772ed89fce785b165c18b353380e44aa3d051442ad2966",
+  "bytes": 2109038
+ },
+ "goe_official_doc_guide_2023": {
+  "sha256": "1374b4cbfc88371ff0a23280b5b58c6ef62a160141b4b178a393fbeaa9856b27",
+  "bytes": 427476
+ },
+ "goe_official_doc_tips_2024": {
+  "sha256": "d19f4740b465153fd03c2d8943831652c2efbdbe00389d6a03a4953b8cb5c621",
+  "bytes": 5564893
+ }
+}

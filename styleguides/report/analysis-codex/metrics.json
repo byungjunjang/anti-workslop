@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "normalization": "NFC; retain source spaces; remove layout newline, bullet glyphs and footnote callouts; collapse whitespace",
+  "percentile": "linear interpolation at (n-1)*p (type 7)",
+  "groups": {
+    "S05": {
+      "characters_with_spaces": {
+        "n": 28,
+        "mean": 48.68,
+        "median": 41.5,
+        "p10": 23.8,
+        "p90": 81.0,
+        "min": 19,
+        "max": 112
+      },
+      "characters_without_spaces": {
+        "n": 28,
+        "mean": 39.5,
+        "median": 32.0,
+        "p10": 20.1,
+        "p90": 65.6,
+        "min": 16,
+        "max": 92
+      },
+      "space_tokens": {
+        "n": 28,
+        "mean": 10.18,
+        "median": 9.5,
+        "p10": 5.0,
+        "p90": 17.0,
+        "min": 2,
+        "max": 21
+      },
+      "over_40_characters": 14,
+      "ending_am_eum": 2
+    },
+    "S06": {
+      "characters_with_spaces": {
+        "n": 21,
+        "mean": 80.76,
+        "median": 79,
+        "p10": 42.0,
+        "p90": 129.0,
+        "min": 30,
+        "max": 155
+      },
+      "characters_without_spaces": {
+        "n": 21,
+        "mean": 62.81,
+        "median": 61,
+        "p10": 34.0,
+        "p90": 101.0,
+        "min": 24,
+        "max": 118
+      },
+      "space_tokens": {
+        "n": 21,
+        "mean": 18.95,
+        "median": 18,
+        "p10": 9.0,
+        "p90": 29.0,
+        "min": 7,
+        "max": 38
+      },
+      "over_40_characters": 19,
+      "ending_da": 21
+    }
+  },
+  "nars_paragraphs": [
+    {
+      "source_id": "S06",
+      "pdf_page": 2,
+      "paragraph": 1,
+      "sentences": 3
+    },
+    {
+      "source_id": "S06",
+      "pdf_page": 2,
+      "paragraph": 2,
+      "sentences": 4
+    },
+    {
+      "source_id": "S06",
+      "pdf_page": 2,
+      "paragraph": 3,
+      "sentences": 4
+    },
+    {
+      "source_id": "S06",
+      "pdf_page": 2,
+      "paragraph": 4,
+      "sentences": 5
+    },
+    {
+      "source_id": "S06",
+      "pdf_page": 2,
+      "paragraph": 5,
+      "sentences": 5
+    }
+  ]
+}

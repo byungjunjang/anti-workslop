@@ -1,0 +1,6157 @@
+{
+ "boilerplate": {
+  "exact_blocks": 0,
+  "excluded": false,
+  "tail_blocks": 12
+ },
+ "corpus_sha256": "d8eb458f6450db05c29320c6610f898e68662dd24fd602c30ff4b7b832f3c066",
+ "date_range": [
+  "2020-08-10",
+  "2024-09-30"
+ ],
+ "metrics_sha256": "cfd2175ccbb77cbdcd6a9ae370ace070a419fa95606eab4a1e1f394fe21b1ac6",
+ "n_posts": 14,
+ "overall": {
+  "after_long_n": 86,
+  "after_long_next_mean": 54.0,
+  "after_long_pct_le40": 31.4,
+  "ai_bullet_bold": 0,
+  "banned": {
+   "게다가": 2,
+   "더불어": 1,
+   "마지막으로": 1,
+   "살펴보겠습니다": 1,
+   "요약하면": 1,
+   "함으로써": 1
+  },
+  "chars": 83325,
+  "closing_call_or_outlook_posts": 14,
+  "closing_summary_posts": 0,
+  "comma_after_subject": 6,
+  "comma_position_pct": {
+   "-고,": 36.8,
+   "-나,": 5.6,
+   "-니,": 0.5,
+   "-데,": 2.0,
+   "-도,": 1.3,
+   "-며,": 3.5,
+   "-면,": 3.4,
+   "-서,": 2.5,
+   "-지만,": 3.9,
+   "기타": 0.5,
+   "명사 나열": 37.0,
+   "접속부사 뒤": 2.1,
+   "주어/주제어 뒤": 0.8
+  },
+  "commas_per_para": 1.78,
+  "commas_per_sent": 0.51,
+  "conj_comma_bad": 2,
+  "conj_consecutive": 36,
+  "conj_top": {
+   "결국": 5,
+   "그래서": 35,
+   "그러나": 18,
+   "그렇기 때문에": 11,
+   "그리고": 40,
+   "다만": 16,
+   "더해서": 12,
+   "따라서": 13,
+   "또한": 47,
+   "물론": 7,
+   "우선": 6,
+   "하지만": 8
+  },
+  "conj_total": {
+   "게다가": 2,
+   "결국": 10,
+   "그래서": 40,
+   "그러나": 18,
+   "그러면": 3,
+   "그런데": 4,
+   "그럼에도": 3,
+   "그렇기 때문에": 11,
+   "그렇다면": 2,
+   "그렇지만": 2,
+   "그리고": 43,
+   "다만": 16,
+   "대신": 7,
+   "더불어": 1,
+   "더해서": 12,
+   "따라서": 15,
+   "또한": 48,
+   "마지막으로": 1,
+   "먼저": 8,
+   "물론": 14,
+   "반면": 1,
+   "반면에": 3,
+   "사실": 10,
+   "실제로": 14,
+   "아무튼": 1,
+   "예를 들면": 1,
+   "예를 들어": 3,
+   "오히려": 11,
+   "왜냐하면": 1,
+   "요약하면": 1,
+   "우선": 7,
+   "즉": 8,
+   "특히": 6,
+   "하지만": 14
+  },
+  "consecutive_haeyo": 19,
+  "contrast_constructions": 63,
+  "emoticons": 10,
+  "ending_detail": {
+   "기타:": 24,
+   "죠:죠": 23,
+   "합쇼체:겁니다": 13,
+   "합쇼체:것입니다": 80,
+   "합쇼체:겠습니다": 34,
+   "합쇼체:니다": 83,
+   "합쇼체:됩니다": 44,
+   "합쇼체:습니다": 250,
+   "합쇼체:았습니다": 22,
+   "합쇼체:없습니다": 12,
+   "합쇼체:었습니다": 87,
+   "합쇼체:였습니다": 8,
+   "합쇼체:입니다": 208,
+   "합쇼체:있습니다": 223,
+   "합쇼체:합니다": 233,
+   "해라체:다": 2,
+   "해라체:의문": 2,
+   "해요체:거든요": 1,
+   "해요체:게요": 5,
+   "해요체:고요": 27,
+   "해요체:군요": 2,
+   "해요체:까요": 17,
+   "해요체:네요": 11,
+   "해요체:는데요": 17,
+   "해요체:더군요": 1,
+   "해요체:데요": 11,
+   "해요체:세요": 35,
+   "해요체:아요": 1,
+   "해요체:어요": 4,
+   "해요체:예요": 3,
+   "해요체:요": 16,
+   "해요체:해요": 5
+  },
+  "eng_gloss": 61,
+  "exclaim": 16,
+  "heading_forms": {
+   "da": 34,
+   "da_pct": 28.1,
+   "imperative": 17,
+   "imperative_pct": 14.0,
+   "noun": 57,
+   "noun_pct": 47.1,
+   "numbered": 45,
+   "numbered_pct": 37.2,
+   "question": 13,
+   "question_pct": 10.7,
+   "total": 121
+  },
+  "intensifiers": {
+   "굉장히": 8,
+   "꽤": 12,
+   "너무": 10,
+   "매우": 25,
+   "무척": 9,
+   "상당히": 2,
+   "아주": 12,
+   "엄청": 5,
+   "정말": 26
+  },
+  "len_bins_pct": {
+   "0~20": 5.1,
+   "101~": 5.7,
+   "21~35": 17.5,
+   "36~50": 25.1,
+   "51~70": 28.0,
+   "71~100": 18.7
+  },
+  "len_max": 189,
+  "len_mean": 55.4,
+  "len_median": 52.0,
+  "len_sd": 26.1,
+  "lesson_section_posts": 4,
+  "lexicon": {
+   "가설": 19,
+   "같은": 64,
+   "검증": 39,
+   "것 같습니다": 14,
+   "경험": 68,
+   "고객": 94,
+   "노코드": 197,
+   "니치": 16,
+   "다양한": 35,
+   "당장": 7,
+   "떡상": 1,
+   "뚝딱": 4,
+   "레버리지": 3,
+   "메이커": 19,
+   "부캐": 2,
+   "빌딩": 13,
+   "빠르게": 43,
+   "생각합니다": 65,
+   "수익": 57,
+   "쉽게": 49,
+   "시행착오": 8,
+   "식으로": 27,
+   "실행": 41,
+   "오디언스": 26,
+   "일단": 21,
+   "일잘러": 6,
+   "자동화": 63,
+   "저렴": 14,
+   "전문성": 26,
+   "정도": 36,
+   "짜치": 1,
+   "찐팬": 2,
+   "처럼": 33,
+   "커뮤니티": 95,
+   "쿨럭": 1,
+   "포지셔닝": 23,
+   "피드백": 19,
+   "헤헷": 1,
+   "현타": 1
+  },
+  "mixed_first_person": 26,
+  "n_headings": 121,
+  "n_labels_excluded": 17,
+  "n_list_items": 17,
+  "n_paragraphs": 436,
+  "n_sentences": 1504,
+  "n_tables": 0,
+  "nonpreferred_spelling": {
+   "론칭": 2,
+   "왠만": 1,
+   "타깃": 1,
+   "트랜드": 1
+  },
+  "opening_types": {
+   "배경/기타": 4,
+   "이력/인사": 5,
+   "정의": 2,
+   "질문": 3
+  },
+  "para_first_len": 53.9,
+  "para_last_len": 59.2,
+  "para_patterns_top": {
+   "LMM": 11,
+   "MLL": 10,
+   "MLM": 16,
+   "MML": 11,
+   "MMLM": 7,
+   "MMM": 36,
+   "MMMM": 12,
+   "MMS": 7
+  },
+  "parens": 201,
+  "pct_conj_start": 17.5,
+  "pct_contrast": 4.2,
+  "pct_first_person_author_start": 6.7,
+  "pct_generic_first_person": 14.3,
+  "pct_geot_gatda": 0.9,
+  "pct_geot_ipnida": 6.2,
+  "pct_haera": 0.3,
+  "pct_haeyo": 10.4,
+  "pct_hapsyo": 86.2,
+  "pct_jyo": 1.5,
+  "pct_list_or_go_comma": 73.8,
+  "pct_long_gt70": 24.3,
+  "pct_mid_36_70": 53.1,
+  "pct_numeric_sent": 9.4,
+  "pct_other_ending": 1.6,
+  "pct_para_1": 6.0,
+  "pct_para_3_4": 53.0,
+  "pct_para_with_paren": 32.6,
+  "pct_past": 13.4,
+  "pct_question": 1.5,
+  "pct_saenggak": 4.3,
+  "pct_sent_2plus_comma": 9.6,
+  "pct_sent_no_comma": 62.2,
+  "pct_short_le35": 22.6,
+  "pct_tonghae": 3.3,
+  "pct_xlong_gt100": 5.7,
+  "post_chars": 84670,
+  "post_chars_max": 12277,
+  "post_chars_min": 1942,
+  "post_chars_p10": 2926,
+  "post_chars_p25": 3773,
+  "post_chars_p50": 5795,
+  "post_chars_p75": 6734,
+  "post_chars_p90": 10474,
+  "sensory": {
+   "빛나는": 1
+  },
+  "sent_per_para_mean": 3.45,
+  "sent_per_para_median": 3.0,
+  "slashes": 66,
+  "spelling_variants": {
+   "네비게이션/내비게이션": {
+    "a": "네비게이션",
+    "a_count": 2,
+    "b": "내비게이션",
+    "b_count": 0,
+    "preferred": "네비게이션"
+   },
+   "데이타/데이터": {
+    "a": "데이타",
+    "a_count": 0,
+    "b": "데이터",
+    "b_count": 33,
+    "preferred": "데이터"
+   },
+   "런칭/론칭": {
+    "a": "런칭",
+    "a_count": 9,
+    "b": "론칭",
+    "b_count": 2,
+    "preferred": "런칭"
+   },
+   "레포트/리포트": {
+    "a": "레포트",
+    "a_count": 0,
+    "b": "리포트",
+    "b_count": 1,
+    "preferred": "혼용"
+   },
+   "리더쉽/리더십": {
+    "a": "리더쉽",
+    "a_count": 0,
+    "b": "리더십",
+    "b_count": 2,
+    "preferred": "리더십"
+   },
+   "메세지/메시지": {
+    "a": "메세지",
+    "a_count": 0,
+    "b": "메시지",
+    "b_count": 3,
+    "preferred": "메시지"
+   },
+   "비지니스/비즈니스": {
+    "a": "비지니스",
+    "a_count": 0,
+    "b": "비즈니스",
+    "b_count": 40,
+    "preferred": "비즈니스"
+   },
+   "셋팅/세팅": {
+    "a": "셋팅",
+    "a_count": 12,
+    "b": "세팅",
+    "b_count": 0,
+    "preferred": "셋팅"
+   },
+   "썸네일/섬네일": {
+    "a": "썸네일",
+    "a_count": 1,
+    "b": "섬네일",
+    "b_count": 0,
+    "preferred": "혼용"
+   },
+   "알고리듬/알고리즘": {
+    "a": "알고리듬",
+    "a_count": 0,
+    "b": "알고리즘",
+    "b_count": 2,
+    "preferred": "알고리즘"
+   },
+   "어플/앱": {
+    "a": "어플",
+    "a_count": 0,
+    "b": "앱",
+    "b_count": 8,
+    "preferred": "앱"
+   },
+   "왠만/웬만": {
+    "a": "왠만",
+    "a_count": 1,
+    "b": "웬만",
+    "b_count": 4,
+    "preferred": "웬만"
+   },
+   "컨텐츠/콘텐츠": {
+    "a": "컨텐츠",
+    "a_count": 131,
+    "b": "콘텐츠",
+    "b_count": 0,
+    "preferred": "컨텐츠"
+   },
+   "타겟/타깃": {
+    "a": "타겟",
+    "a_count": 36,
+    "b": "타깃",
+    "b_count": 1,
+    "preferred": "타겟"
+   },
+   "트랜드/트렌드": {
+    "a": "트랜드",
+    "a_count": 1,
+    "b": "트렌드",
+    "b_count": 8,
+    "preferred": "트렌드"
+   },
+   "팬더믹/팬데믹": {
+    "a": "팬더믹",
+    "a_count": 2,
+    "b": "팬데믹",
+    "b_count": 0,
+    "preferred": "팬더믹"
+   }
+  },
+  "tonghae": 49,
+  "transitions_pct": {
+   "LL": 5.5,
+   "LM": 14.0,
+   "LS": 2.5,
+   "ML": 15.9,
+   "MM": 37.7,
+   "MS": 9.3,
+   "SL": 4.1,
+   "SM": 8.1,
+   "SS": 2.9
+  },
+  "words_mean": 13.0,
+  "ye_reul_deureo": 4,
+  "yeoreobun_dangsin": 7
+ },
+ "per_post": {
+  "be-maker": {
+   "after_long_n": 3,
+   "after_long_next_mean": 49.7,
+   "after_long_pct_le40": 33.3,
+   "ai_bullet_bold": 0,
+   "banned": {
+    "게다가": 1,
+    "요약하면": 1
+   },
+   "chars": 3097,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "이 글을 여기까지 읽어주신 분이라면 할 수 있는 무엇이든 만드는 것을 시작해보시길 바랍니다.",
+   "comma_after_subject": 2,
+   "comma_position_pct": {
+    "-고,": 35.5,
+    "-나,": 9.7,
+    "-며,": 9.7,
+    "-면,": 6.5,
+    "-서,": 3.2,
+    "명사 나열": 29.0,
+    "주어/주제어 뒤": 6.5
+   },
+   "commas_per_para": 2.21,
+   "commas_per_sent": 0.49,
+   "conj_comma_bad": 1,
+   "conj_consecutive": 0,
+   "conj_top": {
+    "게다가": 1,
+    "그러나": 1,
+    "그렇다면": 1,
+    "그리고": 2,
+    "다만": 1,
+    "더해서": 1,
+    "따라서": 1,
+    "요약하면": 1,
+    "하지만": 1
+   },
+   "conj_total": {
+    "게다가": 1,
+    "결국": 1,
+    "그러나": 1,
+    "그렇다면": 1,
+    "그리고": 2,
+    "다만": 1,
+    "대신": 1,
+    "더해서": 1,
+    "따라서": 1,
+    "또한": 1,
+    "실제로": 1,
+    "오히려": 1,
+    "요약하면": 1,
+    "즉": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 1,
+   "contrast_constructions": 9,
+   "emoticons": 0,
+   "ending_detail": {
+    "죠:죠": 4,
+    "합쇼체:것입니다": 3,
+    "합쇼체:니다": 6,
+    "합쇼체:됩니다": 4,
+    "합쇼체:습니다": 6,
+    "합쇼체:입니다": 8,
+    "합쇼체:있습니다": 8,
+    "합쇼체:합니다": 11,
+    "해라체:다": 1,
+    "해라체:의문": 1,
+    "해요체:고요": 5,
+    "해요체:까요": 1,
+    "해요체:데요": 1,
+    "해요체:세요": 2,
+    "해요체:요": 2
+   },
+   "eng_gloss": 8,
+   "exclaim": 0,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 1,
+    "da_pct": 20.0,
+    "imperative": 1,
+    "imperative_pct": 20.0,
+    "noun": 2,
+    "noun_pct": 40.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 1,
+    "question_pct": 20.0,
+    "total": 5
+   },
+   "intensifiers": {
+    "무척": 1,
+    "정말": 3
+   },
+   "len_bins_pct": {
+    "0~20": 6.3,
+    "101~": 3.2,
+    "21~35": 30.2,
+    "36~50": 23.8,
+    "51~70": 23.8,
+    "71~100": 12.7
+   },
+   "len_max": 186,
+   "len_mean": 49.2,
+   "len_median": 44,
+   "len_sd": 27.6,
+   "lexicon": {
+    "같은": 3,
+    "노코드": 1,
+    "니치": 1,
+    "당장": 1,
+    "메이커": 10,
+    "빠르게": 1,
+    "생각합니다": 5,
+    "실행": 5,
+    "일단": 3,
+    "정도": 1,
+    "처럼": 3,
+    "커뮤니티": 2
+   },
+   "mixed_first_person": 2,
+   "n_headings": 5,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 14,
+   "n_sentences": 63,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "코로나 팬더믹 이후에 디지털 경제로의 전환은 가속화되고 있습니다.",
+   "opening_type": "배경/기타",
+   "para_first_len": 51.6,
+   "para_last_len": 46.4,
+   "para_patterns_top": {
+    "LMMMMLML": 1,
+    "MLLMMM": 1,
+    "MMLML": 1,
+    "MMM": 1,
+    "MMMS": 1,
+    "SMM": 1,
+    "SMSS": 1,
+    "SSSSM": 1
+   },
+   "para_rhythms": [
+    [
+     36,
+     34,
+     90,
+     53,
+     77
+    ],
+    [
+     58,
+     49,
+     37
+    ],
+    [
+     57,
+     68,
+     44,
+     16
+    ],
+    [
+     186,
+     66
+    ],
+    [
+     21,
+     56,
+     50
+    ],
+    [
+     77,
+     37,
+     67,
+     67,
+     34,
+     76,
+     59,
+     73
+    ],
+    [
+     23,
+     55,
+     22,
+     23
+    ],
+    [
+     48,
+     71,
+     84,
+     36,
+     37,
+     44
+    ],
+    [
+     5,
+     22,
+     29,
+     25,
+     67
+    ],
+    [
+     60,
+     45,
+     25,
+     43,
+     18,
+     29,
+     33,
+     35
+    ],
+    [
+     34,
+     88,
+     120,
+     30,
+     34
+    ],
+    [
+     66,
+     29
+    ],
+    [
+     20,
+     53,
+     50,
+     47
+    ],
+    [
+     31,
+     35,
+     42,
+     51
+    ]
+   ],
+   "parens": 8,
+   "pct_conj_start": 15.9,
+   "pct_contrast": 14.3,
+   "pct_first_person_author_start": 4.8,
+   "pct_generic_first_person": 9.5,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 4.8,
+   "pct_haera": 3.2,
+   "pct_haeyo": 17.5,
+   "pct_hapsyo": 73.0,
+   "pct_jyo": 6.3,
+   "pct_list_or_go_comma": 64.5,
+   "pct_long_gt70": 15.9,
+   "pct_mid_36_70": 47.6,
+   "pct_numeric_sent": 1.6,
+   "pct_other_ending": 0.0,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 42.9,
+   "pct_para_with_paren": 21.4,
+   "pct_past": 6.3,
+   "pct_question": 3.2,
+   "pct_saenggak": 7.9,
+   "pct_sent_2plus_comma": 9.5,
+   "pct_sent_no_comma": 61.9,
+   "pct_short_le35": 36.5,
+   "pct_tonghae": 1.6,
+   "pct_xlong_gt100": 3.2,
+   "post_chars": 3147,
+   "pubDate": "2022-02-24",
+   "sensory": {},
+   "sent_per_para_mean": 4.5,
+   "sent_per_para_median": 4.0,
+   "slashes": 0,
+   "spelling_variants": {
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "트랜드/트렌드": {
+     "a": "트랜드",
+     "a_count": 0,
+     "b": "트렌드",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "팬더믹/팬데믹": {
+     "a": "팬더믹",
+     "a_count": 1,
+     "b": "팬데믹",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "사업가가 아닌 메이커가 되어라",
+   "tonghae": 1,
+   "transitions_pct": {
+    "LL": 4.1,
+    "LM": 10.2,
+    "LS": 2.0,
+    "ML": 12.2,
+    "MM": 36.7,
+    "MS": 10.2,
+    "SM": 14.3,
+    "SS": 10.2
+   },
+   "words_mean": 11.2,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  },
+  "career-positioning": {
+   "after_long_n": 3,
+   "after_long_next_mean": 51.7,
+   "after_long_pct_le40": 0.0,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 4464,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "그 과정에서의 고민과 시행착오가 나를 더 빛나는 사람으로 만들어 줄 것입니다.",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 48.5,
+    "-나,": 9.1,
+    "-데,": 3.0,
+    "-며,": 6.1,
+    "-서,": 3.0,
+    "-지만,": 3.0,
+    "명사 나열": 27.3
+   },
+   "commas_per_para": 1.27,
+   "commas_per_sent": 0.39,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 1,
+   "conj_top": {
+    "결국": 1,
+    "그래서": 1,
+    "그러나": 1,
+    "그런데": 2,
+    "그렇지만": 2,
+    "그리고": 1,
+    "물론": 2,
+    "오히려": 1
+   },
+   "conj_total": {
+    "결국": 1,
+    "그래서": 1,
+    "그러나": 1,
+    "그런데": 2,
+    "그럼에도": 1,
+    "그렇지만": 2,
+    "그리고": 1,
+    "먼저": 1,
+    "물론": 2,
+    "사실": 1,
+    "오히려": 5
+   },
+   "consecutive_haeyo": 0,
+   "contrast_constructions": 4,
+   "emoticons": 0,
+   "ending_detail": {
+    "기타:": 1,
+    "합쇼체:겁니다": 1,
+    "합쇼체:것입니다": 11,
+    "합쇼체:겠습니다": 1,
+    "합쇼체:니다": 5,
+    "합쇼체:됩니다": 1,
+    "합쇼체:습니다": 11,
+    "합쇼체:았습니다": 4,
+    "합쇼체:없습니다": 1,
+    "합쇼체:었습니다": 3,
+    "합쇼체:였습니다": 1,
+    "합쇼체:입니다": 7,
+    "합쇼체:있습니다": 19,
+    "합쇼체:합니다": 7,
+    "해요체:고요": 2,
+    "해요체:까요": 1,
+    "해요체:데요": 2,
+    "해요체:세요": 4,
+    "해요체:요": 1,
+    "해요체:해요": 1
+   },
+   "eng_gloss": 3,
+   "exclaim": 2,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 0,
+    "da_pct": 0.0,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 7,
+    "noun_pct": 100.0,
+    "numbered": 3,
+    "numbered_pct": 42.9,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 7
+   },
+   "intensifiers": {
+    "굉장히": 1,
+    "매우": 2,
+    "아주": 2,
+    "엄청": 1,
+    "정말": 3
+   },
+   "len_bins_pct": {
+    "0~20": 2.4,
+    "101~": 2.4,
+    "21~35": 20.2,
+    "36~50": 27.4,
+    "51~70": 31.0,
+    "71~100": 16.7
+   },
+   "len_max": 149,
+   "len_mean": 53.1,
+   "len_median": 50.0,
+   "len_sd": 22.8,
+   "lexicon": {
+    "같은": 2,
+    "검증": 1,
+    "것 같습니다": 2,
+    "경험": 9,
+    "노코드": 2,
+    "다양한": 2,
+    "당장": 1,
+    "빠르게": 2,
+    "쉽게": 3,
+    "시행착오": 2,
+    "식으로": 1,
+    "실행": 1,
+    "일단": 1,
+    "전문성": 4,
+    "처럼": 1,
+    "커뮤니티": 8,
+    "포지셔닝": 13
+   },
+   "mixed_first_person": 5,
+   "n_headings": 7,
+   "n_labels_excluded": 1,
+   "n_list_items": 3,
+   "n_paragraphs": 26,
+   "n_sentences": 84,
+   "n_tables": 0,
+   "nonpreferred_spelling": {
+    "타깃": 1
+   },
+   "opening_sentence": "저는 대학에서 경제학을 전공했으며, 통신사 IT 솔루션 영업으로 커리어를 시작해서 스타트업을 거치면서 IT 업계에서 PM, 사업 개발, 세일즈 업무를 다양하게 경험했습니다.",
+   "opening_type": "이력/인사",
+   "para_first_len": 50,
+   "para_last_len": 59.0,
+   "para_patterns_top": {
+    "LMM": 1,
+    "LSM": 1,
+    "MLL": 1,
+    "MMML": 1,
+    "MMMSSS": 1,
+    "MMS": 2,
+    "SLLM": 1,
+    "SLML": 1
+   },
+   "para_rhythms": [
+    [
+     96,
+     42,
+     41
+    ],
+    [
+     65,
+     66,
+     41,
+     28,
+     28,
+     26
+    ],
+    [
+     79,
+     149
+    ],
+    [
+     58,
+     85,
+     78
+    ],
+    [
+     27,
+     75,
+     60,
+     82
+    ],
+    [
+     55,
+     89
+    ],
+    [
+     44,
+     37
+    ],
+    [
+     24,
+     80,
+     90,
+     46
+    ],
+    [
+     60,
+     54
+    ],
+    [
+     73,
+     20,
+     58
+    ],
+    [
+     63,
+     69
+    ],
+    [
+     60,
+     63
+    ],
+    [
+     63,
+     39,
+     44,
+     86
+    ],
+    [
+     54,
+     23,
+     45,
+     41
+    ],
+    [
+     39,
+     113,
+     67
+    ],
+    [
+     21,
+     57,
+     27,
+     45,
+     39,
+     35,
+     32
+    ],
+    [
+     41,
+     33,
+     82,
+     52
+    ],
+    [
+     38,
+     56,
+     27
+    ],
+    [
+     59,
+     46
+    ],
+    [
+     25,
+     60,
+     45,
+     31,
+     92
+    ],
+    [
+     34,
+     49
+    ],
+    [
+     70,
+     44,
+     26
+    ],
+    [
+     40,
+     51,
+     60
+    ],
+    [
+     33,
+     71
+    ],
+    [
+     65,
+     46,
+     55,
+     44,
+     51
+    ],
+    [
+     14,
+     43
+    ]
+   ],
+   "parens": 12,
+   "pct_conj_start": 13.1,
+   "pct_contrast": 4.8,
+   "pct_first_person_author_start": 11.9,
+   "pct_generic_first_person": 38.1,
+   "pct_geot_gatda": 2.4,
+   "pct_geot_ipnida": 14.3,
+   "pct_haera": 0.0,
+   "pct_haeyo": 13.1,
+   "pct_hapsyo": 85.7,
+   "pct_jyo": 0.0,
+   "pct_list_or_go_comma": 75.8,
+   "pct_long_gt70": 19.0,
+   "pct_mid_36_70": 58.3,
+   "pct_numeric_sent": 3.6,
+   "pct_other_ending": 1.2,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 46.2,
+   "pct_para_with_paren": 26.9,
+   "pct_past": 14.3,
+   "pct_question": 0.0,
+   "pct_saenggak": 0.0,
+   "pct_sent_2plus_comma": 6.0,
+   "pct_sent_no_comma": 70.2,
+   "pct_short_le35": 22.6,
+   "pct_tonghae": 2.4,
+   "pct_xlong_gt100": 2.4,
+   "post_chars": 4540,
+   "pubDate": "2021-11-23",
+   "sensory": {
+    "빛나는": 1
+   },
+   "sent_per_para_mean": 3.23,
+   "sent_per_para_median": 3.0,
+   "slashes": 3,
+   "spelling_variants": {
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 3,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 0,
+     "b": "타깃",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "트랜드/트렌드": {
+     "a": "트랜드",
+     "a_count": 0,
+     "b": "트렌드",
+     "b_count": 2,
+     "preferred": "트렌드"
+    }
+   },
+   "title": "문과생 IT 업계에서 살아남기",
+   "tonghae": 2,
+   "transitions_pct": {
+    "LL": 5.2,
+    "LM": 8.6,
+    "LS": 1.7,
+    "ML": 13.8,
+    "MM": 44.8,
+    "MS": 8.6,
+    "SL": 3.4,
+    "SM": 10.3,
+    "SS": 3.4
+   },
+   "words_mean": 12.9,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  },
+  "creator-community-strategy": {
+   "after_long_n": 0,
+   "after_long_next_mean": 0,
+   "after_long_pct_le40": 0.0,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 1914,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "지식 크리에이터 커뮤니티(오픈채팅방)을 운영하고 있으니 함께 교류하며 정보 공유해요 :)",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 25.0,
+    "-면,": 6.2,
+    "-지만,": 6.2,
+    "명사 나열": 56.2,
+    "접속부사 뒤": 6.2
+   },
+   "commas_per_para": 1.33,
+   "commas_per_sent": 0.4,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 0,
+   "conj_top": {
+    "그래서": 1,
+    "그러나": 1,
+    "그렇기 때문에": 1,
+    "그리고": 2,
+    "또한": 2,
+    "즉": 1,
+    "하지만": 1
+   },
+   "conj_total": {
+    "그래서": 1,
+    "그러나": 1,
+    "그렇기 때문에": 1,
+    "그리고": 2,
+    "대신": 1,
+    "또한": 2,
+    "즉": 2,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 0,
+   "contrast_constructions": 1,
+   "emoticons": 2,
+   "ending_detail": {
+    "죠:죠": 1,
+    "합쇼체:것입니다": 5,
+    "합쇼체:겠습니다": 1,
+    "합쇼체:니다": 12,
+    "합쇼체:됩니다": 1,
+    "합쇼체:습니다": 3,
+    "합쇼체:입니다": 1,
+    "합쇼체:있습니다": 2,
+    "합쇼체:합니다": 9,
+    "해요체:고요": 1,
+    "해요체:는데요": 1,
+    "해요체:세요": 1,
+    "해요체:요": 1,
+    "해요체:해요": 1
+   },
+   "eng_gloss": 2,
+   "exclaim": 0,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 3,
+    "da_pct": 100.0,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 0,
+    "noun_pct": 0.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 3
+   },
+   "intensifiers": {
+    "매우": 2
+   },
+   "len_bins_pct": {
+    "0~20": 2.5,
+    "101~": 0.0,
+    "21~35": 22.5,
+    "36~50": 37.5,
+    "51~70": 22.5,
+    "71~100": 15.0
+   },
+   "len_max": 92,
+   "len_mean": 47.9,
+   "len_median": 42.5,
+   "len_sd": 18.1,
+   "lexicon": {
+    "것 같습니다": 2,
+    "경험": 3,
+    "고객": 1,
+    "빌딩": 1,
+    "생각합니다": 1,
+    "수익": 1,
+    "정도": 1,
+    "처럼": 3,
+    "커뮤니티": 23,
+    "피드백": 1
+   },
+   "mixed_first_person": 0,
+   "n_headings": 3,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 12,
+   "n_sentences": 40,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "저는 지식 크리에이터에게 커뮤니티가 매우 도움이 된다고 생각합니다.",
+   "opening_type": "이력/인사",
+   "para_first_len": 49.8,
+   "para_last_len": 56.8,
+   "para_patterns_top": {
+    "LML": 1,
+    "LMMSM": 1,
+    "MMMM": 1,
+    "MMMMM": 1,
+    "MMMSS": 1,
+    "MSMSMLMMM": 1
+   },
+   "para_rhythms": [
+    [
+     37,
+     92
+    ],
+    [
+     59,
+     37,
+     42,
+     25,
+     16
+    ],
+    [
+     44,
+     60,
+     34,
+     31,
+     54
+    ],
+    [
+     43
+    ],
+    [
+     54,
+     49,
+     45,
+     54
+    ],
+    [
+     83,
+     67,
+     89
+    ],
+    [
+     54,
+     73
+    ],
+    [
+     72,
+     32,
+     42,
+     29,
+     37
+    ],
+    [
+     34,
+     27,
+     36,
+     29,
+     37,
+     80,
+     61,
+     42,
+     59
+    ],
+    [
+     36,
+     37
+    ],
+    [
+     33
+    ],
+    [
+     49
+    ]
+   ],
+   "parens": 4,
+   "pct_conj_start": 22.5,
+   "pct_contrast": 2.5,
+   "pct_first_person_author_start": 2.5,
+   "pct_generic_first_person": 37.5,
+   "pct_geot_gatda": 5.0,
+   "pct_geot_ipnida": 12.5,
+   "pct_haera": 0.0,
+   "pct_haeyo": 12.5,
+   "pct_hapsyo": 85.0,
+   "pct_jyo": 2.5,
+   "pct_list_or_go_comma": 81.2,
+   "pct_long_gt70": 15.0,
+   "pct_mid_36_70": 60.0,
+   "pct_numeric_sent": 10.0,
+   "pct_other_ending": 0.0,
+   "pct_para_1": 25.0,
+   "pct_para_3_4": 16.7,
+   "pct_para_with_paren": 33.3,
+   "pct_past": 0.0,
+   "pct_question": 5.0,
+   "pct_saenggak": 2.5,
+   "pct_sent_2plus_comma": 12.5,
+   "pct_sent_no_comma": 72.5,
+   "pct_short_le35": 25.0,
+   "pct_tonghae": 5.0,
+   "pct_xlong_gt100": 0.0,
+   "post_chars": 1942,
+   "pubDate": "2022-03-25",
+   "sensory": {},
+   "sent_per_para_mean": 3.33,
+   "sent_per_para_median": 2.5,
+   "slashes": 0,
+   "spelling_variants": {
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 23,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 1,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "커뮤니티, 온라인 세상에서 영향력을 빠르게 키우는 전략",
+   "tonghae": 2,
+   "transitions_pct": {
+    "LM": 10.7,
+    "ML": 14.3,
+    "MM": 46.4,
+    "MS": 14.3,
+    "SM": 10.7,
+    "SS": 3.6
+   },
+   "words_mean": 10.9,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 1
+  },
+  "how-to-build-online-class-with-nocode": {
+   "after_long_n": 12,
+   "after_long_next_mean": 56.4,
+   "after_long_pct_le40": 16.7,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 12115,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "내 컨텐츠를 만들고, 이를 비즈니스화하는데 관심 있는 분들은 아래 커뮤니티에 많이 조인해주세요!",
+   "comma_after_subject": 1,
+   "comma_position_pct": {
+    "-고,": 35.1,
+    "-나,": 7.2,
+    "-니,": 0.9,
+    "-데,": 0.9,
+    "-며,": 6.3,
+    "-면,": 4.5,
+    "-지만,": 3.6,
+    "명사 나열": 38.7,
+    "접속부사 뒤": 1.8,
+    "주어/주제어 뒤": 0.9
+   },
+   "commas_per_para": 1.91,
+   "commas_per_sent": 0.5,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 4,
+   "conj_top": {
+    "결국": 2,
+    "그래서": 4,
+    "그러나": 1,
+    "그렇기 때문에": 3,
+    "그리고": 7,
+    "다만": 3,
+    "더해서": 4,
+    "또한": 8,
+    "물론": 1,
+    "반면에": 1,
+    "아무튼": 1,
+    "우선": 3
+   },
+   "conj_total": {
+    "결국": 2,
+    "그래서": 4,
+    "그러나": 1,
+    "그렇기 때문에": 3,
+    "그리고": 7,
+    "다만": 3,
+    "더해서": 4,
+    "또한": 8,
+    "먼저": 1,
+    "물론": 1,
+    "반면에": 1,
+    "실제로": 1,
+    "아무튼": 1,
+    "우선": 3,
+    "즉": 1,
+    "특히": 1,
+    "하지만": 2
+   },
+   "consecutive_haeyo": 4,
+   "contrast_constructions": 8,
+   "emoticons": 1,
+   "ending_detail": {
+    "기타:": 8,
+    "죠:죠": 4,
+    "합쇼체:것입니다": 5,
+    "합쇼체:겠습니다": 6,
+    "합쇼체:니다": 5,
+    "합쇼체:됩니다": 3,
+    "합쇼체:습니다": 51,
+    "합쇼체:았습니다": 1,
+    "합쇼체:없습니다": 3,
+    "합쇼체:었습니다": 6,
+    "합쇼체:입니다": 27,
+    "합쇼체:있습니다": 43,
+    "합쇼체:합니다": 34,
+    "해요체:게요": 4,
+    "해요체:고요": 4,
+    "해요체:까요": 4,
+    "해요체:네요": 3,
+    "해요체:는데요": 3,
+    "해요체:데요": 1,
+    "해요체:세요": 4,
+    "해요체:해요": 1
+   },
+   "eng_gloss": 5,
+   "exclaim": 3,
+   "has_lesson_section": true,
+   "heading_forms": {
+    "da": 3,
+    "da_pct": 21.4,
+    "imperative": 3,
+    "imperative_pct": 21.4,
+    "noun": 8,
+    "noun_pct": 57.1,
+    "numbered": 8,
+    "numbered_pct": 57.1,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 14
+   },
+   "intensifiers": {
+    "너무": 1,
+    "매우": 5,
+    "무척": 2,
+    "아주": 1,
+    "엄청": 1,
+    "정말": 4
+   },
+   "len_bins_pct": {
+    "0~20": 5.9,
+    "101~": 5.9,
+    "21~35": 13.2,
+    "36~50": 29.5,
+    "51~70": 29.1,
+    "71~100": 16.4
+   },
+   "len_max": 155,
+   "len_mean": 55.1,
+   "len_median": 51.0,
+   "len_sd": 25.8,
+   "lexicon": {
+    "같은": 8,
+    "검증": 3,
+    "것 같습니다": 3,
+    "경험": 5,
+    "고객": 7,
+    "노코드": 16,
+    "니치": 2,
+    "다양한": 2,
+    "빌딩": 10,
+    "빠르게": 2,
+    "생각합니다": 7,
+    "수익": 21,
+    "쉽게": 6,
+    "시행착오": 1,
+    "식으로": 3,
+    "오디언스": 17,
+    "일단": 5,
+    "자동화": 11,
+    "저렴": 4,
+    "정도": 8,
+    "찐팬": 1,
+    "처럼": 5,
+    "커뮤니티": 8,
+    "피드백": 5,
+    "헤헷": 1
+   },
+   "mixed_first_person": 1,
+   "n_headings": 14,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 58,
+   "n_sentences": 220,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "온라인 강의는 어떻게 제작해서 판매할 수 있을까요?",
+   "opening_type": "질문",
+   "para_first_len": 50.6,
+   "para_last_len": 60.9,
+   "para_patterns_top": {
+    "LMM": 3,
+    "MML": 3,
+    "MMLM": 2,
+    "MMM": 7,
+    "MMML": 2,
+    "MMMM": 2,
+    "SLML": 2,
+    "SMLM": 2
+   },
+   "para_rhythms": [
+    [
+     28,
+     71,
+     50
+    ],
+    [
+     49,
+     38,
+     72,
+     7,
+     110
+    ],
+    [
+     46,
+     65,
+     65
+    ],
+    [
+     55,
+     37,
+     39,
+     94
+    ],
+    [
+     45,
+     40,
+     77,
+     45
+    ],
+    [
+     65,
+     59,
+     45,
+     34
+    ],
+    [
+     40,
+     53,
+     106
+    ],
+    [
+     62,
+     42,
+     76,
+     40,
+     36,
+     36
+    ],
+    [
+     17,
+     96,
+     43,
+     126
+    ],
+    [
+     82,
+     98
+    ],
+    [
+     38,
+     37,
+     52,
+     47,
+     36,
+     49,
+     35,
+     62,
+     59,
+     52
+    ],
+    [
+     38,
+     73,
+     51
+    ],
+    [
+     76,
+     46,
+     52,
+     68,
+     61,
+     43
+    ],
+    [
+     34,
+     54,
+     65,
+     33,
+     47,
+     33,
+     43
+    ],
+    [
+     35,
+     39,
+     27,
+     79,
+     38
+    ],
+    [
+     64,
+     91,
+     82
+    ],
+    [
+     136
+    ],
+    [
+     25,
+     84,
+     109,
+     133,
+     41
+    ],
+    [
+     91,
+     55,
+     40
+    ],
+    [
+     122,
+     55,
+     65,
+     45,
+     46
+    ],
+    [
+     57,
+     43,
+     60
+    ],
+    [
+     42,
+     57,
+     57
+    ],
+    [
+     42,
+     133,
+     15
+    ],
+    [
+     67,
+     34,
+     74,
+     68
+    ],
+    [
+     45,
+     43,
+     56,
+     110
+    ],
+    [
+     98,
+     39,
+     64
+    ],
+    [
+     32,
+     52,
+     48
+    ],
+    [
+     81,
+     51,
+     66
+    ],
+    [
+     28,
+     71,
+     65,
+     155
+    ],
+    [
+     35,
+     88
+    ],
+    [
+     49,
+     71,
+     67,
+     68,
+     32,
+     59,
+     62
+    ],
+    [
+     26,
+     18,
+     31,
+     62,
+     80
+    ],
+    [
+     21,
+     64,
+     44,
+     92,
+     41
+    ],
+    [
+     41,
+     50,
+     48,
+     51
+    ],
+    [
+     9
+    ],
+    [
+     62,
+     50,
+     37
+    ],
+    [
+     32,
+     19,
+     106
+    ],
+    [
+     29,
+     59,
+     75,
+     60
+    ],
+    [
+     69,
+     53,
+     17,
+     21
+    ],
+    [
+     9
+    ],
+    [
+     42,
+     61,
+     78
+    ],
+    [
+     29,
+     80,
+     39,
+     52,
+     46,
+     14
+    ],
+    [
+     88,
+     44
+    ],
+    [
+     126,
+     60,
+     75
+    ],
+    [
+     11,
+     63,
+     99,
+     58
+    ],
+    [
+     32,
+     17,
+     5,
+     117
+    ],
+    [
+     79,
+     57,
+     38,
+     55
+    ],
+    [
+     49,
+     59,
+     42
+    ],
+    [
+     53,
+     41,
+     28
+    ],
+    [
+     36,
+     47,
+     48,
+     75,
+     55
+    ],
+    [
+     48,
+     34,
+     62,
+     92,
+     55
+    ],
+    [
+     23,
+     52,
+     49
+    ],
+    [
+     24,
+     51,
+     76
+    ],
+    [
+     45,
+     36,
+     78
+    ],
+    [
+     64,
+     44,
+     31
+    ],
+    [
+     54,
+     50
+    ],
+    [
+     74,
+     30,
+     73,
+     70,
+     3
+    ],
+    [
+     37,
+     51,
+     23,
+     53
+    ]
+   ],
+   "parens": 38,
+   "pct_conj_start": 17.3,
+   "pct_contrast": 3.6,
+   "pct_first_person_author_start": 7.7,
+   "pct_generic_first_person": 10.9,
+   "pct_geot_gatda": 1.4,
+   "pct_geot_ipnida": 2.3,
+   "pct_haera": 0.0,
+   "pct_haeyo": 10.9,
+   "pct_hapsyo": 83.6,
+   "pct_jyo": 1.8,
+   "pct_list_or_go_comma": 73.9,
+   "pct_long_gt70": 22.3,
+   "pct_mid_36_70": 58.6,
+   "pct_numeric_sent": 10.0,
+   "pct_other_ending": 3.6,
+   "pct_para_1": 5.2,
+   "pct_para_3_4": 62.1,
+   "pct_para_with_paren": 37.9,
+   "pct_past": 10.5,
+   "pct_question": 1.8,
+   "pct_saenggak": 3.2,
+   "pct_sent_2plus_comma": 10.0,
+   "pct_sent_no_comma": 64.1,
+   "pct_short_le35": 19.1,
+   "pct_tonghae": 1.8,
+   "pct_xlong_gt100": 5.9,
+   "post_chars": 12277,
+   "pubDate": "2022-07-28",
+   "sensory": {},
+   "sent_per_para_mean": 3.79,
+   "sent_per_para_median": 3.5,
+   "slashes": 13,
+   "spelling_variants": {
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 5,
+     "preferred": "데이터"
+    },
+    "런칭/론칭": {
+     "a": "런칭",
+     "a_count": 1,
+     "b": "론칭",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 5,
+     "preferred": "비즈니스"
+    },
+    "셋팅/세팅": {
+     "a": "셋팅",
+     "a_count": 3,
+     "b": "세팅",
+     "b_count": 0,
+     "preferred": "셋팅"
+    },
+    "어플/앱": {
+     "a": "어플",
+     "a_count": 0,
+     "b": "앱",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "왠만/웬만": {
+     "a": "왠만",
+     "a_count": 0,
+     "b": "웬만",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 30,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 4,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "타겟"
+    }
+   },
+   "title": "코딩 없이 온라인 강의 사이트 만들고 운영하는 방법",
+   "tonghae": 4,
+   "transitions_pct": {
+    "LL": 2.5,
+    "LM": 15.4,
+    "LS": 1.9,
+    "ML": 14.8,
+    "MM": 48.1,
+    "MS": 4.9,
+    "SL": 6.2,
+    "SM": 4.3,
+    "SS": 1.9
+   },
+   "words_mean": 12.9,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 2
+  },
+  "knowledge-creator-monetization": {
+   "after_long_n": 11,
+   "after_long_next_mean": 62.8,
+   "after_long_pct_le40": 18.2,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 8973,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "지식 크리에이터 비즈니스에 대해서 이야기 하실 분들 들어오셔서 이야기도 나누고 정보도 공유해요!",
+   "comma_after_subject": 1,
+   "comma_position_pct": {
+    "-고,": 53.2,
+    "-나,": 2.5,
+    "-니,": 1.3,
+    "-데,": 1.3,
+    "-면,": 2.5,
+    "-서,": 1.3,
+    "기타": 3.8,
+    "명사 나열": 31.6,
+    "접속부사 뒤": 1.3,
+    "주어/주제어 뒤": 1.3
+   },
+   "commas_per_para": 2.03,
+   "commas_per_sent": 0.54,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 8,
+   "conj_top": {
+    "그래서": 8,
+    "그러나": 3,
+    "그럼에도": 1,
+    "그리고": 6,
+    "다만": 1,
+    "더해서": 1,
+    "또한": 5,
+    "물론": 2,
+    "예를 들면": 1,
+    "오히려": 1,
+    "우선": 1,
+    "즉": 1
+   },
+   "conj_total": {
+    "그래서": 9,
+    "그러나": 3,
+    "그럼에도": 1,
+    "그리고": 6,
+    "다만": 1,
+    "더해서": 1,
+    "따라서": 1,
+    "또한": 5,
+    "물론": 4,
+    "사실": 1,
+    "실제로": 1,
+    "예를 들면": 1,
+    "오히려": 1,
+    "우선": 1,
+    "즉": 1,
+    "하지만": 2
+   },
+   "consecutive_haeyo": 4,
+   "contrast_constructions": 11,
+   "emoticons": 1,
+   "ending_detail": {
+    "기타:": 1,
+    "죠:죠": 4,
+    "합쇼체:겁니다": 1,
+    "합쇼체:것입니다": 15,
+    "합쇼체:겠습니다": 2,
+    "합쇼체:니다": 7,
+    "합쇼체:됩니다": 9,
+    "합쇼체:습니다": 23,
+    "합쇼체:았습니다": 1,
+    "합쇼체:없습니다": 1,
+    "합쇼체:었습니다": 11,
+    "합쇼체:였습니다": 2,
+    "합쇼체:입니다": 14,
+    "합쇼체:있습니다": 13,
+    "합쇼체:합니다": 24,
+    "해요체:고요": 3,
+    "해요체:까요": 2,
+    "해요체:네요": 1,
+    "해요체:는데요": 3,
+    "해요체:데요": 2,
+    "해요체:세요": 3,
+    "해요체:어요": 1,
+    "해요체:예요": 1,
+    "해요체:요": 1,
+    "해요체:해요": 1
+   },
+   "eng_gloss": 3,
+   "exclaim": 2,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 0,
+    "da_pct": 0.0,
+    "imperative": 5,
+    "imperative_pct": 71.4,
+    "noun": 1,
+    "noun_pct": 14.3,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 1,
+    "question_pct": 14.3,
+    "total": 7
+   },
+   "intensifiers": {
+    "굉장히": 1,
+    "꽤": 2,
+    "매우": 4,
+    "상당히": 1,
+    "아주": 2,
+    "엄청": 1,
+    "정말": 6
+   },
+   "len_bins_pct": {
+    "0~20": 2.7,
+    "101~": 9.6,
+    "21~35": 18.5,
+    "36~50": 19.2,
+    "51~70": 22.6,
+    "71~100": 27.4
+   },
+   "len_max": 147,
+   "len_mean": 61.5,
+   "len_median": 61.0,
+   "len_sd": 28.2,
+   "lexicon": {
+    "같은": 9,
+    "검증": 1,
+    "것 같습니다": 2,
+    "경험": 15,
+    "고객": 12,
+    "노코드": 24,
+    "니치": 4,
+    "다양한": 3,
+    "당장": 1,
+    "빌딩": 2,
+    "빠르게": 2,
+    "생각합니다": 8,
+    "수익": 20,
+    "쉽게": 5,
+    "식으로": 5,
+    "실행": 1,
+    "일단": 4,
+    "자동화": 1,
+    "전문성": 1,
+    "정도": 3,
+    "찐팬": 1,
+    "처럼": 3,
+    "커뮤니티": 27,
+    "피드백": 3
+   },
+   "mixed_first_person": 7,
+   "n_headings": 7,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 39,
+   "n_sentences": 146,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "저는 2월에 2개의 직무 강의를 런칭했습니다.",
+   "opening_type": "이력/인사",
+   "para_first_len": 59.3,
+   "para_last_len": 68.9,
+   "para_patterns_top": {
+    "LLM": 2,
+    "LSMMMM": 1,
+    "MLL": 1,
+    "MLM": 3,
+    "MLMM": 1,
+    "MLMS": 1,
+    "MMSSMM": 1,
+    "SMM": 1
+   },
+   "para_rhythms": [
+    [
+     25,
+     51,
+     69
+    ],
+    [
+     60,
+     72,
+     64
+    ],
+    [
+     50,
+     31,
+     29,
+     6,
+     62,
+     39
+    ],
+    [
+     77,
+     111
+    ],
+    [
+     147,
+     62
+    ],
+    [
+     51,
+     114,
+     141
+    ],
+    [
+     32,
+     82,
+     63,
+     63
+    ],
+    [
+     75,
+     28,
+     32,
+     40,
+     44,
+     32
+    ],
+    [
+     87,
+     49
+    ],
+    [
+     57,
+     89,
+     66,
+     27
+    ],
+    [
+     26,
+     79,
+     79,
+     31,
+     21
+    ],
+    [
+     80,
+     66,
+     20,
+     76,
+     22
+    ],
+    [
+     33,
+     65,
+     67
+    ],
+    [
+     43,
+     51,
+     38,
+     79,
+     32,
+     99
+    ],
+    [
+     75,
+     114,
+     36
+    ],
+    [
+     93,
+     53,
+     78
+    ],
+    [
+     90,
+     79,
+     113,
+     65,
+     96
+    ],
+    [
+     69,
+     18,
+     77,
+     45,
+     53
+    ],
+    [
+     21,
+     33,
+     36,
+     78,
+     59
+    ],
+    [
+     53,
+     76,
+     49
+    ],
+    [
+     48,
+     68,
+     21,
+     20,
+     81,
+     41,
+     34,
+     70
+    ],
+    [
+     84,
+     78,
+     53
+    ],
+    [
+     78,
+     71,
+     37,
+     63
+    ],
+    [
+     88,
+     70
+    ],
+    [
+     72,
+     83
+    ],
+    [
+     49,
+     44,
+     62,
+     45,
+     128
+    ],
+    [
+     41,
+     76,
+     92,
+     43
+    ],
+    [
+     46,
+     142
+    ],
+    [
+     98
+    ],
+    [
+     29,
+     23,
+     74,
+     46,
+     74,
+     43,
+     76
+    ],
+    [
+     35,
+     66,
+     60,
+     44
+    ],
+    [
+     35,
+     101,
+     52,
+     105
+    ],
+    [
+     31,
+     42,
+     105
+    ],
+    [
+     28,
+     103
+    ],
+    [
+     99,
+     71,
+     101,
+     66
+    ],
+    [
+     42,
+     48,
+     141,
+     23,
+     36
+    ],
+    [
+     80,
+     58,
+     34,
+     73
+    ],
+    [
+     35
+    ],
+    [
+     50,
+     72,
+     53
+    ]
+   ],
+   "parens": 17,
+   "pct_conj_start": 21.9,
+   "pct_contrast": 7.5,
+   "pct_first_person_author_start": 11.0,
+   "pct_generic_first_person": 21.9,
+   "pct_geot_gatda": 1.4,
+   "pct_geot_ipnida": 11.0,
+   "pct_haera": 0.0,
+   "pct_haeyo": 12.3,
+   "pct_hapsyo": 84.2,
+   "pct_jyo": 2.7,
+   "pct_list_or_go_comma": 84.8,
+   "pct_long_gt70": 37.0,
+   "pct_mid_36_70": 41.8,
+   "pct_numeric_sent": 11.6,
+   "pct_other_ending": 0.7,
+   "pct_para_1": 5.1,
+   "pct_para_3_4": 46.2,
+   "pct_para_with_paren": 38.5,
+   "pct_past": 17.1,
+   "pct_question": 1.4,
+   "pct_saenggak": 5.5,
+   "pct_sent_2plus_comma": 11.0,
+   "pct_sent_no_comma": 61.0,
+   "pct_short_le35": 21.2,
+   "pct_tonghae": 4.8,
+   "pct_xlong_gt100": 9.6,
+   "post_chars": 9080,
+   "pubDate": "2022-03-10",
+   "sensory": {},
+   "sent_per_para_mean": 3.74,
+   "sent_per_para_median": 4,
+   "slashes": 7,
+   "spelling_variants": {
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "런칭/론칭": {
+     "a": "런칭",
+     "a_count": 3,
+     "b": "론칭",
+     "b_count": 0,
+     "preferred": "런칭"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 10,
+     "preferred": "비즈니스"
+    },
+    "셋팅/세팅": {
+     "a": "셋팅",
+     "a_count": 1,
+     "b": "세팅",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 33,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 3,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "타겟"
+    },
+    "트랜드/트렌드": {
+     "a": "트랜드",
+     "a_count": 0,
+     "b": "트렌드",
+     "b_count": 3,
+     "preferred": "트렌드"
+    }
+   },
+   "title": "직무 강의로 한 달에 1천만원을 번 비결",
+   "tonghae": 7,
+   "transitions_pct": {
+    "LL": 11.2,
+    "LM": 23.4,
+    "LS": 2.8,
+    "ML": 19.6,
+    "MM": 24.3,
+    "MS": 5.6,
+    "SL": 5.6,
+    "SM": 4.7,
+    "SS": 2.8
+   },
+   "words_mean": 14.8,
+   "ye_reul_deureo": 1,
+   "yeoreobun_dangsin": 1
+  },
+  "landingpage-for-startup": {
+   "after_long_n": 4,
+   "after_long_next_mean": 45.8,
+   "after_long_pct_le40": 0.0,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 6365,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "이 글이 도움이 되셨으면 좋겠네요!",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 37.2,
+    "-나,": 2.3,
+    "-면,": 9.3,
+    "-지만,": 2.3,
+    "명사 나열": 46.5,
+    "접속부사 뒤": 2.3
+   },
+   "commas_per_para": 1.18,
+   "commas_per_sent": 0.36,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 1,
+   "conj_top": {
+    "그래서": 1,
+    "그런데": 1,
+    "그렇기 때문에": 3,
+    "그리고": 2,
+    "다만": 1,
+    "따라서": 5,
+    "또한": 1,
+    "실제로": 2,
+    "우선": 1,
+    "특히": 1
+   },
+   "conj_total": {
+    "그래서": 1,
+    "그런데": 1,
+    "그렇기 때문에": 3,
+    "그리고": 3,
+    "다만": 1,
+    "따라서": 6,
+    "또한": 1,
+    "실제로": 2,
+    "오히려": 1,
+    "우선": 1,
+    "특히": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 2,
+   "contrast_constructions": 1,
+   "emoticons": 0,
+   "ending_detail": {
+    "기타:": 1,
+    "죠:죠": 3,
+    "합쇼체:것입니다": 9,
+    "합쇼체:겠습니다": 1,
+    "합쇼체:니다": 6,
+    "합쇼체:됩니다": 3,
+    "합쇼체:습니다": 18,
+    "합쇼체:았습니다": 3,
+    "합쇼체:없습니다": 3,
+    "합쇼체:었습니다": 6,
+    "합쇼체:였습니다": 1,
+    "합쇼체:입니다": 15,
+    "합쇼체:있습니다": 16,
+    "합쇼체:합니다": 30,
+    "해요체:까요": 1,
+    "해요체:네요": 1,
+    "해요체:데요": 2,
+    "해요체:세요": 4,
+    "해요체:아요": 1,
+    "해요체:예요": 1,
+    "해요체:요": 1
+   },
+   "eng_gloss": 0,
+   "exclaim": 1,
+   "has_lesson_section": true,
+   "heading_forms": {
+    "da": 11,
+    "da_pct": 64.7,
+    "imperative": 2,
+    "imperative_pct": 11.8,
+    "noun": 3,
+    "noun_pct": 17.6,
+    "numbered": 11,
+    "numbered_pct": 64.7,
+    "question": 1,
+    "question_pct": 5.9,
+    "total": 17
+   },
+   "intensifiers": {
+    "굉장히": 1,
+    "꽤": 1,
+    "아주": 1,
+    "정말": 3
+   },
+   "len_bins_pct": {
+    "0~20": 7.1,
+    "101~": 4.0,
+    "21~35": 19.0,
+    "36~50": 30.2,
+    "51~70": 27.8,
+    "71~100": 11.9
+   },
+   "len_max": 116,
+   "len_mean": 50.5,
+   "len_median": 48.0,
+   "len_sd": 23.0,
+   "lexicon": {
+    "가설": 1,
+    "같은": 3,
+    "검증": 9,
+    "경험": 4,
+    "고객": 43,
+    "노코드": 1,
+    "니치": 3,
+    "다양한": 1,
+    "뚝딱": 1,
+    "빠르게": 3,
+    "생각합니다": 4,
+    "쉽게": 3,
+    "실행": 2,
+    "오디언스": 1,
+    "저렴": 1,
+    "정도": 3,
+    "처럼": 2,
+    "커뮤니티": 9,
+    "피드백": 1
+   },
+   "mixed_first_person": 2,
+   "n_headings": 17,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 38,
+   "n_sentences": 126,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "랜딩페이지는 내 제품을 설명하고, 잠재 고객의 전환을 유도하는 (주로) 원페이지 웹사이트입니다.",
+   "opening_type": "정의",
+   "para_first_len": 53.1,
+   "para_last_len": 50.0,
+   "para_patterns_top": {
+    "LMM": 2,
+    "MLM": 2,
+    "MMLM": 2,
+    "MMM": 4,
+    "MMMM": 2,
+    "MMSM": 2,
+    "MSM": 1,
+    "SML": 1
+   },
+   "para_rhythms": [
+    [
+     53,
+     52
+    ],
+    [
+     103
+    ],
+    [
+     55,
+     31,
+     70,
+     48
+    ],
+    [
+     42,
+     23,
+     39
+    ],
+    [
+     32,
+     66,
+     54
+    ],
+    [
+     49,
+     63,
+     30,
+     53
+    ],
+    [
+     37,
+     56,
+     44
+    ],
+    [
+     43,
+     86,
+     54
+    ],
+    [
+     27,
+     59,
+     79
+    ],
+    [
+     82,
+     103,
+     42
+    ],
+    [
+     116,
+     49,
+     48
+    ],
+    [
+     69,
+     62,
+     55,
+     17,
+     12
+    ],
+    [
+     22,
+     46,
+     53
+    ],
+    [
+     51,
+     65,
+     27,
+     59
+    ],
+    [
+     58,
+     29,
+     6,
+     42,
+     48
+    ],
+    [
+     63,
+     105
+    ],
+    [
+     62,
+     42,
+     62
+    ],
+    [
+     98
+    ],
+    [
+     36,
+     77,
+     65
+    ],
+    [
+     87
+    ],
+    [
+     27,
+     26,
+     62,
+     43,
+     21
+    ],
+    [
+     38,
+     100
+    ],
+    [
+     32,
+     53,
+     53,
+     35
+    ],
+    [
+     53,
+     65,
+     43,
+     34,
+     15
+    ],
+    [
+     30,
+     39,
+     33,
+     28
+    ],
+    [
+     23,
+     36,
+     27
+    ],
+    [
+     39,
+     49,
+     38,
+     96
+    ],
+    [
+     19,
+     23,
+     38,
+     73
+    ],
+    [
+     97,
+     43,
+     14
+    ],
+    [
+     77,
+     37,
+     67
+    ],
+    [
+     41,
+     60,
+     77,
+     49
+    ],
+    [
+     50,
+     46,
+     32,
+     69,
+     34
+    ],
+    [
+     70,
+     17,
+     38,
+     35
+    ],
+    [
+     61,
+     49,
+     86,
+     89
+    ],
+    [
+     47,
+     37,
+     67
+    ],
+    [
+     22,
+     75,
+     14
+    ],
+    [
+     57,
+     37,
+     110,
+     49
+    ],
+    [
+     48,
+     48,
+     19
+    ]
+   ],
+   "parens": 9,
+   "pct_conj_start": 14.3,
+   "pct_contrast": 0.8,
+   "pct_first_person_author_start": 6.3,
+   "pct_generic_first_person": 19.0,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 7.1,
+   "pct_haera": 0.0,
+   "pct_haeyo": 8.7,
+   "pct_hapsyo": 88.1,
+   "pct_jyo": 2.4,
+   "pct_list_or_go_comma": 83.7,
+   "pct_long_gt70": 15.9,
+   "pct_mid_36_70": 57.9,
+   "pct_numeric_sent": 4.0,
+   "pct_other_ending": 0.8,
+   "pct_para_1": 7.9,
+   "pct_para_3_4": 71.1,
+   "pct_para_with_paren": 21.1,
+   "pct_past": 10.3,
+   "pct_question": 0.0,
+   "pct_saenggak": 3.2,
+   "pct_sent_2plus_comma": 4.8,
+   "pct_sent_no_comma": 70.6,
+   "pct_short_le35": 26.2,
+   "pct_tonghae": 2.4,
+   "pct_xlong_gt100": 4.0,
+   "post_chars": 6453,
+   "pubDate": "2021-12-21",
+   "sensory": {},
+   "sent_per_para_mean": 3.32,
+   "sent_per_para_median": 3.0,
+   "slashes": 3,
+   "spelling_variants": {
+    "메세지/메시지": {
+     "a": "메세지",
+     "a_count": 0,
+     "b": "메시지",
+     "b_count": 3,
+     "preferred": "메시지"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 7,
+     "preferred": "비즈니스"
+    },
+    "어플/앱": {
+     "a": "어플",
+     "a_count": 0,
+     "b": "앱",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 1,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 23,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "타겟"
+    }
+   },
+   "title": "랜딩페이지로 비즈니스 아이디어 검증하기",
+   "tonghae": 3,
+   "transitions_pct": {
+    "LL": 2.3,
+    "LM": 9.1,
+    "LS": 1.1,
+    "ML": 11.4,
+    "MM": 44.3,
+    "MS": 13.6,
+    "SL": 1.1,
+    "SM": 12.5,
+    "SS": 4.5
+   },
+   "words_mean": 11.8,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  },
+  "lesson-learned-from-chatgpt": {
+   "after_long_n": 8,
+   "after_long_next_mean": 51.4,
+   "after_long_pct_le40": 50.0,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 6263,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "관심 있는 분들의 수강 신청을 기다리겠습니다🙇🏻‍♂️",
+   "comma_after_subject": 1,
+   "comma_position_pct": {
+    "-고,": 17.5,
+    "-나,": 6.3,
+    "-데,": 3.2,
+    "-도,": 4.8,
+    "-며,": 4.8,
+    "-면,": 3.2,
+    "-서,": 4.8,
+    "-지만,": 4.8,
+    "명사 나열": 46.0,
+    "접속부사 뒤": 3.2,
+    "주어/주제어 뒤": 1.6
+   },
+   "commas_per_para": 2.13,
+   "commas_per_sent": 0.63,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 0,
+   "conj_top": {
+    "그래서": 1,
+    "그러나": 1,
+    "그리고": 1,
+    "다만": 1,
+    "더해서": 1,
+    "따라서": 1,
+    "또한": 1,
+    "물론": 1,
+    "실제로": 1,
+    "오히려": 1
+   },
+   "conj_total": {
+    "그래서": 2,
+    "그러나": 1,
+    "그리고": 1,
+    "다만": 1,
+    "대신": 1,
+    "더해서": 1,
+    "따라서": 1,
+    "또한": 1,
+    "물론": 2,
+    "사실": 1,
+    "실제로": 1,
+    "예를 들어": 1,
+    "오히려": 2
+   },
+   "consecutive_haeyo": 2,
+   "contrast_constructions": 7,
+   "emoticons": 3,
+   "ending_detail": {
+    "기타:": 1,
+    "죠:죠": 1,
+    "합쇼체:겁니다": 3,
+    "합쇼체:것입니다": 1,
+    "합쇼체:겠습니다": 9,
+    "합쇼체:니다": 5,
+    "합쇼체:됩니다": 4,
+    "합쇼체:습니다": 12,
+    "합쇼체:았습니다": 3,
+    "합쇼체:었습니다": 5,
+    "합쇼체:입니다": 11,
+    "합쇼체:있습니다": 18,
+    "합쇼체:합니다": 14,
+    "해요체:까요": 1,
+    "해요체:는데요": 5,
+    "해요체:더군요": 1,
+    "해요체:데요": 2,
+    "해요체:어요": 2,
+    "해요체:요": 4
+   },
+   "eng_gloss": 1,
+   "exclaim": 2,
+   "has_lesson_section": true,
+   "heading_forms": {
+    "da": 3,
+    "da_pct": 30.0,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 7,
+    "noun_pct": 70.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 10
+   },
+   "intensifiers": {
+    "굉장히": 1,
+    "꽤": 1,
+    "너무": 3,
+    "아주": 2,
+    "정말": 1
+   },
+   "len_bins_pct": {
+    "0~20": 8.8,
+    "101~": 10.8,
+    "21~35": 11.8,
+    "36~50": 18.6,
+    "51~70": 27.5,
+    "71~100": 22.5
+   },
+   "len_max": 189,
+   "len_mean": 61.4,
+   "len_median": 56.0,
+   "len_sd": 31.9,
+   "lexicon": {
+    "같은": 7,
+    "것 같습니다": 3,
+    "경험": 6,
+    "고객": 2,
+    "노코드": 14,
+    "니치": 1,
+    "다양한": 1,
+    "당장": 1,
+    "떡상": 1,
+    "뚝딱": 1,
+    "빠르게": 1,
+    "생각합니다": 6,
+    "수익": 4,
+    "쉽게": 3,
+    "식으로": 3,
+    "실행": 7,
+    "자동화": 5,
+    "전문성": 3,
+    "정도": 4,
+    "커뮤니티": 2,
+    "피드백": 2
+   },
+   "mixed_first_person": 2,
+   "n_headings": 10,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 30,
+   "n_sentences": 102,
+   "n_tables": 0,
+   "nonpreferred_spelling": {
+    "왠만": 1
+   },
+   "opening_sentence": "ChatGPT, Dalle2, Midjourney 등 인공지능과의 대화를 통해 글과 이미지를 생성해주는 놀라운 인공지능 서비스가 갑자기 우리 삶에 찾아왔습니다.",
+   "opening_type": "배경/기타",
+   "para_first_len": 69.1,
+   "para_last_len": 63.3,
+   "para_patterns_top": {
+    "LLL": 1,
+    "LMM": 2,
+    "LMSM": 1,
+    "LSL": 1,
+    "MLL": 1,
+    "MML": 1,
+    "MMMS": 2,
+    "MSL": 1
+   },
+   "para_rhythms": [
+    [
+     89,
+     71,
+     74
+    ],
+    [
+     53,
+     100,
+     80
+    ],
+    [
+     51,
+     32,
+     156
+    ],
+    [
+     74,
+     56,
+     20,
+     62
+    ],
+    [
+     54,
+     26,
+     114
+    ],
+    [
+     139,
+     85
+    ],
+    [
+     68,
+     69,
+     41,
+     22
+    ],
+    [
+     74,
+     13,
+     93
+    ],
+    [
+     74,
+     70,
+     49
+    ],
+    [
+     49,
+     90,
+     39,
+     56,
+     62
+    ],
+    [
+     44,
+     58,
+     37
+    ],
+    [
+     39,
+     80,
+     12,
+     50,
+     83,
+     75,
+     72
+    ],
+    [
+     61,
+     102,
+     37,
+     30
+    ],
+    [
+     68,
+     50,
+     64,
+     52,
+     32,
+     52
+    ],
+    [
+     88,
+     52,
+     66,
+     67
+    ],
+    [
+     34,
+     91
+    ],
+    [
+     126
+    ],
+    [
+     49,
+     53,
+     70,
+     20
+    ],
+    [
+     56,
+     106
+    ],
+    [
+     189
+    ],
+    [
+     75,
+     112,
+     40,
+     10
+    ],
+    [
+     18,
+     99
+    ],
+    [
+     72,
+     31,
+     86,
+     113,
+     48
+    ],
+    [
+     25,
+     85,
+     18,
+     35,
+     45
+    ],
+    [
+     60,
+     31,
+     14
+    ],
+    [
+     125,
+     44
+    ],
+    [
+     42,
+     60,
+     55,
+     11,
+     26,
+     41,
+     62
+    ],
+    [
+     101,
+     38,
+     54
+    ],
+    [
+     47,
+     81,
+     60
+    ],
+    [
+     29
+    ]
+   ],
+   "parens": 11,
+   "pct_conj_start": 9.8,
+   "pct_contrast": 6.9,
+   "pct_first_person_author_start": 4.9,
+   "pct_generic_first_person": 4.9,
+   "pct_geot_gatda": 2.9,
+   "pct_geot_ipnida": 3.9,
+   "pct_haera": 0.0,
+   "pct_haeyo": 14.7,
+   "pct_hapsyo": 83.3,
+   "pct_jyo": 1.0,
+   "pct_list_or_go_comma": 63.5,
+   "pct_long_gt70": 33.3,
+   "pct_mid_36_70": 46.1,
+   "pct_numeric_sent": 22.5,
+   "pct_other_ending": 1.0,
+   "pct_para_1": 10.0,
+   "pct_para_3_4": 53.3,
+   "pct_para_with_paren": 36.7,
+   "pct_past": 13.7,
+   "pct_question": 1.0,
+   "pct_saenggak": 5.9,
+   "pct_sent_2plus_comma": 11.8,
+   "pct_sent_no_comma": 56.9,
+   "pct_short_le35": 20.6,
+   "pct_tonghae": 2.9,
+   "pct_xlong_gt100": 10.8,
+   "post_chars": 6335,
+   "pubDate": "2023-01-31",
+   "sensory": {},
+   "sent_per_para_mean": 3.4,
+   "sent_per_para_median": 3.0,
+   "slashes": 5,
+   "spelling_variants": {
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 2,
+     "preferred": "데이터"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 6,
+     "preferred": "비즈니스"
+    },
+    "셋팅/세팅": {
+     "a": "셋팅",
+     "a_count": 5,
+     "b": "세팅",
+     "b_count": 0,
+     "preferred": "셋팅"
+    },
+    "썸네일/섬네일": {
+     "a": "썸네일",
+     "a_count": 1,
+     "b": "섬네일",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "알고리듬/알고리즘": {
+     "a": "알고리듬",
+     "a_count": 0,
+     "b": "알고리즘",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "왠만/웬만": {
+     "a": "왠만",
+     "a_count": 1,
+     "b": "웬만",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 3,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    }
+   },
+   "title": "AI와 노코드로 자동 블로그를 만들어보고 느낀 점",
+   "tonghae": 3,
+   "transitions_pct": {
+    "LL": 11.1,
+    "LM": 15.3,
+    "LS": 4.2,
+    "ML": 13.9,
+    "MM": 31.9,
+    "MS": 11.1,
+    "SL": 5.6,
+    "SM": 5.6,
+    "SS": 1.4
+   },
+   "words_mean": 14.1,
+   "ye_reul_deureo": 1,
+   "yeoreobun_dangsin": 0
+  },
+  "nocode-bizdev": {
+   "after_long_n": 9,
+   "after_long_next_mean": 56.1,
+   "after_long_pct_le40": 55.6,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 6739,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "여기에 들어오셔서 함께 배워요!",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 39.7,
+    "-나,": 1.5,
+    "-니,": 2.9,
+    "-데,": 1.5,
+    "-며,": 4.4,
+    "-면,": 5.9,
+    "-서,": 1.5,
+    "-지만,": 5.9,
+    "명사 나열": 35.3,
+    "접속부사 뒤": 1.5
+   },
+   "commas_per_para": 2.27,
+   "commas_per_sent": 0.58,
+   "conj_comma_bad": 1,
+   "conj_consecutive": 3,
+   "conj_top": {
+    "결국": 1,
+    "그래서": 2,
+    "그렇기 때문에": 1,
+    "그리고": 4,
+    "다만": 1,
+    "또한": 2,
+    "반면": 1,
+    "실제로": 1,
+    "예를 들어": 1,
+    "하지만": 3
+   },
+   "conj_total": {
+    "결국": 2,
+    "그래서": 2,
+    "그럼에도": 1,
+    "그렇기 때문에": 1,
+    "그리고": 4,
+    "다만": 1,
+    "또한": 2,
+    "먼저": 1,
+    "반면": 1,
+    "실제로": 4,
+    "예를 들어": 1,
+    "특히": 1,
+    "하지만": 3
+   },
+   "consecutive_haeyo": 0,
+   "contrast_constructions": 3,
+   "emoticons": 0,
+   "ending_detail": {
+    "기타:": 1,
+    "합쇼체:것입니다": 4,
+    "합쇼체:겠습니다": 3,
+    "합쇼체:니다": 6,
+    "합쇼체:됩니다": 3,
+    "합쇼체:습니다": 35,
+    "합쇼체:았습니다": 4,
+    "합쇼체:었습니다": 19,
+    "합쇼체:였습니다": 1,
+    "합쇼체:입니다": 12,
+    "합쇼체:있습니다": 18,
+    "합쇼체:합니다": 10,
+    "해요체:요": 2
+   },
+   "eng_gloss": 4,
+   "exclaim": 1,
+   "has_lesson_section": true,
+   "heading_forms": {
+    "da": 7,
+    "da_pct": 58.3,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 3,
+    "noun_pct": 25.0,
+    "numbered": 6,
+    "numbered_pct": 50.0,
+    "question": 2,
+    "question_pct": 16.7,
+    "total": 12
+   },
+   "intensifiers": {
+    "굉장히": 3,
+    "매우": 1,
+    "엄청": 1
+   },
+   "len_bins_pct": {
+    "0~20": 5.1,
+    "101~": 7.6,
+    "21~35": 15.3,
+    "36~50": 28.0,
+    "51~70": 28.0,
+    "71~100": 16.1
+   },
+   "len_max": 166,
+   "len_mean": 57.1,
+   "len_median": 51.5,
+   "len_sd": 27.9,
+   "lexicon": {
+    "가설": 18,
+    "같은": 5,
+    "검증": 16,
+    "고객": 6,
+    "노코드": 25,
+    "뚝딱": 1,
+    "레버리지": 2,
+    "빠르게": 9,
+    "생각합니다": 3,
+    "쉽게": 2,
+    "시행착오": 2,
+    "식으로": 2,
+    "실행": 3,
+    "일단": 1,
+    "자동화": 6,
+    "저렴": 1,
+    "정도": 8,
+    "커뮤니티": 5,
+    "쿨럭": 1
+   },
+   "mixed_first_person": 0,
+   "n_headings": 12,
+   "n_labels_excluded": 0,
+   "n_list_items": 3,
+   "n_paragraphs": 30,
+   "n_sentences": 118,
+   "n_tables": 0,
+   "nonpreferred_spelling": {
+    "론칭": 2
+   },
+   "opening_sentence": "저는 스타트업에서 사업 개발 업무를 6년째 하고 있습니다.",
+   "opening_type": "이력/인사",
+   "para_first_len": 60.1,
+   "para_last_len": 61.0,
+   "para_patterns_top": {
+    "LLM": 2,
+    "MMLS": 1,
+    "MMM": 1,
+    "MMMM": 2,
+    "MMMMLMS": 1,
+    "MMMMS": 1,
+    "MSM": 1,
+    "SMMLML": 1
+   },
+   "para_rhythms": [
+    [
+     32,
+     57,
+     52
+    ],
+    [
+     33,
+     62,
+     59,
+     51,
+     71,
+     39,
+     30
+    ],
+    [
+     40,
+     24,
+     60
+    ],
+    [
+     61,
+     69,
+     103,
+     27
+    ],
+    [
+     97,
+     147,
+     68
+    ],
+    [
+     61,
+     36,
+     70,
+     70
+    ],
+    [
+     77,
+     87
+    ],
+    [
+     45,
+     52,
+     47,
+     50
+    ],
+    [
+     72,
+     121,
+     47
+    ],
+    [
+     56,
+     52,
+     40,
+     69,
+     27
+    ],
+    [
+     28,
+     44,
+     55,
+     78,
+     38,
+     89
+    ],
+    [
+     48,
+     17,
+     49,
+     72
+    ],
+    [
+     82,
+     54,
+     98
+    ],
+    [
+     117,
+     73
+    ],
+    [
+     41,
+     46,
+     48,
+     29,
+     28,
+     6
+    ],
+    [
+     44,
+     71,
+     50,
+     64
+    ],
+    [
+     109,
+     40
+    ],
+    [
+     48,
+     129,
+     38,
+     129
+    ],
+    [
+     68,
+     104,
+     28,
+     34,
+     35
+    ],
+    [
+     37,
+     35,
+     82,
+     57,
+     64
+    ],
+    [
+     67,
+     66,
+     29,
+     40,
+     25
+    ],
+    [
+     52,
+     16,
+     48,
+     30,
+     43,
+     42
+    ],
+    [
+     66,
+     75
+    ],
+    [
+     93,
+     37,
+     54,
+     46
+    ],
+    [
+     87,
+     32,
+     56
+    ],
+    [
+     66,
+     45,
+     51,
+     37,
+     42,
+     38,
+     166
+    ],
+    [
+     23,
+     49,
+     14,
+     59,
+     66
+    ],
+    [
+     88,
+     87,
+     68,
+     87
+    ],
+    [
+     20
+    ],
+    [
+     45,
+     17
+    ]
+   ],
+   "parens": 18,
+   "pct_conj_start": 14.4,
+   "pct_contrast": 2.5,
+   "pct_first_person_author_start": 8.5,
+   "pct_generic_first_person": 2.5,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 3.4,
+   "pct_haera": 0.0,
+   "pct_haeyo": 1.7,
+   "pct_hapsyo": 97.5,
+   "pct_jyo": 0.0,
+   "pct_list_or_go_comma": 75.0,
+   "pct_long_gt70": 23.7,
+   "pct_mid_36_70": 55.9,
+   "pct_numeric_sent": 14.4,
+   "pct_other_ending": 0.8,
+   "pct_para_1": 3.3,
+   "pct_para_3_4": 46.7,
+   "pct_para_with_paren": 40.0,
+   "pct_past": 35.6,
+   "pct_question": 0.8,
+   "pct_saenggak": 2.5,
+   "pct_sent_2plus_comma": 13.6,
+   "pct_sent_no_comma": 58.5,
+   "pct_short_le35": 20.3,
+   "pct_tonghae": 0.8,
+   "pct_xlong_gt100": 7.6,
+   "post_chars": 6827,
+   "pubDate": "2020-08-10",
+   "sensory": {},
+   "sent_per_para_mean": 3.93,
+   "sent_per_para_median": 4.0,
+   "slashes": 4,
+   "spelling_variants": {
+    "런칭/론칭": {
+     "a": "런칭",
+     "a_count": 0,
+     "b": "론칭",
+     "b_count": 2,
+     "preferred": "론칭"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 2,
+     "preferred": "비즈니스"
+    },
+    "어플/앱": {
+     "a": "어플",
+     "a_count": 0,
+     "b": "앱",
+     "b_count": 5,
+     "preferred": "앱"
+    },
+    "왠만/웬만": {
+     "a": "왠만",
+     "a_count": 0,
+     "b": "웬만",
+     "b_count": 2,
+     "preferred": "웬만"
+    }
+   },
+   "title": "노코드로 사업 검증하기",
+   "tonghae": 1,
+   "transitions_pct": {
+    "LL": 5.7,
+    "LM": 13.6,
+    "LS": 2.3,
+    "ML": 15.9,
+    "MM": 37.5,
+    "MS": 12.5,
+    "SM": 10.2,
+    "SS": 2.3
+   },
+   "words_mean": 13.5,
+   "ye_reul_deureo": 1,
+   "yeoreobun_dangsin": 0
+  },
+  "nocode-course-direction": {
+   "after_long_n": 7,
+   "after_long_next_mean": 52.7,
+   "after_long_pct_le40": 28.6,
+   "ai_bullet_bold": 0,
+   "banned": {
+    "더불어": 1,
+    "함으로써": 1
+   },
+   "chars": 4946,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "지금의 고민과 생각이 물론 틀릴 수도 있지만, 이렇게 생각할 수 있게 만들어주셔서 감사합니다.",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 36.0,
+    "-나,": 4.0,
+    "-데,": 6.0,
+    "-도,": 4.0,
+    "-며,": 6.0,
+    "-서,": 8.0,
+    "-지만,": 6.0,
+    "명사 나열": 22.0,
+    "접속부사 뒤": 8.0
+   },
+   "commas_per_para": 1.73,
+   "commas_per_sent": 0.62,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 5,
+   "conj_top": {
+    "그래서": 6,
+    "그러나": 4,
+    "그러면": 1,
+    "그리고": 4,
+    "다만": 3,
+    "더불어": 1,
+    "더해서": 3,
+    "따라서": 1,
+    "또한": 3,
+    "사실": 2,
+    "오히려": 1
+   },
+   "conj_total": {
+    "결국": 1,
+    "그래서": 6,
+    "그러나": 4,
+    "그러면": 1,
+    "그리고": 4,
+    "다만": 3,
+    "더불어": 1,
+    "더해서": 3,
+    "따라서": 1,
+    "또한": 3,
+    "물론": 3,
+    "사실": 2,
+    "실제로": 1,
+    "오히려": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 0,
+   "contrast_constructions": 5,
+   "emoticons": 2,
+   "ending_detail": {
+    "기타:": 4,
+    "합쇼체:것입니다": 1,
+    "합쇼체:니다": 4,
+    "합쇼체:됩니다": 1,
+    "합쇼체:습니다": 24,
+    "합쇼체:었습니다": 16,
+    "합쇼체:였습니다": 2,
+    "합쇼체:입니다": 9,
+    "합쇼체:있습니다": 6,
+    "합쇼체:합니다": 8,
+    "해요체:거든요": 1,
+    "해요체:고요": 1,
+    "해요체:네요": 2,
+    "해요체:는데요": 1,
+    "해요체:세요": 3,
+    "해요체:어요": 1
+   },
+   "eng_gloss": 1,
+   "exclaim": 0,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 0,
+    "da_pct": 0.0,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 7,
+    "noun_pct": 100.0,
+    "numbered": 1,
+    "numbered_pct": 14.3,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 7
+   },
+   "intensifiers": {
+    "꽤": 1,
+    "너무": 2,
+    "정말": 1
+   },
+   "len_bins_pct": {
+    "0~20": 6.0,
+    "101~": 7.1,
+    "21~35": 16.7,
+    "36~50": 14.3,
+    "51~70": 35.7,
+    "71~100": 20.2
+   },
+   "len_max": 143,
+   "len_mean": 58.9,
+   "len_median": 55.0,
+   "len_sd": 26.9,
+   "lexicon": {
+    "같은": 2,
+    "검증": 1,
+    "경험": 1,
+    "고객": 7,
+    "노코드": 27,
+    "니치": 3,
+    "다양한": 3,
+    "당장": 1,
+    "메이커": 1,
+    "빠르게": 2,
+    "생각합니다": 2,
+    "수익": 1,
+    "쉽게": 3,
+    "시행착오": 1,
+    "일잘러": 2,
+    "자동화": 20,
+    "저렴": 1,
+    "전문성": 2,
+    "정도": 2,
+    "짜치": 1,
+    "처럼": 3,
+    "피드백": 2
+   },
+   "mixed_first_person": 0,
+   "n_headings": 7,
+   "n_labels_excluded": 4,
+   "n_list_items": 3,
+   "n_paragraphs": 30,
+   "n_sentences": 84,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "일잘러 장피엠이 2022년부터 2024년까지 노코드 강의를 진행하며 배우고 생각했던 점을 나누고자 합니다.",
+   "opening_type": "배경/기타",
+   "para_first_len": 55.8,
+   "para_last_len": 57.8,
+   "para_patterns_top": {
+    "LMMM": 1,
+    "LSLM": 1,
+    "MLL": 2,
+    "MLM": 2,
+    "MLMM": 1,
+    "MLMS": 1,
+    "MMM": 2,
+    "MMMMM": 1
+   },
+   "para_rhythms": [
+    [
+     59,
+     43
+    ],
+    [
+     6,
+     15
+    ],
+    [
+     34,
+     58
+    ],
+    [
+     105
+    ],
+    [
+     72,
+     63
+    ],
+    [
+     34,
+     61,
+     33
+    ],
+    [
+     32,
+     73,
+     41,
+     48
+    ],
+    [
+     53,
+     114
+    ],
+    [
+     46,
+     48,
+     70
+    ],
+    [
+     108
+    ],
+    [
+     58,
+     98,
+     51
+    ],
+    [
+     80,
+     51,
+     57,
+     63
+    ],
+    [
+     46,
+     49,
+     62,
+     34,
+     58
+    ],
+    [
+     109,
+     29,
+     79,
+     53
+    ],
+    [
+     46,
+     91,
+     50,
+     23
+    ],
+    [
+     89,
+     48,
+     130,
+     79
+    ],
+    [
+     31,
+     82,
+     143
+    ],
+    [
+     58,
+     98,
+     95
+    ],
+    [
+     51,
+     59,
+     31,
+     29,
+     91,
+     46
+    ],
+    [
+     38,
+     52
+    ],
+    [
+     55,
+     86,
+     59
+    ],
+    [
+     51,
+     68
+    ],
+    [
+     52,
+     59,
+     76,
+     94,
+     19
+    ],
+    [
+     55,
+     24,
+     55,
+     18
+    ],
+    [
+     32
+    ],
+    [
+     30
+    ],
+    [
+     69
+    ],
+    [
+     64,
+     15,
+     85,
+     22
+    ],
+    [
+     60,
+     93
+    ],
+    [
+     52
+    ]
+   ],
+   "parens": 8,
+   "pct_conj_start": 34.5,
+   "pct_contrast": 6.0,
+   "pct_first_person_author_start": 4.8,
+   "pct_generic_first_person": 2.4,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 1.2,
+   "pct_haera": 0.0,
+   "pct_haeyo": 10.7,
+   "pct_hapsyo": 84.5,
+   "pct_jyo": 0.0,
+   "pct_list_or_go_comma": 58.0,
+   "pct_long_gt70": 27.4,
+   "pct_mid_36_70": 50.0,
+   "pct_numeric_sent": 23.8,
+   "pct_other_ending": 4.8,
+   "pct_para_1": 20.0,
+   "pct_para_3_4": 43.3,
+   "pct_para_with_paren": 26.7,
+   "pct_past": 33.3,
+   "pct_question": 0.0,
+   "pct_saenggak": 2.4,
+   "pct_sent_2plus_comma": 13.1,
+   "pct_sent_no_comma": 54.8,
+   "pct_short_le35": 22.6,
+   "pct_tonghae": 4.8,
+   "pct_xlong_gt100": 7.1,
+   "post_chars": 5060,
+   "pubDate": "2024-09-30",
+   "sensory": {},
+   "sent_per_para_mean": 2.8,
+   "sent_per_para_median": 3.0,
+   "slashes": 4,
+   "spelling_variants": {
+    "런칭/론칭": {
+     "a": "런칭",
+     "a_count": 5,
+     "b": "론칭",
+     "b_count": 0,
+     "preferred": "런칭"
+    },
+    "셋팅/세팅": {
+     "a": "셋팅",
+     "a_count": 1,
+     "b": "세팅",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "왠만/웬만": {
+     "a": "왠만",
+     "a_count": 0,
+     "b": "웬만",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 18,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 1,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "노코드 강의의 앞으로의 지향점",
+   "tonghae": 4,
+   "transitions_pct": {
+    "LL": 7.4,
+    "LM": 16.7,
+    "LS": 5.6,
+    "ML": 18.5,
+    "MM": 33.3,
+    "MS": 9.3,
+    "SL": 5.6,
+    "SM": 1.9,
+    "SS": 1.9
+   },
+   "words_mean": 13.7,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  },
+  "nocode-era": {
+   "after_long_n": 3,
+   "after_long_next_mean": 33.3,
+   "after_long_pct_le40": 100.0,
+   "ai_bullet_bold": 0,
+   "banned": {
+    "살펴보겠습니다": 1
+   },
+   "chars": 5585,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "여기에 들어오셔서 함께 배워요!",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 43.8,
+    "-나,": 8.3,
+    "-데,": 2.1,
+    "-며,": 4.2,
+    "-지만,": 2.1,
+    "기타": 2.1,
+    "명사 나열": 33.3,
+    "접속부사 뒤": 4.2
+   },
+   "commas_per_para": 1.7,
+   "commas_per_sent": 0.42,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 1,
+   "conj_top": {
+    "그래서": 2,
+    "그러나": 1,
+    "그런데": 1,
+    "대신": 1,
+    "더해서": 2,
+    "따라서": 1,
+    "반면에": 1,
+    "사실": 1,
+    "왜냐하면": 1,
+    "우선": 1,
+    "즉": 1,
+    "하지만": 1
+   },
+   "conj_total": {
+    "결국": 1,
+    "그래서": 3,
+    "그러나": 1,
+    "그러면": 1,
+    "그런데": 1,
+    "대신": 3,
+    "더해서": 2,
+    "따라서": 1,
+    "먼저": 3,
+    "반면에": 1,
+    "사실": 2,
+    "왜냐하면": 1,
+    "우선": 1,
+    "즉": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 2,
+   "contrast_constructions": 2,
+   "emoticons": 0,
+   "ending_detail": {
+    "기타:": 2,
+    "죠:죠": 2,
+    "합쇼체:겁니다": 2,
+    "합쇼체:것입니다": 13,
+    "합쇼체:겠습니다": 3,
+    "합쇼체:니다": 6,
+    "합쇼체:됩니다": 2,
+    "합쇼체:습니다": 12,
+    "합쇼체:았습니다": 1,
+    "합쇼체:었습니다": 9,
+    "합쇼체:입니다": 21,
+    "합쇼체:있습니다": 20,
+    "합쇼체:합니다": 12,
+    "해요체:게요": 1,
+    "해요체:고요": 1,
+    "해요체:까요": 3,
+    "해요체:는데요": 2,
+    "해요체:세요": 3,
+    "해요체:예요": 1,
+    "해요체:요": 4
+   },
+   "eng_gloss": 5,
+   "exclaim": 2,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 1,
+    "da_pct": 16.7,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 0,
+    "noun_pct": 0.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 5,
+    "question_pct": 83.3,
+    "total": 6
+   },
+   "intensifiers": {
+    "꽤": 1,
+    "매우": 1
+   },
+   "len_bins_pct": {
+    "0~20": 10.0,
+    "101~": 4.2,
+    "21~35": 25.8,
+    "36~50": 25.8,
+    "51~70": 21.7,
+    "71~100": 12.5
+   },
+   "len_max": 120,
+   "len_mean": 46.5,
+   "len_median": 41.0,
+   "len_sd": 23.3,
+   "lexicon": {
+    "같은": 5,
+    "검증": 3,
+    "것 같습니다": 1,
+    "경험": 5,
+    "노코드": 44,
+    "니치": 1,
+    "다양한": 1,
+    "메이커": 7,
+    "부캐": 2,
+    "빠르게": 3,
+    "생각합니다": 9,
+    "수익": 9,
+    "쉽게": 3,
+    "식으로": 2,
+    "오디언스": 1,
+    "일단": 3,
+    "일잘러": 1,
+    "자동화": 2,
+    "저렴": 4,
+    "전문성": 1,
+    "정도": 1,
+    "처럼": 1,
+    "커뮤니티": 8
+   },
+   "mixed_first_person": 1,
+   "n_headings": 6,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 30,
+   "n_sentences": 120,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "이게 뭘까요?",
+   "opening_type": "질문",
+   "para_first_len": 39.4,
+   "para_last_len": 50.5,
+   "para_patterns_top": {
+    "LMSS": 1,
+    "MLM": 2,
+    "MLSMMM": 1,
+    "MMML": 1,
+    "MSMMM": 2,
+    "SMMM": 2,
+    "SMS": 2,
+    "SSMSMSM": 1
+   },
+   "para_rhythms": [
+    [
+     7,
+     25,
+     39,
+     8,
+     32,
+     13,
+     42
+    ],
+    [
+     34,
+     52,
+     68,
+     74
+    ],
+    [
+     34,
+     23,
+     35,
+     53,
+     65
+    ],
+    [
+     31,
+     120,
+     26,
+     34,
+     40,
+     39
+    ],
+    [
+     76,
+     50,
+     29,
+     14
+    ],
+    [
+     41,
+     58,
+     36
+    ],
+    [
+     23,
+     91,
+     34
+    ],
+    [
+     26,
+     81,
+     79
+    ],
+    [
+     41,
+     40,
+     39,
+     69
+    ],
+    [
+     38,
+     40,
+     25,
+     12,
+     101
+    ],
+    [
+     15,
+     57
+    ],
+    [
+     24,
+     79,
+     42,
+     29,
+     85,
+     20,
+     62
+    ],
+    [
+     51,
+     77
+    ],
+    [
+     67,
+     76,
+     64
+    ],
+    [
+     53,
+     76,
+     45,
+     103
+    ],
+    [
+     28,
+     46,
+     45,
+     54
+    ],
+    [
+     80,
+     23,
+     52,
+     63
+    ],
+    [
+     15,
+     57,
+     22
+    ],
+    [
+     38,
+     85,
+     49,
+     59,
+     21
+    ],
+    [
+     41,
+     47,
+     106,
+     40,
+     109
+    ],
+    [
+     81,
+     74,
+     45,
+     32
+    ],
+    [
+     51,
+     36
+    ],
+    [
+     25,
+     54,
+     27
+    ],
+    [
+     20,
+     52,
+     65,
+     48
+    ],
+    [
+     41,
+     68,
+     29
+    ],
+    [
+     37,
+     59,
+     32,
+     23,
+     32,
+     42,
+     37
+    ],
+    [
+     31,
+     23,
+     35,
+     61,
+     61
+    ],
+    [
+     33,
+     73,
+     36
+    ],
+    [
+     55,
+     19,
+     37,
+     7
+    ],
+    [
+     45,
+     17
+    ]
+   ],
+   "parens": 10,
+   "pct_conj_start": 12.5,
+   "pct_contrast": 1.7,
+   "pct_first_person_author_start": 6.7,
+   "pct_generic_first_person": 6.7,
+   "pct_geot_gatda": 0.8,
+   "pct_geot_ipnida": 12.5,
+   "pct_haera": 0.0,
+   "pct_haeyo": 12.5,
+   "pct_hapsyo": 84.2,
+   "pct_jyo": 1.7,
+   "pct_list_or_go_comma": 77.1,
+   "pct_long_gt70": 16.7,
+   "pct_mid_36_70": 47.5,
+   "pct_numeric_sent": 5.8,
+   "pct_other_ending": 1.7,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 56.7,
+   "pct_para_with_paren": 26.7,
+   "pct_past": 10.0,
+   "pct_question": 5.0,
+   "pct_saenggak": 7.5,
+   "pct_sent_2plus_comma": 5.8,
+   "pct_sent_no_comma": 65.0,
+   "pct_short_le35": 35.8,
+   "pct_tonghae": 4.2,
+   "pct_xlong_gt100": 4.2,
+   "post_chars": 5675,
+   "pubDate": "2021-12-15",
+   "sensory": {},
+   "sent_per_para_mean": 4,
+   "sent_per_para_median": 4.0,
+   "slashes": 5,
+   "spelling_variants": {
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 6,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "트랜드/트렌드": {
+     "a": "트랜드",
+     "a_count": 0,
+     "b": "트렌드",
+     "b_count": 2,
+     "preferred": "트렌드"
+    }
+   },
+   "title": "노코드의 시대가 온다",
+   "tonghae": 5,
+   "transitions_pct": {
+    "LL": 2.2,
+    "LM": 10.0,
+    "LS": 3.3,
+    "ML": 11.1,
+    "MM": 31.1,
+    "MS": 16.7,
+    "SL": 5.6,
+    "SM": 16.7,
+    "SS": 3.3
+   },
+   "words_mean": 10.8,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 1
+  },
+  "nocode-for-landing-page": {
+   "after_long_n": 13,
+   "after_long_next_mean": 56.1,
+   "after_long_pct_le40": 30.8,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 10756,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "여러분들의 의견이 있으시다면 댓글로도 남겨주세요!",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 29.8,
+    "-나,": 5.3,
+    "-데,": 1.8,
+    "-도,": 0.9,
+    "-며,": 1.8,
+    "-면,": 1.8,
+    "-서,": 0.9,
+    "-지만,": 5.3,
+    "명사 나열": 52.6
+   },
+   "commas_per_para": 1.8,
+   "commas_per_sent": 0.64,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 4,
+   "conj_top": {
+    "그래서": 5,
+    "그러나": 3,
+    "그렇기 때문에": 2,
+    "그리고": 2,
+    "다만": 3,
+    "따라서": 3,
+    "또한": 20,
+    "반면에": 1,
+    "특히": 1
+   },
+   "conj_total": {
+    "그래서": 6,
+    "그러나": 3,
+    "그렇기 때문에": 2,
+    "그리고": 3,
+    "다만": 3,
+    "따라서": 3,
+    "또한": 20,
+    "반면에": 1,
+    "특히": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 1,
+   "contrast_constructions": 6,
+   "emoticons": 1,
+   "ending_detail": {
+    "기타:": 5,
+    "죠:죠": 1,
+    "합쇼체:것입니다": 1,
+    "합쇼체:겠습니다": 2,
+    "합쇼체:니다": 6,
+    "합쇼체:됩니다": 5,
+    "합쇼체:습니다": 31,
+    "합쇼체:았습니다": 3,
+    "합쇼체:없습니다": 1,
+    "합쇼체:입니다": 49,
+    "합쇼체:있습니다": 29,
+    "합쇼체:합니다": 40,
+    "해라체:다": 1,
+    "해요체:고요": 4,
+    "해요체:까요": 1,
+    "해요체:네요": 1,
+    "해요체:는데요": 2,
+    "해요체:세요": 2
+   },
+   "eng_gloss": 25,
+   "exclaim": 2,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 1,
+    "da_pct": 8.3,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 10,
+    "noun_pct": 83.3,
+    "numbered": 8,
+    "numbered_pct": 66.7,
+    "question": 1,
+    "question_pct": 8.3,
+    "total": 12
+   },
+   "intensifiers": {
+    "꽤": 6,
+    "너무": 1,
+    "매우": 6,
+    "무척": 1,
+    "상당히": 1,
+    "아주": 3,
+    "엄청": 1,
+    "정말": 3
+   },
+   "len_bins_pct": {
+    "0~20": 2.2,
+    "101~": 7.6,
+    "21~35": 16.3,
+    "36~50": 25.5,
+    "51~70": 27.7,
+    "71~100": 20.7
+   },
+   "len_max": 139,
+   "len_mean": 58.5,
+   "len_median": 54.0,
+   "len_sd": 26.6,
+   "lexicon": {
+    "같은": 9,
+    "것 같습니다": 1,
+    "고객": 10,
+    "노코드": 38,
+    "다양한": 18,
+    "메이커": 1,
+    "빠르게": 3,
+    "생각합니다": 9,
+    "쉽게": 12,
+    "시행착오": 1,
+    "식으로": 7,
+    "실행": 1,
+    "일단": 2,
+    "자동화": 3,
+    "저렴": 3,
+    "정도": 2,
+    "처럼": 8,
+    "커뮤니티": 1,
+    "포지셔닝": 1,
+    "피드백": 1
+   },
+   "mixed_first_person": 0,
+   "n_headings": 12,
+   "n_labels_excluded": 12,
+   "n_list_items": 8,
+   "n_paragraphs": 65,
+   "n_sentences": 184,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "랜딩페이지는 주로 1페이지로 된 간단한 웹페이지를 말합니다.",
+   "opening_type": "정의",
+   "para_first_len": 50.3,
+   "para_last_len": 64.7,
+   "para_patterns_top": {
+    "LMS": 1,
+    "MLL": 2,
+    "MLM": 2,
+    "MML": 4,
+    "MMM": 8,
+    "MSS": 1,
+    "SLM": 3,
+    "SLMM": 1
+   },
+   "para_rhythms": [
+    [
+     33,
+     84
+    ],
+    [
+     52,
+     101,
+     63
+    ],
+    [
+     56,
+     108
+    ],
+    [
+     104
+    ],
+    [
+     65,
+     52,
+     54
+    ],
+    [
+     54,
+     63,
+     80
+    ],
+    [
+     30,
+     40
+    ],
+    [
+     94,
+     63,
+     24
+    ],
+    [
+     63,
+     89
+    ],
+    [
+     47,
+     75
+    ],
+    [
+     128,
+     45
+    ],
+    [
+     46,
+     53,
+     80
+    ],
+    [
+     44,
+     73
+    ],
+    [
+     43,
+     59,
+     44
+    ],
+    [
+     60,
+     72
+    ],
+    [
+     68,
+     135
+    ],
+    [
+     42,
+     29,
+     26
+    ],
+    [
+     40,
+     47,
+     35
+    ],
+    [
+     46,
+     139
+    ],
+    [
+     83,
+     51
+    ],
+    [
+     28,
+     83,
+     65,
+     65
+    ],
+    [
+     21
+    ],
+    [
+     47,
+     35,
+     91
+    ],
+    [
+     21
+    ],
+    [
+     47,
+     42,
+     34
+    ],
+    [
+     106,
+     37
+    ],
+    [
+     48,
+     78
+    ],
+    [
+     57,
+     135
+    ],
+    [
+     94,
+     39,
+     100,
+     65,
+     62
+    ],
+    [
+     50,
+     69,
+     47
+    ],
+    [
+     45,
+     99,
+     61
+    ],
+    [
+     76,
+     64
+    ],
+    [
+     63,
+     74,
+     81
+    ],
+    [
+     21
+    ],
+    [
+     96,
+     62,
+     58,
+     57
+    ],
+    [
+     51,
+     67,
+     71,
+     80
+    ],
+    [
+     21
+    ],
+    [
+     15,
+     20,
+     119,
+     28
+    ],
+    [
+     43,
+     66,
+     55,
+     21
+    ],
+    [
+     43,
+     126,
+     37,
+     36
+    ],
+    [
+     28,
+     80,
+     54
+    ],
+    [
+     29,
+     129,
+     66
+    ],
+    [
+     42,
+     35,
+     71,
+     15
+    ],
+    [
+     28,
+     45,
+     26,
+     38,
+     42,
+     74
+    ],
+    [
+     75,
+     135
+    ],
+    [
+     36,
+     44,
+     84,
+     41
+    ],
+    [
+     28,
+     51,
+     86
+    ],
+    [
+     48,
+     52,
+     115
+    ],
+    [
+     60,
+     67
+    ],
+    [
+     63,
+     52,
+     56
+    ],
+    [
+     63,
+     96,
+     91
+    ],
+    [
+     32,
+     39,
+     48
+    ],
+    [
+     24,
+     54,
+     75,
+     109
+    ],
+    [
+     25,
+     83
+    ],
+    [
+     48,
+     26,
+     68
+    ],
+    [
+     60,
+     43,
+     56
+    ],
+    [
+     29,
+     71,
+     40
+    ],
+    [
+     46,
+     80,
+     99,
+     72,
+     65
+    ],
+    [
+     26,
+     55,
+     65,
+     41
+    ],
+    [
+     39,
+     38,
+     48,
+     51
+    ],
+    [
+     71,
+     76,
+     85
+    ],
+    [
+     40,
+     22,
+     44,
+     40
+    ],
+    [
+     59,
+     19
+    ],
+    [
+     30,
+     53
+    ],
+    [
+     48,
+     38,
+     27
+    ]
+   ],
+   "parens": 48,
+   "pct_conj_start": 21.7,
+   "pct_contrast": 3.3,
+   "pct_first_person_author_start": 1.6,
+   "pct_generic_first_person": 4.9,
+   "pct_geot_gatda": 0.5,
+   "pct_geot_ipnida": 0.5,
+   "pct_haera": 0.5,
+   "pct_haeyo": 5.4,
+   "pct_hapsyo": 90.8,
+   "pct_jyo": 0.5,
+   "pct_list_or_go_comma": 82.5,
+   "pct_long_gt70": 28.3,
+   "pct_mid_36_70": 53.3,
+   "pct_numeric_sent": 7.6,
+   "pct_other_ending": 2.7,
+   "pct_para_1": 7.7,
+   "pct_para_3_4": 56.9,
+   "pct_para_with_paren": 49.2,
+   "pct_past": 2.7,
+   "pct_question": 1.1,
+   "pct_saenggak": 4.9,
+   "pct_sent_2plus_comma": 10.9,
+   "pct_sent_no_comma": 57.1,
+   "pct_short_le35": 18.5,
+   "pct_tonghae": 2.7,
+   "pct_xlong_gt100": 7.6,
+   "post_chars": 11071,
+   "pubDate": "2022-10-31",
+   "sensory": {},
+   "sent_per_para_mean": 2.83,
+   "sent_per_para_median": 3,
+   "slashes": 18,
+   "spelling_variants": {
+    "네비게이션/내비게이션": {
+     "a": "네비게이션",
+     "a_count": 2,
+     "b": "내비게이션",
+     "b_count": 0,
+     "preferred": "네비게이션"
+    },
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 20,
+     "preferred": "데이터"
+    },
+    "레포트/리포트": {
+     "a": "레포트",
+     "a_count": 0,
+     "b": "리포트",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 2,
+     "preferred": "비즈니스"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 5,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 1,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "랜딩페이지를 코딩 없이 만드는 노코드 빌더 완벽 비교 가이드",
+   "tonghae": 5,
+   "transitions_pct": {
+    "LL": 7.6,
+    "LM": 14.3,
+    "LS": 1.7,
+    "ML": 22.7,
+    "MM": 32.8,
+    "MS": 6.7,
+    "SL": 5.0,
+    "SM": 7.6,
+    "SS": 1.7
+   },
+   "words_mean": 13.5,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 1
+  },
+  "shortcut-for-good-career": {
+   "after_long_n": 2,
+   "after_long_next_mean": 35.5,
+   "after_long_pct_le40": 50.0,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 3472,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "아주 미약한 시작일지라도 새로운 실행을 하신다면 당신은 상위 1%일 것이라고 생각합니다.",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 35.3,
+    "-나,": 8.8,
+    "-데,": 2.9,
+    "-도,": 2.9,
+    "-며,": 2.9,
+    "-서,": 5.9,
+    "-지만,": 5.9,
+    "명사 나열": 29.4,
+    "접속부사 뒤": 5.9
+   },
+   "commas_per_para": 2.27,
+   "commas_per_sent": 0.59,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 1,
+   "conj_top": {
+    "결국": 1,
+    "그래서": 2,
+    "그리고": 2,
+    "다만": 1,
+    "또한": 1,
+    "예를 들어": 1,
+    "즉": 1,
+    "특히": 1
+   },
+   "conj_total": {
+    "결국": 1,
+    "그래서": 3,
+    "그리고": 3,
+    "다만": 1,
+    "또한": 1,
+    "먼저": 2,
+    "실제로": 1,
+    "예를 들어": 1,
+    "즉": 2,
+    "특히": 2
+   },
+   "consecutive_haeyo": 0,
+   "contrast_constructions": 2,
+   "emoticons": 0,
+   "ending_detail": {
+    "합쇼체:겁니다": 2,
+    "합쇼체:것입니다": 4,
+    "합쇼체:겠습니다": 3,
+    "합쇼체:니다": 2,
+    "합쇼체:습니다": 6,
+    "합쇼체:없습니다": 1,
+    "합쇼체:입니다": 12,
+    "합쇼체:있습니다": 11,
+    "합쇼체:합니다": 13,
+    "해요체:까요": 1,
+    "해요체:네요": 1,
+    "해요체:세요": 2
+   },
+   "eng_gloss": 0,
+   "exclaim": 1,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 0,
+    "da_pct": 0.0,
+    "imperative": 1,
+    "imperative_pct": 25.0,
+    "noun": 3,
+    "noun_pct": 75.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 0,
+    "question_pct": 0.0,
+    "total": 4
+   },
+   "intensifiers": {
+    "너무": 2,
+    "무척": 4,
+    "아주": 1
+   },
+   "len_bins_pct": {
+    "0~20": 1.7,
+    "101~": 0.0,
+    "21~35": 12.1,
+    "36~50": 17.2,
+    "51~70": 36.2,
+    "71~100": 32.8
+   },
+   "len_max": 99,
+   "len_mean": 59.9,
+   "len_median": 64.0,
+   "len_sd": 19.5,
+   "lexicon": {
+    "경험": 5,
+    "고객": 1,
+    "노코드": 2,
+    "다양한": 2,
+    "빠르게": 10,
+    "생각합니다": 6,
+    "식으로": 4,
+    "실행": 16,
+    "일단": 1,
+    "일잘러": 2,
+    "처럼": 2,
+    "피드백": 4
+   },
+   "mixed_first_person": 0,
+   "n_headings": 4,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 15,
+   "n_sentences": 58,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "일을 잘하기 위해 어떻게 성장해야할까요?",
+   "opening_type": "질문",
+   "para_first_len": 59,
+   "para_last_len": 60.8,
+   "para_patterns_top": {
+    "LMM": 1,
+    "LMML": 1,
+    "LMMM": 1,
+    "MLM": 1,
+    "MLMLM": 1,
+    "MML": 1,
+    "SMMMLMM": 1,
+    "SMSLML": 1
+   },
+   "para_rhythms": [
+    [
+     22,
+     60,
+     30,
+     77,
+     68,
+     72
+    ],
+    [
+     53,
+     86,
+     60,
+     75,
+     65
+    ],
+    [
+     27,
+     31,
+     39,
+     42,
+     75,
+     49,
+     54
+    ],
+    [
+     36,
+     54,
+     88
+    ],
+    [
+     74,
+     65,
+     67,
+     34
+    ],
+    [
+     89,
+     41,
+     37
+    ],
+    [
+     95,
+     46,
+     64,
+     74
+    ],
+    [
+     67,
+     83
+    ],
+    [
+     70,
+     72,
+     59
+    ],
+    [
+     54,
+     92
+    ],
+    [
+     68,
+     77
+    ],
+    [
+     56,
+     75,
+     76,
+     36
+    ],
+    [
+     64,
+     66,
+     66,
+     74
+    ],
+    [
+     64,
+     56,
+     99,
+     25,
+     18
+    ],
+    [
+     46,
+     78,
+     33,
+     49
+    ]
+   ],
+   "parens": 7,
+   "pct_conj_start": 17.2,
+   "pct_contrast": 3.4,
+   "pct_first_person_author_start": 6.9,
+   "pct_generic_first_person": 19.0,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 10.3,
+   "pct_haera": 0.0,
+   "pct_haeyo": 6.9,
+   "pct_hapsyo": 93.1,
+   "pct_jyo": 0.0,
+   "pct_list_or_go_comma": 64.7,
+   "pct_long_gt70": 32.8,
+   "pct_mid_36_70": 53.4,
+   "pct_numeric_sent": 3.4,
+   "pct_other_ending": 0.0,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 53.3,
+   "pct_para_with_paren": 26.7,
+   "pct_past": 3.4,
+   "pct_question": 1.7,
+   "pct_saenggak": 10.3,
+   "pct_sent_2plus_comma": 5.2,
+   "pct_sent_no_comma": 51.7,
+   "pct_short_le35": 13.8,
+   "pct_tonghae": 1.7,
+   "pct_xlong_gt100": 0.0,
+   "post_chars": 3517,
+   "pubDate": "2021-05-26",
+   "sensory": {},
+   "sent_per_para_mean": 3.87,
+   "sent_per_para_median": 4,
+   "slashes": 0,
+   "spelling_variants": {
+    "리더쉽/리더십": {
+     "a": "리더쉽",
+     "a_count": 0,
+     "b": "리더십",
+     "b_count": 2,
+     "preferred": "리더십"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 1,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "일잘러 되는 지름길",
+   "tonghae": 1,
+   "transitions_pct": {
+    "LL": 2.3,
+    "LM": 23.3,
+    "LS": 2.3,
+    "ML": 32.6,
+    "MM": 27.9,
+    "MS": 2.3,
+    "SL": 2.3,
+    "SM": 4.7,
+    "SS": 2.3
+   },
+   "words_mean": 14.5,
+   "ye_reul_deureo": 1,
+   "yeoreobun_dangsin": 1
+  },
+  "why-online-writing": {
+   "after_long_n": 6,
+   "after_long_next_mean": 56.7,
+   "after_long_pct_le40": 16.7,
+   "ai_bullet_bold": 0,
+   "banned": {},
+   "chars": 5843,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "제너럴리스트로 살아남기 위해서 온라인 글쓰기를 당장 시작해보시기 바랍니다.",
+   "comma_after_subject": 1,
+   "comma_position_pct": {
+    "-고,": 44.4,
+    "-나,": 7.4,
+    "-데,": 1.9,
+    "-도,": 3.7,
+    "-면,": 5.6,
+    "-서,": 7.4,
+    "-지만,": 5.6,
+    "명사 나열": 22.2,
+    "주어/주제어 뒤": 1.9
+   },
+   "commas_per_para": 1.54,
+   "commas_per_sent": 0.5,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 2,
+   "conj_top": {
+    "그래서": 1,
+    "그러나": 1,
+    "그렇기 때문에": 1,
+    "그리고": 2,
+    "또한": 4,
+    "하지만": 1
+   },
+   "conj_total": {
+    "결국": 1,
+    "그래서": 1,
+    "그러나": 1,
+    "그렇기 때문에": 1,
+    "그리고": 2,
+    "또한": 4,
+    "물론": 1,
+    "사실": 2,
+    "실제로": 1,
+    "하지만": 1
+   },
+   "consecutive_haeyo": 1,
+   "contrast_constructions": 2,
+   "emoticons": 0,
+   "ending_detail": {
+    "합쇼체:것입니다": 5,
+    "합쇼체:겠습니다": 1,
+    "합쇼체:니다": 11,
+    "합쇼체:됩니다": 8,
+    "합쇼체:습니다": 11,
+    "합쇼체:았습니다": 1,
+    "합쇼체:없습니다": 2,
+    "합쇼체:었습니다": 11,
+    "합쇼체:였습니다": 1,
+    "합쇼체:입니다": 19,
+    "합쇼체:있습니다": 14,
+    "합쇼체:합니다": 13,
+    "해라체:의문": 1,
+    "해요체:고요": 1,
+    "해요체:세요": 7,
+    "해요체:해요": 1
+   },
+   "eng_gloss": 3,
+   "exclaim": 0,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 4,
+    "da_pct": 33.3,
+    "imperative": 5,
+    "imperative_pct": 41.7,
+    "noun": 2,
+    "noun_pct": 16.7,
+    "numbered": 8,
+    "numbered_pct": 66.7,
+    "question": 1,
+    "question_pct": 8.3,
+    "total": 12
+   },
+   "intensifiers": {
+    "굉장히": 1,
+    "너무": 1,
+    "무척": 1,
+    "정말": 2
+   },
+   "len_bins_pct": {
+    "0~20": 3.7,
+    "101~": 1.9,
+    "21~35": 14.0,
+    "36~50": 28.0,
+    "51~70": 32.7,
+    "71~100": 19.6
+   },
+   "len_max": 118,
+   "len_mean": 54.6,
+   "len_median": 52,
+   "len_sd": 21.7,
+   "lexicon": {
+    "같은": 7,
+    "검증": 5,
+    "경험": 14,
+    "고객": 4,
+    "노코드": 2,
+    "니치": 1,
+    "다양한": 2,
+    "당장": 1,
+    "레버리지": 1,
+    "빠르게": 4,
+    "생각합니다": 3,
+    "수익": 1,
+    "쉽게": 5,
+    "시행착오": 1,
+    "실행": 4,
+    "오디언스": 7,
+    "일단": 1,
+    "전문성": 13,
+    "정도": 3,
+    "처럼": 2,
+    "커뮤니티": 1,
+    "포지셔닝": 9
+   },
+   "mixed_first_person": 6,
+   "n_headings": 12,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 35,
+   "n_sentences": 107,
+   "n_tables": 0,
+   "nonpreferred_spelling": {
+    "트랜드": 1
+   },
+   "opening_sentence": "저는 대학에서 경제학을 전공하고, 영업 직무로 커리어를 시작했습니다.",
+   "opening_type": "이력/인사",
+   "para_first_len": 53.3,
+   "para_last_len": 58.7,
+   "para_patterns_top": {
+    "LMS": 1,
+    "LSL": 1,
+    "MLL": 2,
+    "MMM": 8,
+    "MMMLM": 2,
+    "MMMSL": 1,
+    "SLL": 1,
+    "SMM": 2
+   },
+   "para_rhythms": [
+    [
+     38,
+     40
+    ],
+    [
+     43,
+     59,
+     63
+    ],
+    [
+     56,
+     91,
+     72
+    ],
+    [
+     93,
+     93
+    ],
+    [
+     62,
+     95
+    ],
+    [
+     71,
+     16,
+     84
+    ],
+    [
+     29,
+     71,
+     94
+    ],
+    [
+     69,
+     72,
+     85
+    ],
+    [
+     69,
+     41,
+     56
+    ],
+    [
+     99,
+     32,
+     30
+    ],
+    [
+     81,
+     29
+    ],
+    [
+     98,
+     48
+    ],
+    [
+     52,
+     43
+    ],
+    [
+     52,
+     66
+    ],
+    [
+     48,
+     36,
+     65,
+     72,
+     64
+    ],
+    [
+     51,
+     51,
+     69
+    ],
+    [
+     36,
+     37,
+     66,
+     10,
+     82
+    ],
+    [
+     68,
+     105,
+     49
+    ],
+    [
+     64,
+     52,
+     44,
+     40
+    ],
+    [
+     30,
+     70,
+     39
+    ],
+    [
+     27,
+     34,
+     30,
+     59,
+     20
+    ],
+    [
+     31,
+     59,
+     37
+    ],
+    [
+     32,
+     70,
+     50,
+     26,
+     24
+    ],
+    [
+     43,
+     51,
+     74,
+     37
+    ],
+    [
+     33,
+     34,
+     53
+    ],
+    [
+     67,
+     17,
+     118
+    ],
+    [
+     26,
+     46,
+     59
+    ],
+    [
+     41,
+     54,
+     37
+    ],
+    [
+     62,
+     71
+    ],
+    [
+     41,
+     55,
+     86
+    ],
+    [
+     36,
+     54,
+     67
+    ],
+    [
+     70,
+     44,
+     40
+    ],
+    [
+     40,
+     43,
+     38,
+     94,
+     46
+    ],
+    [
+     56,
+     79
+    ],
+    [
+     51,
+     41
+    ]
+   ],
+   "parens": 5,
+   "pct_conj_start": 9.3,
+   "pct_contrast": 1.9,
+   "pct_first_person_author_start": 9.3,
+   "pct_generic_first_person": 35.5,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 4.7,
+   "pct_haera": 0.9,
+   "pct_haeyo": 8.4,
+   "pct_hapsyo": 90.7,
+   "pct_jyo": 0.0,
+   "pct_list_or_go_comma": 66.7,
+   "pct_long_gt70": 21.5,
+   "pct_mid_36_70": 60.7,
+   "pct_numeric_sent": 1.9,
+   "pct_other_ending": 0.0,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 57.1,
+   "pct_para_with_paren": 11.4,
+   "pct_past": 16.8,
+   "pct_question": 0.0,
+   "pct_saenggak": 2.8,
+   "pct_sent_2plus_comma": 10.3,
+   "pct_sent_no_comma": 60.7,
+   "pct_short_le35": 17.8,
+   "pct_tonghae": 8.4,
+   "pct_xlong_gt100": 1.9,
+   "post_chars": 5915,
+   "pubDate": "2022-05-11",
+   "sensory": {},
+   "sent_per_para_mean": 3.06,
+   "sent_per_para_median": 3,
+   "slashes": 1,
+   "spelling_variants": {
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 3,
+     "preferred": "비즈니스"
+    },
+    "알고리듬/알고리즘": {
+     "a": "알고리듬",
+     "a_count": 0,
+     "b": "알고리즘",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 7,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "컨텐츠"
+    },
+    "타겟/타깃": {
+     "a": "타겟",
+     "a_count": 3,
+     "b": "타깃",
+     "b_count": 0,
+     "preferred": "타겟"
+    },
+    "트랜드/트렌드": {
+     "a": "트랜드",
+     "a_count": 1,
+     "b": "트렌드",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "제너럴리스트의 생존법 : 온라인 글쓰기",
+   "tonghae": 9,
+   "transitions_pct": {
+    "LL": 5.6,
+    "LM": 8.3,
+    "LS": 2.8,
+    "ML": 13.9,
+    "MM": 48.6,
+    "MS": 8.3,
+    "SL": 5.6,
+    "SM": 5.6,
+    "SS": 1.4
+   },
+   "words_mean": 13.0,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  },
+  "work-automation": {
+   "after_long_n": 5,
+   "after_long_next_mean": 53,
+   "after_long_pct_le40": 40.0,
+   "ai_bullet_bold": 0,
+   "banned": {
+    "게다가": 1,
+    "마지막으로": 1
+   },
+   "chars": 2793,
+   "closing_is_call_or_outlook": true,
+   "closing_is_summary": false,
+   "closing_sentence": "여기까지 고민하면 진짜 ‘일잘러'가 아닐까 싶네요.",
+   "comma_after_subject": 0,
+   "comma_position_pct": {
+    "-고,": 31.6,
+    "-나,": 10.5,
+    "-데,": 5.3,
+    "-도,": 5.3,
+    "-며,": 5.3,
+    "-면,": 5.3,
+    "-서,": 5.3,
+    "-지만,": 5.3,
+    "명사 나열": 26.3
+   },
+   "commas_per_para": 1.36,
+   "commas_per_sent": 0.37,
+   "conj_comma_bad": 0,
+   "conj_consecutive": 6,
+   "conj_top": {
+    "게다가": 1,
+    "그래서": 1,
+    "그러나": 1,
+    "그러면": 1,
+    "그렇다면": 1,
+    "그리고": 5,
+    "다만": 1,
+    "따라서": 1,
+    "마지막으로": 1,
+    "물론": 1
+   },
+   "conj_total": {
+    "게다가": 1,
+    "그래서": 1,
+    "그러나": 1,
+    "그러면": 1,
+    "그렇다면": 1,
+    "그리고": 5,
+    "다만": 1,
+    "대신": 1,
+    "따라서": 1,
+    "마지막으로": 1,
+    "물론": 1,
+    "사실": 1,
+    "실제로": 1,
+    "우선": 1
+   },
+   "consecutive_haeyo": 2,
+   "contrast_constructions": 2,
+   "emoticons": 0,
+   "ending_detail": {
+    "죠:죠": 3,
+    "합쇼체:겁니다": 4,
+    "합쇼체:것입니다": 3,
+    "합쇼체:겠습니다": 2,
+    "합쇼체:니다": 2,
+    "합쇼체:습니다": 7,
+    "합쇼체:았습니다": 1,
+    "합쇼체:었습니다": 1,
+    "합쇼체:입니다": 3,
+    "합쇼체:있습니다": 6,
+    "합쇼체:합니다": 8,
+    "해요체:고요": 5,
+    "해요체:군요": 2,
+    "해요체:까요": 2,
+    "해요체:네요": 2,
+    "해요체:데요": 1
+   },
+   "eng_gloss": 1,
+   "exclaim": 0,
+   "has_lesson_section": false,
+   "heading_forms": {
+    "da": 0,
+    "da_pct": 0.0,
+    "imperative": 0,
+    "imperative_pct": 0.0,
+    "noun": 4,
+    "noun_pct": 80.0,
+    "numbered": 0,
+    "numbered_pct": 0.0,
+    "question": 1,
+    "question_pct": 20.0,
+    "total": 5
+   },
+   "intensifiers": {
+    "매우": 4
+   },
+   "len_bins_pct": {
+    "0~20": 5.8,
+    "101~": 3.8,
+    "21~35": 21.2,
+    "36~50": 21.2,
+    "51~70": 28.8,
+    "71~100": 19.2
+   },
+   "len_max": 115,
+   "len_mean": 53.7,
+   "len_median": 51.5,
+   "len_sd": 24.6,
+   "lexicon": {
+    "같은": 4,
+    "경험": 1,
+    "고객": 1,
+    "노코드": 1,
+    "당장": 1,
+    "뚝딱": 1,
+    "빠르게": 1,
+    "생각합니다": 2,
+    "쉽게": 4,
+    "실행": 1,
+    "일잘러": 1,
+    "자동화": 15,
+    "전문성": 2,
+    "커뮤니티": 1,
+    "현타": 1
+   },
+   "mixed_first_person": 0,
+   "n_headings": 5,
+   "n_labels_excluded": 0,
+   "n_list_items": 0,
+   "n_paragraphs": 14,
+   "n_sentences": 52,
+   "n_tables": 0,
+   "nonpreferred_spelling": {},
+   "opening_sentence": "온라인 강의 사이트를 운영하는 대표님과의 우연히 나눴던 이야기인데요.",
+   "opening_type": "배경/기타",
+   "para_first_len": 62,
+   "para_last_len": 49.4,
+   "para_patterns_top": {
+    "LMM": 1,
+    "MMLS": 1,
+    "MMM": 1,
+    "MMMMSMM": 1,
+    "MSL": 1,
+    "MSMMMMM": 1,
+    "MSMSSS": 1,
+    "SLMM": 1
+   },
+   "para_rhythms": [
+    [
+     38,
+     62,
+     115,
+     14
+    ],
+    [
+     31,
+     44,
+     35,
+     46,
+     27,
+     59,
+     37
+    ],
+    [
+     31,
+     21,
+     45,
+     19,
+     22,
+     27
+    ],
+    [
+     28,
+     73,
+     62,
+     52
+    ],
+    [
+     56,
+     13,
+     52,
+     50,
+     38,
+     45,
+     38
+    ],
+    [
+     74,
+     85
+    ],
+    [
+     60,
+     31
+    ],
+    [
+     97,
+     64
+    ],
+    [
+     89,
+     72
+    ],
+    [
+     64,
+     46
+    ],
+    [
+     85,
+     67,
+     51
+    ],
+    [
+     58,
+     63,
+     43
+    ],
+    [
+     65,
+     23,
+     104
+    ],
+    [
+     92,
+     68,
+     93,
+     91,
+     28
+    ]
+   ],
+   "parens": 6,
+   "pct_conj_start": 26.9,
+   "pct_contrast": 3.8,
+   "pct_first_person_author_start": 3.8,
+   "pct_generic_first_person": 11.5,
+   "pct_geot_gatda": 0.0,
+   "pct_geot_ipnida": 13.5,
+   "pct_haera": 0.0,
+   "pct_haeyo": 23.1,
+   "pct_hapsyo": 71.2,
+   "pct_jyo": 5.8,
+   "pct_list_or_go_comma": 57.9,
+   "pct_long_gt70": 23.1,
+   "pct_mid_36_70": 50.0,
+   "pct_numeric_sent": 9.6,
+   "pct_other_ending": 0.0,
+   "pct_para_1": 0.0,
+   "pct_para_3_4": 35.7,
+   "pct_para_with_paren": 28.6,
+   "pct_past": 7.7,
+   "pct_question": 1.9,
+   "pct_saenggak": 3.8,
+   "pct_sent_2plus_comma": 7.7,
+   "pct_sent_no_comma": 75.0,
+   "pct_short_le35": 26.9,
+   "pct_tonghae": 3.8,
+   "pct_xlong_gt100": 3.8,
+   "post_chars": 2831,
+   "pubDate": "2022-02-24",
+   "sensory": {},
+   "sent_per_para_mean": 3.71,
+   "sent_per_para_median": 3.0,
+   "slashes": 3,
+   "spelling_variants": {
+    "데이타/데이터": {
+     "a": "데이타",
+     "a_count": 0,
+     "b": "데이터",
+     "b_count": 4,
+     "preferred": "데이터"
+    },
+    "비지니스/비즈니스": {
+     "a": "비지니스",
+     "a_count": 0,
+     "b": "비즈니스",
+     "b_count": 2,
+     "preferred": "비즈니스"
+    },
+    "셋팅/세팅": {
+     "a": "셋팅",
+     "a_count": 2,
+     "b": "세팅",
+     "b_count": 0,
+     "preferred": "셋팅"
+    },
+    "어플/앱": {
+     "a": "어플",
+     "a_count": 0,
+     "b": "앱",
+     "b_count": 1,
+     "preferred": "혼용"
+    },
+    "컨텐츠/콘텐츠": {
+     "a": "컨텐츠",
+     "a_count": 1,
+     "b": "콘텐츠",
+     "b_count": 0,
+     "preferred": "혼용"
+    },
+    "팬더믹/팬데믹": {
+     "a": "팬더믹",
+     "a_count": 1,
+     "b": "팬데믹",
+     "b_count": 0,
+     "preferred": "혼용"
+    }
+   },
+   "title": "업무 자동화는 문과생의 희망이다",
+   "tonghae": 2,
+   "transitions_pct": {
+    "LL": 7.9,
+    "LM": 10.5,
+    "LS": 5.3,
+    "ML": 5.3,
+    "MM": 39.5,
+    "MS": 13.2,
+    "SL": 5.3,
+    "SM": 7.9,
+    "SS": 5.3
+   },
+   "words_mean": 12.4,
+   "ye_reul_deureo": 0,
+   "yeoreobun_dangsin": 0
+  }
+ },
+ "profile_sha256": "e31fe77e0b0a052da5c8cae92e44d27aae60f423452b194531633962c6809708"
+}

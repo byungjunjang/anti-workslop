@@ -1,0 +1,2111 @@
+{
+ "ko": {
+  "corpora": {
+   "nabo_compilation": {
+    "n_items": 4042,
+    "levels": {
+     "L1": {
+      "n": 865,
+      "chars_nospace": {
+       "n": 865,
+       "mean": 44.8,
+       "median": 43.0,
+       "p25": 26.0,
+       "p75": 62.0,
+       "p90": 77.0,
+       "max": 150
+      },
+      "eojeol": {
+       "n": 825,
+       "mean": 12.9,
+       "median": 12.0,
+       "p25": 8.0,
+       "p75": 17.0,
+       "p90": 22.0,
+       "max": 53
+      },
+      "share_over_60chars": 28.4,
+      "share_over_90chars": 4.5,
+      "share_over_2lines": 9.0,
+      "ending_class_share": {
+       "체언(명사구)": 67.6,
+       "필요": 12.3,
+       "명사형어미(-ㅁ)": 10.3,
+       "괄호부연": 4.4,
+       "-중(진행)": 2.9,
+       "기타": 0.9,
+       "수치": 0.8,
+       "종결어미(-요)": 0.5,
+       "등(열거)": 0.3
+      },
+      "ending_tail_top": [
+       [
+        "필요",
+        106
+       ],
+       [
+        "전망",
+        44
+       ],
+       [
+        "있음",
+        32
+       ],
+       [
+        "증가",
+        25
+       ],
+       [
+        " 중",
+        20
+       ],
+       [
+        "추세",
+        13
+       ],
+       [
+        " 함",
+        12
+       ],
+       [
+        "수준",
+        11
+       ],
+       [
+        "내역",
+        11
+       ],
+       [
+        "상황",
+        10
+       ],
+       [
+        "확대",
+        10
+       ],
+       [
+        "우려",
+        10
+       ],
+       [
+        "감소",
+        10
+       ],
+       [
+        "경과",
+        10
+       ],
+       [
+        "내용",
+        9
+       ],
+       [
+        "기인",
+        9
+       ],
+       [
+        "타남",
+        8
+       ],
+       [
+        "능성",
+        7
+       ],
+       [
+        "상승",
+        7
+       ],
+       [
+        "현황",
+        7
+       ],
+       [
+        "기록",
+        6
+       ],
+       [
+        "예상",
+        6
+       ],
+       [
+        "의견",
+        6
+       ],
+       [
+        "으로",
+        6
+       ],
+       [
+        "보임",
+        5
+       ]
+      ],
+      "share_has_digit": 42.5,
+      "numbers_per_item": 1.14,
+      "share_paren_head": 2.4,
+      "share_connective_start": 7.4,
+      "connective_top": [
+       [
+        "최근",
+        30
+       ],
+       [
+        "다만",
+        6
+       ],
+       [
+        "향후",
+        6
+       ],
+       [
+        "이러한",
+        4
+       ],
+       [
+        "그러나",
+        3
+       ],
+       [
+        "이에",
+        2
+       ],
+       [
+        "따라서",
+        2
+       ],
+       [
+        "이와 같은",
+        2
+       ],
+       [
+        "특히",
+        2
+       ],
+       [
+        "한편",
+        1
+       ],
+       [
+        "반면",
+        1
+       ],
+       [
+        "또한",
+        1
+       ]
+      ]
+     },
+     "L2": {
+      "n": 1874,
+      "chars_nospace": {
+       "n": 1874,
+       "mean": 52.5,
+       "median": 52.0,
+       "p25": 33.0,
+       "p75": 69.0,
+       "p90": 88.0,
+       "max": 166
+      },
+      "eojeol": {
+       "n": 1752,
+       "mean": 14.5,
+       "median": 15.0,
+       "p25": 9.0,
+       "p75": 19.0,
+       "p90": 24.0,
+       "max": 52
+      },
+      "share_over_60chars": 39.2,
+      "share_over_90chars": 8.7,
+      "share_over_2lines": 11.9,
+      "ending_class_share": {
+       "체언(명사구)": 69.6,
+       "명사형어미(-ㅁ)": 9.6,
+       "필요": 6.2,
+       "괄호부연": 5.9,
+       "수치": 3.4,
+       "등(열거)": 1.4,
+       "-중(진행)": 1.2,
+       "기타": 1.1,
+       "종결어미(-다)": 0.7,
+       "-것": 0.6,
+       "종결어미(-요)": 0.2
+      },
+      "ending_tail_top": [
+       [
+        "필요",
+        116
+       ],
+       [
+        "있음",
+        56
+       ],
+       [
+        "전망",
+        50
+       ],
+       [
+        "증가",
+        48
+       ],
+       [
+        "감소",
+        38
+       ],
+       [
+        "확대",
+        29
+       ],
+       [
+        "수준",
+        23
+       ],
+       [
+        "억원",
+        19
+       ],
+       [
+        "예상",
+        17
+       ],
+       [
+        "지원",
+        17
+       ],
+       [
+        "의결",
+        17
+       ],
+       [
+        " 중",
+        16
+       ],
+       [
+        "조원",
+        15
+       ],
+       [
+        "발생",
+        15
+       ],
+       [
+        "상황",
+        13
+       ],
+       [
+        "하락",
+        13
+       ],
+       [
+        "존재",
+        12
+       ],
+       [
+        "적용",
+        11
+       ],
+       [
+        "기록",
+        11
+       ],
+       [
+        "계획",
+        11
+       ],
+       [
+        "증액",
+        11
+       ],
+       [
+        "가정",
+        11
+       ],
+       [
+        "분야",
+        10
+       ],
+       [
+        "능성",
+        10
+       ],
+       [
+        "발표",
+        10
+       ]
+      ],
+      "share_has_digit": 60.3,
+      "numbers_per_item": 1.94,
+      "share_paren_head": 8.0,
+      "share_connective_start": 5.7,
+      "connective_top": [
+       [
+        "최근",
+        20
+       ],
+       [
+        "또한",
+        16
+       ],
+       [
+        "다만",
+        13
+       ],
+       [
+        "한편",
+        10
+       ],
+       [
+        "향후",
+        7
+       ],
+       [
+        "반면",
+        7
+       ],
+       [
+        "아울러",
+        7
+       ],
+       [
+        "이러한",
+        4
+       ],
+       [
+        "그러나",
+        4
+       ],
+       [
+        "이에",
+        4
+       ],
+       [
+        "그 외",
+        3
+       ],
+       [
+        "특히",
+        2
+       ]
+      ]
+     },
+     "L3": {
+      "n": 1303,
+      "chars_nospace": {
+       "n": 1303,
+       "mean": 49.8,
+       "median": 44.0,
+       "p25": 30.0,
+       "p75": 67.0,
+       "p90": 86.0,
+       "max": 273
+      },
+      "eojeol": {
+       "n": 1219,
+       "mean": 13.0,
+       "median": 12.0,
+       "p25": 8.0,
+       "p75": 18.0,
+       "p90": 22.0,
+       "max": 83
+      },
+      "share_over_60chars": 32.0,
+      "share_over_90chars": 8.0,
+      "share_over_2lines": 9.1,
+      "ending_class_share": {
+       "체언(명사구)": 65.0,
+       "괄호부연": 11.1,
+       "명사형어미(-ㅁ)": 8.7,
+       "수치": 8.6,
+       "필요": 2.0,
+       "기타": 1.5,
+       "등(열거)": 1.3,
+       "-중(진행)": 1.0,
+       "-것": 0.5,
+       "종결어미(-다)": 0.2,
+       "종결어미(-요)": 0.2
+      },
+      "ending_tail_top": [
+       [
+        "있음",
+        35
+       ],
+       [
+        "필요",
+        26
+       ],
+       [
+        "확대",
+        24
+       ],
+       [
+        "감소",
+        22
+       ],
+       [
+        "전망",
+        20
+       ],
+       [
+        "지원",
+        17
+       ],
+       [
+        "증가",
+        16
+       ],
+       [
+        "감액",
+        16
+       ],
+       [
+        "계획",
+        13
+       ],
+       [
+        "기록",
+        12
+       ],
+       [
+        "추진",
+        11
+       ],
+       [
+        "증액",
+        10
+       ],
+       [
+        "공제",
+        10
+       ],
+       [
+        "억원",
+        10
+       ],
+       [
+        "수준",
+        9
+       ],
+       [
+        "상승",
+        9
+       ],
+       [
+        "강화",
+        9
+       ],
+       [
+        "내외",
+        9
+       ],
+       [
+        " 중",
+        8
+       ],
+       [
+        "유지",
+        8
+       ],
+       [
+        "적용",
+        8
+       ],
+       [
+        "가능",
+        8
+       ],
+       [
+        "예상",
+        8
+       ],
+       [
+        "타남",
+        8
+       ],
+       [
+        "낮음",
+        7
+       ]
+      ],
+      "share_has_digit": 67.9,
+      "numbers_per_item": 2.37,
+      "share_paren_head": 4.8,
+      "share_connective_start": 4.0,
+      "connective_top": [
+       [
+        "다만",
+        11
+       ],
+       [
+        "특히",
+        8
+       ],
+       [
+        "최근",
+        7
+       ],
+       [
+        "반면",
+        6
+       ],
+       [
+        "또한",
+        5
+       ],
+       [
+        "향후",
+        3
+       ],
+       [
+        "그러나",
+        3
+       ],
+       [
+        "이에",
+        3
+       ],
+       [
+        "한편",
+        3
+       ],
+       [
+        "즉",
+        1
+       ],
+       [
+        "이러한",
+        1
+       ],
+       [
+        "따라서",
+        1
+       ]
+      ]
+     }
+    },
+    "docs": {
+     "n_docs": 100,
+     "pages_per_doc": {
+      "n": 100,
+      "mean": 4.3,
+      "median": 4.0,
+      "p25": 4.0,
+      "p75": 4.0,
+      "p90": 4.0,
+      "max": 8
+     },
+     "items_per_doc": {
+      "n": 100,
+      "mean": 40.4,
+      "median": 38.0,
+      "p25": 32.0,
+      "p75": 47.0,
+      "p90": 57.2,
+      "max": 79
+     },
+     "L1_per_doc": {
+      "n": 100,
+      "mean": 8.7,
+      "median": 8.0,
+      "p25": 7.0,
+      "p75": 10.0,
+      "p90": 13.1,
+      "max": 23
+     },
+     "L2_per_L1": 2.17,
+     "L3_per_L2": 0.7,
+     "share_docs_using_L3": 96.0,
+     "tables_per_doc": {
+      "n": 100,
+      "mean": 3.2,
+      "median": 2.0,
+      "p25": 1.0,
+      "p75": 5.0,
+      "p90": 7.0,
+      "max": 12
+     },
+     "figures_per_doc": {
+      "n": 100,
+      "mean": 3.4,
+      "median": 3.0,
+      "p25": 1.0,
+      "p75": 5.0,
+      "p90": 8.0,
+      "max": 12
+     },
+     "share_docs_with_table_or_figure": 97.0
+    }
+   },
+   "nabo_standalone": {
+    "n_items": 182,
+    "levels": {
+     "L1": {
+      "n": 41,
+      "chars_nospace": {
+       "n": 41,
+       "mean": 47.3,
+       "median": 47.0,
+       "p25": 31.0,
+       "p75": 63.0,
+       "p90": 74.0,
+       "max": 113
+      },
+      "eojeol": {
+       "n": 38,
+       "mean": 14.2,
+       "median": 14.0,
+       "p25": 10.0,
+       "p75": 17.0,
+       "p90": 20.0,
+       "max": 29
+      },
+      "share_over_60chars": 29.3,
+      "share_over_90chars": 4.9,
+      "share_over_2lines": 9.8,
+      "ending_class_share": {
+       "체언(명사구)": 41.5,
+       "명사형어미(-ㅁ)": 26.8,
+       "필요": 17.1,
+       "-중(진행)": 9.8,
+       "괄호부연": 4.9
+      },
+      "ending_tail_top": [
+       [
+        "필요",
+        7
+       ],
+       [
+        " 중",
+        4
+       ],
+       [
+        "있음",
+        3
+       ],
+       [
+        " 함",
+        2
+       ],
+       [
+        "조함",
+        2
+       ],
+       [
+        "의결",
+        1
+       ],
+       [
+        "경과",
+        1
+       ],
+       [
+        "득세",
+        1
+       ],
+       [
+        "인세",
+        1
+       ],
+       [
+        "비세",
+        1
+       ],
+       [
+        "반영",
+        1
+       ],
+       [
+        "않음",
+        1
+       ],
+       [
+        "효과",
+        1
+       ],
+       [
+        "발표",
+        1
+       ],
+       [
+        "결정",
+        1
+       ],
+       [
+        "지급",
+        1
+       ],
+       [
+        "전망",
+        1
+       ],
+       [
+        "증가",
+        1
+       ],
+       [
+        "역할",
+        1
+       ],
+       [
+        "대두",
+        1
+       ],
+       [
+        "정됨",
+        1
+       ],
+       [
+        "타남",
+        1
+       ],
+       [
+        "해당",
+        1
+       ],
+       [
+        "확대",
+        1
+       ],
+       [
+        "안임",
+        1
+       ]
+      ],
+      "share_has_digit": 46.3,
+      "numbers_per_item": 1.41,
+      "share_paren_head": 0.0,
+      "share_connective_start": 14.6,
+      "connective_top": [
+       [
+        "다만",
+        2
+       ],
+       [
+        "이후",
+        1
+       ],
+       [
+        "최근",
+        1
+       ],
+       [
+        "이와 같은",
+        1
+       ],
+       [
+        "상기",
+        1
+       ]
+      ]
+     },
+     "L2": {
+      "n": 87,
+      "chars_nospace": {
+       "n": 87,
+       "mean": 48.3,
+       "median": 41.0,
+       "p25": 28.5,
+       "p75": 66.0,
+       "p90": 91.0,
+       "max": 112
+      },
+      "eojeol": {
+       "n": 87,
+       "mean": 13.3,
+       "median": 12.0,
+       "p25": 8.0,
+       "p75": 18.0,
+       "p90": 21.4,
+       "max": 35
+      },
+      "share_over_60chars": 35.6,
+      "share_over_90chars": 11.5,
+      "share_over_2lines": 9.2,
+      "ending_class_share": {
+       "체언(명사구)": 58.6,
+       "명사형어미(-ㅁ)": 13.8,
+       "필요": 11.5,
+       "등(열거)": 10.3,
+       "괄호부연": 4.6,
+       "수치": 1.1
+      },
+      "ending_tail_top": [
+       [
+        "필요",
+        10
+       ],
+       [
+        "만원",
+        4
+       ],
+       [
+        "가정",
+        3
+       ],
+       [
+        "있음",
+        3
+       ],
+       [
+        "가결",
+        2
+       ],
+       [
+        "부결",
+        2
+       ],
+       [
+        "확대",
+        2
+       ],
+       [
+        "억원",
+        2
+       ],
+       [
+        "예정",
+        2
+       ],
+       [
+        "수준",
+        2
+       ],
+       [
+        "제출",
+        1
+       ],
+       [
+        "심사",
+        1
+       ],
+       [
+        "부의",
+        1
+       ],
+       [
+        "주택",
+        1
+       ],
+       [
+        "일화",
+        1
+       ],
+       [
+        "설안",
+        1
+       ],
+       [
+        "대안",
+        1
+       ],
+       [
+        "폐지",
+        1
+       ],
+       [
+        "소안",
+        1
+       ],
+       [
+        ")안",
+        1
+       ],
+       [
+        "지안",
+        1
+       ],
+       [
+        "발생",
+        1
+       ],
+       [
+        "의결",
+        1
+       ],
+       [
+        "발표",
+        1
+       ],
+       [
+        "가동",
+        1
+       ]
+      ],
+      "share_has_digit": 65.5,
+      "numbers_per_item": 1.9,
+      "share_paren_head": 2.3,
+      "share_connective_start": 9.2,
+      "connective_top": [
+       [
+        "그동안",
+        2
+       ],
+       [
+        "최근",
+        2
+       ],
+       [
+        "나아가",
+        1
+       ],
+       [
+        "향후",
+        1
+       ],
+       [
+        "반면",
+        1
+       ],
+       [
+        "그 외",
+        1
+       ]
+      ]
+     },
+     "L3": {
+      "n": 54,
+      "chars_nospace": {
+       "n": 54,
+       "mean": 47.4,
+       "median": 44.0,
+       "p25": 34.2,
+       "p75": 61.0,
+       "p90": 76.3,
+       "max": 124
+      },
+      "eojeol": {
+       "n": 54,
+       "mean": 12.5,
+       "median": 11.5,
+       "p25": 8.0,
+       "p75": 15.8,
+       "p90": 20.7,
+       "max": 32
+      },
+      "share_over_60chars": 27.8,
+      "share_over_90chars": 5.6,
+      "share_over_2lines": 16.7,
+      "ending_class_share": {
+       "체언(명사구)": 66.7,
+       "괄호부연": 13.0,
+       "등(열거)": 5.6,
+       "필요": 5.6,
+       "명사형어미(-ㅁ)": 5.6,
+       "수치": 3.7
+      },
+      "ending_tail_top": [
+       [
+        "지원",
+        4
+       ],
+       [
+        "확대",
+        3
+       ],
+       [
+        "추진",
+        3
+       ],
+       [
+        "/년",
+        3
+       ],
+       [
+        "필요",
+        3
+       ],
+       [
+        " 순",
+        2
+       ],
+       [
+        "조정",
+        1
+       ],
+       [
+        "삭제",
+        1
+       ],
+       [
+        "지안",
+        1
+       ],
+       [
+        "원회",
+        1
+       ],
+       [
+        "제외",
+        1
+       ],
+       [
+        "세법",
+        1
+       ],
+       [
+        "공제",
+        1
+       ],
+       [
+        "신설",
+        1
+       ],
+       [
+        "인하",
+        1
+       ],
+       [
+        "축소",
+        1
+       ],
+       [
+        "전환",
+        1
+       ],
+       [
+        "보상",
+        1
+       ],
+       [
+        "억원",
+        1
+       ],
+       [
+        "지급",
+        1
+       ],
+       [
+        "려움",
+        1
+       ],
+       [
+        "검토",
+        1
+       ],
+       [
+        "만명",
+        1
+       ],
+       [
+        "많음",
+        1
+       ],
+       [
+        "응답",
+        1
+       ]
+      ],
+      "share_has_digit": 64.8,
+      "numbers_per_item": 1.85,
+      "share_paren_head": 3.7,
+      "share_connective_start": 1.9,
+      "connective_top": [
+       [
+        "다만",
+        1
+       ]
+      ]
+     }
+    },
+    "docs": {
+     "n_docs": 4,
+     "pages_per_doc": {
+      "n": 4,
+      "mean": 4,
+      "median": 4.0,
+      "p25": 4.0,
+      "p75": 4.0,
+      "p90": 4.0,
+      "max": 4
+     },
+     "items_per_doc": {
+      "n": 4,
+      "mean": 45.5,
+      "median": 49.0,
+      "p25": 38.2,
+      "p75": 56.2,
+      "p90": 56.7,
+      "max": 57
+     },
+     "L1_per_doc": {
+      "n": 4,
+      "mean": 10.2,
+      "median": 8.5,
+      "p25": 8.0,
+      "p75": 10.8,
+      "p90": 13.9,
+      "max": 16
+     },
+     "L2_per_L1": 2.12,
+     "L3_per_L2": 0.62,
+     "share_docs_using_L3": 100.0,
+     "tables_per_doc": {
+      "n": 4,
+      "mean": 4.5,
+      "median": 4.0,
+      "p25": 4.0,
+      "p75": 4.5,
+      "p90": 5.4,
+      "max": 6
+     },
+     "figures_per_doc": {
+      "n": 4,
+      "mean": 1,
+      "median": 1.0,
+      "p25": 0.8,
+      "p75": 1.2,
+      "p90": 1.7,
+      "max": 2
+     },
+     "share_docs_with_table_or_figure": 100.0
+    }
+   },
+   "nikl_examples": {
+    "n_items": 191,
+    "levels": {
+     "L1": {
+      "n": 32,
+      "chars_nospace": {
+       "n": 32,
+       "mean": 12.8,
+       "median": 11.0,
+       "p25": 7.8,
+       "p75": 14.8,
+       "p90": 24.5,
+       "max": 31
+      },
+      "eojeol": {
+       "n": 32,
+       "mean": 4.9,
+       "median": 4.0,
+       "p25": 2.8,
+       "p75": 6.2,
+       "p90": 8.9,
+       "max": 12
+      },
+      "share_over_60chars": 0.0,
+      "share_over_90chars": 0.0,
+      "share_over_2lines": 0.0,
+      "ending_class_share": {
+       "체언(명사구)": 90.6,
+       "괄호부연": 6.2,
+       "종결어미(-요)": 3.1
+      },
+      "ending_tail_top": [
+       [
+        "결과",
+        2
+       ],
+       [
+        "강화",
+        2
+       ],
+       [
+        "구축",
+        2
+       ],
+       [
+        "사점",
+        1
+       ],
+       [
+        "방향",
+        1
+       ],
+       [
+        "배경",
+        1
+       ],
+       [
+        "장이",
+        1
+       ],
+       [
+        "로써",
+        1
+       ],
+       [
+        "면책",
+        1
+       ],
+       [
+        "강구",
+        1
+       ],
+       [
+        "리기",
+        1
+       ],
+       [
+        "전개",
+        1
+       ],
+       [
+        "성과",
+        1
+       ],
+       [
+        "실화",
+        1
+       ],
+       [
+        "젝트",
+        1
+       ],
+       [
+        "완성",
+        1
+       ],
+       [
+        "진화",
+        1
+       ],
+       [
+        "들기",
+        1
+       ],
+       [
+        "플랜",
+        1
+       ],
+       [
+        "성화",
+        1
+       ],
+       [
+        "확대",
+        1
+       ],
+       [
+        "유치",
+        1
+       ],
+       [
+        "진작",
+        1
+       ],
+       [
+        "보장",
+        1
+       ],
+       [
+        "조성",
+        1
+       ]
+      ],
+      "share_has_digit": 12.5,
+      "numbers_per_item": 0.22,
+      "share_paren_head": 0.0,
+      "share_connective_start": 0.0,
+      "connective_top": []
+     },
+     "L2": {
+      "n": 97,
+      "chars_nospace": {
+       "n": 97,
+       "mean": 38.1,
+       "median": 29.0,
+       "p25": 18.0,
+       "p75": 54.0,
+       "p90": 71.2,
+       "max": 135
+      },
+      "eojeol": {
+       "n": 97,
+       "mean": 12.4,
+       "median": 10.0,
+       "p25": 6.0,
+       "p75": 17.0,
+       "p90": 24.0,
+       "max": 35
+      },
+      "share_over_60chars": 16.5,
+      "share_over_90chars": 4.1,
+      "share_over_2lines": 14.4,
+      "ending_class_share": {
+       "체언(명사구)": 76.3,
+       "괄호부연": 7.2,
+       "명사형어미(-ㅁ)": 7.2,
+       "종결어미(-다)": 7.2,
+       "-것": 1.0,
+       "-중(진행)": 1.0
+      },
+      "ending_tail_top": [
+       [
+        "추진",
+        4
+       ],
+       [
+        "확대",
+        4
+       ],
+       [
+        "쓰기",
+        3
+       ],
+       [
+        "들기",
+        3
+       ],
+       [
+        "시행",
+        2
+       ],
+       [
+        "강화",
+        2
+       ],
+       [
+        "확충",
+        2
+       ],
+       [
+        "결과",
+        1
+       ],
+       [
+        " 간",
+        1
+       ],
+       [
+        "분석",
+        1
+       ],
+       [
+        "행복",
+        1
+       ],
+       [
+        " 줌",
+        1
+       ],
+       [
+        "찾음",
+        1
+       ],
+       [
+        "많음",
+        1
+       ],
+       [
+        "으로",
+        1
+       ],
+       [
+        "계획",
+        1
+       ],
+       [
+        "선정",
+        1
+       ],
+       [
+        "심사",
+        1
+       ],
+       [
+        "논의",
+        1
+       ],
+       [
+        "공포",
+        1
+       ],
+       [
+        ")은",
+        1
+       ],
+       [
+        "추가",
+        1
+       ],
+       [
+        "제외",
+        1
+       ],
+       [
+        "통보",
+        1
+       ],
+       [
+        "경과",
+        1
+       ]
+      ],
+      "share_has_digit": 49.5,
+      "numbers_per_item": 1.09,
+      "share_paren_head": 0.0,
+      "share_connective_start": 1.0,
+      "connective_top": [
+       [
+        "그 외",
+        1
+       ]
+      ]
+     },
+     "L3": {
+      "n": 62,
+      "chars_nospace": {
+       "n": 62,
+       "mean": 44.5,
+       "median": 45.0,
+       "p25": 26.2,
+       "p75": 54.5,
+       "p90": 69.9,
+       "max": 115
+      },
+      "eojeol": {
+       "n": 62,
+       "mean": 14.3,
+       "median": 14.0,
+       "p25": 10.0,
+       "p75": 17.0,
+       "p90": 21.9,
+       "max": 35
+      },
+      "share_over_60chars": 16.1,
+      "share_over_90chars": 1.6,
+      "share_over_2lines": 14.5,
+      "ending_class_share": {
+       "체언(명사구)": 83.9,
+       "괄호부연": 4.8,
+       "기타": 3.2,
+       "종결어미(-다)": 3.2,
+       "요망/바람": 1.6,
+       "명사형어미(-ㅁ)": 1.6,
+       "등(열거)": 1.6
+      },
+      "ending_tail_top": [
+       [
+        "쓰기",
+        4
+       ],
+       [
+        "확대",
+        4
+       ],
+       [
+        "추진",
+        2
+       ],
+       [
+        "형성",
+        2
+       ],
+       [
+        "반영",
+        2
+       ],
+       [
+        "착수",
+        2
+       ],
+       [
+        "마련",
+        2
+       ],
+       [
+        "강화",
+        2
+       ],
+       [
+        "구축",
+        2
+       ],
+       [
+        "표명",
+        1
+       ],
+       [
+        " 함",
+        1
+       ],
+       [
+        "형사",
+        1
+       ],
+       [
+        "기여",
+        1
+       ],
+       [
+        "구현",
+        1
+       ],
+       [
+        "전달",
+        1
+       ],
+       [
+        "설정",
+        1
+       ],
+       [
+        "방지",
+        1
+       ],
+       [
+        "기를",
+        1
+       ],
+       [
+        "완화",
+        1
+       ],
+       [
+        "확충",
+        1
+       ],
+       [
+        "극복",
+        1
+       ],
+       [
+        "발굴",
+        1
+       ],
+       [
+        "운용",
+        1
+       ],
+       [
+        "받침",
+        1
+       ],
+       [
+        "체결",
+        1
+       ]
+      ],
+      "share_has_digit": 27.4,
+      "numbers_per_item": 0.68,
+      "share_paren_head": 1.6,
+      "share_connective_start": 1.6,
+      "connective_top": [
+       [
+        "아울러",
+        1
+       ]
+      ]
+     }
+    }
+   }
+  },
+  "titles": {
+   "n": 100,
+   "chars": {
+    "n": 100,
+    "mean": 25.2,
+    "median": 24.0,
+    "p25": 21.0,
+    "p75": 27.0,
+    "p90": 32.0,
+    "max": 53
+   },
+   "chars_main_title": {
+    "n": 100,
+    "mean": 23.7,
+    "median": 23.5,
+    "p25": 20.8,
+    "p75": 27.0,
+    "p90": 31.0,
+    "max": 45
+   },
+   "share_with_subtitle": 6.0,
+   "share_with_및_과_and": 71.0,
+   "share_with_year_or_number": 44.0,
+   "ending_word_top": [
+    [
+     "사점",
+     12
+    ],
+    [
+     "내용",
+     11
+    ],
+    [
+     "분석",
+     10
+    ],
+    [
+     "결과",
+     7
+    ],
+    [
+     "과제",
+     7
+    ],
+    [
+     "전망",
+     7
+    ],
+    [
+     "동향",
+     6
+    ],
+    [
+     "영향",
+     6
+    ],
+    [
+     "방안",
+     4
+    ],
+    [
+     "점검",
+     4
+    ],
+    [
+     "쟁점",
+     4
+    ],
+    [
+     "사항",
+     3
+    ],
+    [
+     "현황",
+     3
+    ],
+    [
+     "전략",
+     2
+    ],
+    [
+     "으로",
+     2
+    ]
+   ],
+   "examples": [
+    "일본의 수출규제가 국내 산업에 미치는 영향과 대응방안",
+    "2020년도 예산안의 주요 특징",
+    "지방소비세 이양비율 인상의 재정적 함의",
+    "국내 소비자물가의 특징과 디플레이션 우려에 대한 분석",
+    "「2019~2028년 NABO 중기 재정전망」을 통해 본 재정건전성 점검",
+    "미국 연준의 정책금리 인하와 시사점",
+    "수소경제 활성화 로드맵에 따른 2020년도 주요사업 및 향후 고려사항",
+    "2020년도 예산안 등 국회 심의 주요 내용",
+    "2020년도 시행 개정세법의 주요 내용 및 심사 쟁점",
+    "최근 우리나라 기준금리와 시중금리 간 동조성 점검",
+    "최근 고용 동향 및 재정지원 일자리사업 분석",
+    "가상화폐 과세상 쟁점과 글로벌 동향"
+   ]
+  }
+ },
+ "en": {
+  "crs_in_focus": {
+   "IF10244": {
+    "n_words": 1137,
+    "n_sentences": 56,
+    "words_per_sentence": {
+     "n": 56,
+     "mean": 20.3,
+     "median": 18.5,
+     "p25": 12.8,
+     "p75": 26.0,
+     "p90": 36.0,
+     "max": 58
+    },
+    "share_sentences_over_25w": 28.6,
+    "share_long_words_3syl": 17.6,
+    "clarity_index_dapam": 37.9,
+    "passive_forms_per_100w": 0.44,
+    "n_paragraphs_25w+": 4,
+    "sentences_per_paragraph": {
+     "n": 4,
+     "mean": 3.5,
+     "median": 3.5,
+     "p25": 2.8,
+     "p75": 4.2,
+     "p90": 4.7,
+     "max": 5
+    },
+    "headings_approx": [
+     "Wildfire Statistics",
+     "June 1, 2023",
+     "Updated June 1, 2023",
+     "Wildfire Statistics",
+     "Wildfires are unplanned fires, including lightning-caused",
+     "Nationwide data compiled by the National Interagency",
+     "Coordination Center (NICC) indicate that the number of",
+     "Acreage Burned Since 1960",
+     "Number of Fires (thousands)",
+     "Acres Burned (millions)",
+     "Wildfire Statistics",
+     "Preparedness Level (PL) scale, which ranges from 1",
+     "Wildfire Damages",
+     "Wildfires may affect certain ecological resources"
+    ],
+    "first_sentence": "fires, unauthorized human-caused fires, and escaped fires from prescribed burn projects."
+   },
+   "IF10950": {
+    "n_words": 1715,
+    "n_sentences": 39,
+    "words_per_sentence": {
+     "n": 39,
+     "mean": 44.0,
+     "median": 40.0,
+     "p25": 22.0,
+     "p75": 63.0,
+     "p90": 76.6,
+     "max": 104
+    },
+    "share_sentences_over_25w": 71.8,
+    "share_long_words_3syl": 22.3,
+    "clarity_index_dapam": 66.3,
+    "passive_forms_per_100w": 0.52,
+    "n_paragraphs_25w+": 0,
+    "sentences_per_paragraph": {},
+    "headings_approx": [
+     "August 16, 2018",
+     "August 16, 2018",
+     "Organizational Structure of the Military",
+     "The Secretaries of the military departments are responsible",
+     "Congress has attempted numerous organizational and",
+     "Unified Combatant Commands (COCOMS) are",
+     "In addition to these perceived managerial deficits, Congress",
+     "Currently, the Air Force provides space mission capabilities",
+     "Space Command, and designated the commander of Air",
+     "National Defense Authorization Act (NDAA) deliberations,",
+     "Options for Space Reorganization",
+     "Specific organizational options that the President or",
+     "Congress could implement to conduct national security",
+     "DOD recently developed a series of additional proposals"
+    ],
+    "first_sentence": ""
+   },
+   "IF11065": {
+    "n_words": 1100,
+    "n_sentences": 34,
+    "words_per_sentence": {
+     "n": 34,
+     "mean": 32.4,
+     "median": 21.0,
+     "p25": 15.2,
+     "p75": 27.0,
+     "p90": 35.7,
+     "max": 359
+    },
+    "share_sentences_over_25w": 35.3,
+    "share_long_words_3syl": 32.5,
+    "clarity_index_dapam": 64.8,
+    "passive_forms_per_100w": 1.09,
+    "n_paragraphs_25w+": 4,
+    "sentences_per_paragraph": {
+     "n": 4,
+     "mean": 8.5,
+     "median": 1.5,
+     "p25": 1.0,
+     "p75": 9.0,
+     "p90": 21.6,
+     "max": 30
+    },
+    "headings_approx": [
+     "January 8, 2019",
+     "Introduction to Financial Services: The Regulatory Framework",
+     "The Financial System",
+     "Financial activity is inherently risky, but without risk-",
+     "The Financial Regulatory Framework",
+     "Government-sponsored enterprise (GSE)",
+     "Frank Wall Street Reform and Consumer",
+     "These regulators regulate financial institutions, markets,",
+     "Regulatory Fragmentation",
+     "The financial regulatory system has been described as",
+     "Dodd-Frank Act and the Housing and Economic Recovery",
+     "Financial Stability Oversight Council (FSOC), a council of",
+     "In practice, regulatory jurisdiction is typically based on",
+     "Drawbacks to the fragmented regulatory system are the"
+    ],
+    "first_sentence": "January 8, 2019 Introduction to Financial Services: The Regulatory Framework This In Focus provides a brief introduction to the federal agencies that regulate U.S. financial markets."
+   },
+   "IF11898": {
+    "n_words": 1593,
+    "n_sentences": 45,
+    "words_per_sentence": {
+     "n": 45,
+     "mean": 35.3,
+     "median": 32.0,
+     "p25": 18.0,
+     "p75": 48.0,
+     "p90": 61.6,
+     "max": 116
+    },
+    "share_sentences_over_25w": 57.8,
+    "share_long_words_3syl": 25.0,
+    "clarity_index_dapam": 60.3,
+    "passive_forms_per_100w": 0.94,
+    "n_paragraphs_25w+": 2,
+    "sentences_per_paragraph": {
+     "n": 2,
+     "mean": 2.5,
+     "median": 2.5,
+     "p25": 2.2,
+     "p75": 2.8,
+     "p90": 2.9,
+     "max": 3
+    },
+    "headings_approx": [
+     "The 287(g) Program: State and Local Immigration Enforcement",
+     "August 12, 2021",
+     "August 12, 2021",
+     "The 287(g) Program: State and Local Immigration Enforcement",
+     "Section 287(g) of the Immigration and Nationality Act",
+     "Immigration Officers (DIOs) must complete a four-week",
+     "Administration, from January 2017 until September 2020,",
+     "Memorandum of Agreement",
+     "ICE deportation officers spend traveling to serve warrants",
+     "While each MOA is individually negotiated between ICE",
+     "Obama Administration announced that it would discontinue",
+     "Enforcement Model (JEM) and the Warrant Service Officer",
+     "The 287(g) Program: State and Local Immigration Enforcement",
+     "ICE has no formal oversight mechanism for WSO"
+    ],
+    "first_sentence": "maximize the program’s benefits."
+   },
+   "IF12010": {
+    "n_words": 1352,
+    "n_sentences": 47,
+    "words_per_sentence": {
+     "n": 47,
+     "mean": 28.7,
+     "median": 25.0,
+     "p25": 19.0,
+     "p75": 36.5,
+     "p90": 42.8,
+     "max": 81
+    },
+    "share_sentences_over_25w": 48.9,
+    "share_long_words_3syl": 25.7,
+    "clarity_index_dapam": 54.4,
+    "passive_forms_per_100w": 0.15,
+    "n_paragraphs_25w+": 16,
+    "sentences_per_paragraph": {
+     "n": 16,
+     "mean": 2.6,
+     "median": 2.5,
+     "p25": 2.0,
+     "p75": 3.0,
+     "p90": 4.0,
+     "max": 5
+    },
+    "headings_approx": [
+     "Military Applications of Extended Reality",
+     "June 17, 2025",
+     "Military Applications of Extended Reality",
+     "Updated June 17, 2025",
+     "Military Applications of Extended Reality",
+     "Potential Issues for Congress",
+     "Technological Maturity",
+     "Cybersecurity and Information Security",
+     "Download EPUB"
+    ],
+    "first_sentence": "Although commercial and consumer industries have been investing in extended reality (XR) for decades, recent advances have expanded the number of potential applications for the U.S. military."
+   }
+  },
+  "churchill_brevity": {
+   "n_words": 237,
+   "n_sentences": 12,
+   "words_per_sentence": {
+    "n": 12,
+    "mean": 19.8,
+    "median": 17.0,
+    "p25": 14.5,
+    "p75": 22.8,
+    "p90": 25.9,
+    "max": 54
+   },
+   "share_sentences_over_25w": 16.7,
+   "share_long_words_3syl": 10.1,
+   "clarity_index_dapam": 29.9,
+   "passive_forms_per_100w": 0.84
+  },
+  "da_pam_examples": {
+   "fig3_1_poor": {
+    "n_words": 63,
+    "n_sentences": 4,
+    "words_per_sentence": {
+     "n": 4,
+     "mean": 15.8,
+     "median": 18.0,
+     "p25": 15.5,
+     "p75": 18.2,
+     "p90": 18.7,
+     "max": 19
+    },
+    "share_sentences_over_25w": 0.0,
+    "share_long_words_3syl": 12.7,
+    "clarity_index_dapam": 28.4,
+    "passive_forms_per_100w": 0.0
+   },
+   "fig3_2_good": {
+    "n_words": 29,
+    "n_sentences": 5,
+    "words_per_sentence": {
+     "n": 5,
+     "mean": 5.8,
+     "median": 6.0,
+     "p25": 4.0,
+     "p75": 7.0,
+     "p90": 8.2,
+     "max": 9
+    },
+    "share_sentences_over_25w": 0.0,
+    "share_long_words_3syl": 13.8,
+    "clarity_index_dapam": 19.6,
+    "passive_forms_per_100w": 0.0
+   },
+   "fig4_4_poor": {
+    "n_words": 176,
+    "n_sentences": 6,
+    "words_per_sentence": {
+     "n": 6,
+     "mean": 29.3,
+     "median": 28.5,
+     "p25": 16.5,
+     "p75": 43.5,
+     "p90": 47.0,
+     "max": 47
+    },
+    "share_sentences_over_25w": 50.0,
+    "share_long_words_3syl": 18.2,
+    "clarity_index_dapam": 47.5,
+    "passive_forms_per_100w": 0.57
+   },
+   "fig4_5_good": {
+    "n_words": 50,
+    "n_sentences": 4,
+    "words_per_sentence": {
+     "n": 4,
+     "mean": 12.5,
+     "median": 11.0,
+     "p25": 8.2,
+     "p75": 15.2,
+     "p90": 19.3,
+     "max": 22
+    },
+    "share_sentences_over_25w": 0.0,
+    "share_long_words_3syl": 12.0,
+    "clarity_index_dapam": 24.5,
+    "passive_forms_per_100w": 0.0
+   },
+   "fig5_1_poor_memo": {
+    "n_words": 515,
+    "n_sentences": 21,
+    "words_per_sentence": {
+     "n": 21,
+     "mean": 24.5,
+     "median": 21.0,
+     "p25": 17.0,
+     "p75": 33.0,
+     "p90": 37.0,
+     "max": 56
+    },
+    "share_sentences_over_25w": 42.9,
+    "share_long_words_3syl": 23.7,
+    "clarity_index_dapam": 48.2,
+    "passive_forms_per_100w": 1.55
+   },
+   "fig5_2_good_memo": {
+    "n_words": 164,
+    "n_sentences": 14,
+    "words_per_sentence": {
+     "n": 14,
+     "mean": 11.4,
+     "median": 11.0,
+     "p25": 8.0,
+     "p75": 15.5,
+     "p90": 16.7,
+     "max": 20
+    },
+    "share_sentences_over_25w": 0.0,
+    "share_long_words_3syl": 14.0,
+    "clarity_index_dapam": 25.5,
+    "passive_forms_per_100w": 0.0
+   },
+   "fig5_3_poor_letter": {
+    "n_words": 188,
+    "n_sentences": 8,
+    "words_per_sentence": {
+     "n": 8,
+     "mean": 23.5,
+     "median": 21.0,
+     "p25": 18.2,
+     "p75": 24.2,
+     "p90": 33.7,
+     "max": 47
+    },
+    "share_sentences_over_25w": 25.0,
+    "share_long_words_3syl": 14.9,
+    "clarity_index_dapam": 38.4,
+    "passive_forms_per_100w": 1.06
+   },
+   "fig5_4_good_letter": {
+    "n_words": 60,
+    "n_sentences": 4,
+    "words_per_sentence": {
+     "n": 4,
+     "mean": 15,
+     "median": 14.0,
+     "p25": 12.2,
+     "p75": 16.8,
+     "p90": 19.9,
+     "max": 22
+    },
+    "share_sentences_over_25w": 0.0,
+    "share_long_words_3syl": 18.3,
+    "clarity_index_dapam": 33.3,
+    "passive_forms_per_100w": 0.0
+   },
+   "fig5_5_poor_survey": {
+    "n_words": 253,
+    "n_sentences": 9,
+    "words_per_sentence": {
+     "n": 9,
+     "mean": 28.1,
+     "median": 21.0,
+     "p25": 14.0,
+     "p75": 29.0,
+     "p90": 52.4,
+     "max": 74
+    },
+    "share_sentences_over_25w": 44.4,
+    "share_long_words_3syl": 15.4,
+    "clarity_index_dapam": 43.5,
+    "passive_forms_per_100w": 0.4
+   },
+   "fig5_6_good_survey": {
+    "n_words": 119,
+    "n_sentences": 6,
+    "words_per_sentence": {
+     "n": 6,
+     "mean": 19.8,
+     "median": 16.5,
+     "p25": 13.0,
+     "p75": 26.8,
+     "p90": 32.5,
+     "max": 36
+    },
+    "share_sentences_over_25w": 33.3,
+    "share_long_words_3syl": 12.6,
+    "clarity_index_dapam": 32.4,
+    "passive_forms_per_100w": 1.68
+   }
+  },
+  "smart_brevity_101": {
+   "n_words": 729,
+   "n_sentences": 33,
+   "words_per_sentence": {
+    "n": 33,
+    "mean": 22.0,
+    "median": 22.0,
+    "p25": 10.0,
+    "p75": 29.0,
+    "p90": 39.2,
+    "max": 59
+   },
+   "share_sentences_over_25w": 36.4,
+   "share_long_words_3syl": 10.8,
+   "clarity_index_dapam": 32.9,
+   "passive_forms_per_100w": 0.14
+  }
+ }
+}

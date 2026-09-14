@@ -1,0 +1,19 @@
+{
+  "artifact_url": "https://claude.ai/artifacts/sample-0001",
+  "artifact_title": "샘플 리포트 — 장피엠 문체판",
+  "source_file": "sample/council-report_jangpm.html",
+  "collected_at": "2026-09-08T10:00:00+09:00",
+  "doc": { "project": "sample", "genre": "카운슬 리포트", "base_guideline": "장피엠", "version": "장피엠" },
+  "threads": [
+    { "thread_id": "th-1", "anchor": { "quote": "레트로는 하나가 아니라 둘입니다.", "section": "의장 판정 > 합의", "context": "" },
+      "comments": [ { "author": "user", "text": "[싫] 대구가 너무 자주 나와요", "at": "2026-09-08T09:00:00+09:00" } ], "activated": false },
+    { "thread_id": "th-2", "anchor": { "quote": "그래서 둘 다 합리적입니다.", "section": "의장 판정 > 충돌", "context": "" },
+      "comments": [ { "author": "user", "text": "[규칙] 한 문단에 '아니라' 대구는 하나까지만", "at": "2026-09-08T09:01:00+09:00" } ], "activated": true },
+    { "thread_id": "th-3", "anchor": { "quote": "숫자가 하나도 없습니다.", "section": "어드바이저 전문 > 사업 책임자", "context": "" },
+      "comments": [ { "author": "user", "text": "[고침] 숫자가 없습니다.", "at": "2026-09-08T09:02:00+09:00" } ], "activated": false },
+    { "thread_id": "th-4", "anchor": { "quote": "지금은 불필요합니다.", "section": "의장 판정 > 리스크 게이트", "context": "" },
+      "comments": [ { "author": "user", "text": "이 짧은 판정문은 좋아요", "at": "2026-09-08T09:03:00+09:00" } ], "activated": false, "kind_hint": "칭찬" },
+    { "thread_id": "th-5", "anchor": { "quote": "", "section": "전체", "context": "" },
+      "comments": [ { "author": "user", "text": "전체적으로 접속사가 많아진 느낌", "at": "2026-09-08T09:04:00+09:00" } ], "activated": false }
+  ]
+}

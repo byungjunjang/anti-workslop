@@ -1,0 +1,11 @@
+styleguides/jangpm/장피엠 글쓰기 문체 가이드라인.md
+styleguides/report/개조식 보고서 작성 가이드라인.md
+.claude/skills/styleguide-builder/assets/templates/blog.template.md
+principles/ai-tells-ko.md
+.claude/skills/anti-workslop/SKILL.md
+.claude/skills/anti-workslop/references/modes.md
+principles/invariants.md
+.claude/skills/anti-workslop/references/subagent.md
+styleguides/README.md
+README.md
+taste/README.md
