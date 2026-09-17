@@ -26,6 +26,11 @@ def parse_tag(text):
     return None, None
 
 
+def source_ref(src):
+    """중복 제거 키의 앞자리. 아티팩트는 URL, 대화는 source_ref. 옛 케이스에는 source_ref 가 없다."""
+    return src.get("artifact_url") or src.get("source_ref", "")
+
+
 def load_ledger(path):
     path = Path(path)
     if not path.exists():
@@ -53,11 +58,13 @@ def ingest(raw_path, ledger_path):
     raw_path, ledger_path = Path(raw_path), Path(ledger_path)
     raw = json.loads(raw_path.read_text(encoding="utf-8"))
     cases = load_ledger(ledger_path)
-    seen = {(c["source"]["artifact_url"], c["source"]["thread_id"]) for c in cases}
+    seen = {(source_ref(c["source"]), c["source"]["thread_id"]) for c in cases}
     new, dup = [], 0
     doc = raw.get("doc", {})
+    origin = raw.get("origin", "artifact")        # artifact = 코멘트 수집, chat = 대화에서 들은 취향
+    ref = source_ref(raw)
     for th in raw["threads"]:
-        key = (raw["artifact_url"], th["thread_id"])
+        key = (ref, th["thread_id"])
         if key in seen:
             dup += 1
             continue
@@ -72,7 +79,9 @@ def ingest(raw_path, ledger_path):
         case = {
             "case_id": next_id(cases + new),
             "date": raw.get("collected_at", "")[:10],
-            "source": {"artifact_url": raw["artifact_url"], "artifact_title": raw.get("artifact_title", ""),
+            "origin": origin,
+            "source": {"artifact_url": raw.get("artifact_url", ""), "source_ref": ref,
+                       "artifact_title": raw.get("artifact_title", ""),
                        "version": doc.get("version", ""), "thread_id": th["thread_id"], "raw_file": raw_path.name},
             "doc": {"project": doc.get("project", ""), "genre": doc.get("genre", ""),
                     "base_guideline": doc.get("base_guideline", "none"), "section": anchor.get("section") or "전체"},

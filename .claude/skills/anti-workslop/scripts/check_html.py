@@ -10,7 +10,7 @@ HTML 전용 검사기를 따로 두지 않는다. 임계값은 md 검사기(targ
 자식 검사기의 stdout·stderr·종료 코드를 그대로 돌려준다. 입력 오류는 exit 2.
 """
 from __future__ import annotations
-import argparse, json, shlex, subprocess, sys, tempfile
+import argparse, json, re, shlex, subprocess, sys, tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -21,19 +21,35 @@ sys.path.insert(0, str(HERE))
 from check_ai_tells import force_utf8_stdout, normalize_text, segment_html  # noqa: E402
 
 PREFIX = {"heading": "## ", "list": "- ", "quote": "> ", "prose": ""}
+REPORT_MARKS = ("□ ", "○ ", "- ")                  # check_report 는 기호로 층위를 읽는다(parse_items)
+BULLET_HEAD = re.compile(r"^[□○▪◦●·※•■▶◆\-*+]\s")
 
 
-def extract_md(html: str) -> str:
-    """세그먼트를 md 블록으로. 표제는 층위를 모르므로 모두 ## 로 적는다(검사기는 개수만 센다)."""
-    out = []
+def extract_md_mapped(html: str, kind: str = "style") -> tuple[str, dict]:
+    """(md, {md 줄 번호: HTML 줄 번호}). 표제는 층위를 모르므로 모두 ## 로 적는다(검사기는 개수만 센다).
+    목록은 깊이를 kind 에 맞춰 표기한다 — report 는 □·○·들여쓴 -, style 은 두 칸 들여쓰기."""
+    out, lines = [], {}
     for s in segment_html(normalize_text(html)):
         p = PREFIX.get(s.kind)
-        if p is None:
+        if p is None:                              # 표·코드·면제 구역은 뽑지 않는다
             continue
         text = " ".join(s.text.split())
-        if text:
-            out.append(p + text)
-    return "\n\n".join(out) + ("\n" if out else "")
+        if not text:
+            continue
+        if s.kind == "list":
+            d = getattr(s, "depth", 0)
+            if kind == "report":
+                mark = "" if BULLET_HEAD.match(text) else REPORT_MARKS[min(d, 2)]
+                p = ("  " if d >= 2 else "") + mark
+            else:
+                p = "  " * min(d, 3) + "- "
+        lines[2 * len(out) + 1] = s.line_start     # 블록은 빈 줄로 잇는다: 0→1행, 1→3행 …
+        out.append(p + text)
+    return "\n\n".join(out) + ("\n" if out else ""), lines
+
+
+def extract_md(html: str, kind: str = "style") -> str:
+    return extract_md_mapped(html, kind)[0]
 
 
 def load_bg() -> dict:
@@ -50,12 +66,23 @@ def command_for(guide: str, short: bool) -> str:
         raise SystemExit(2)
 
 
-def run_check(cmd: str, md_path: Path) -> int:
+LINE_REF = re.compile(r"^(\s*-?\s*[A-Z]\d+)\s+(\d+)행", re.M)
+
+
+def remap_lines(text: str, lines: dict) -> str:
+    """자식 검사기가 추출 md 줄로 낸 번호를 HTML 줄로 바꾼다."""
+    def sub(m: "re.Match") -> str:
+        n = int(m.group(2))
+        return f"{m.group(1)} {lines.get(n, n)}행"
+    return LINE_REF.sub(sub, text)
+
+
+def run_check(cmd: str, md_path: Path, lines: dict | None = None) -> int:
     argv = shlex.split(cmd.replace("{file}", md_path.as_posix()), posix=True)
     if argv and argv[0] == "python":
         argv[0] = sys.executable
     r = subprocess.run(argv, capture_output=True, text=True, encoding="utf-8", cwd=ROOT)
-    sys.stdout.write(r.stdout)
+    sys.stdout.write(remap_lines(r.stdout, lines) if lines else r.stdout)
     sys.stderr.write(r.stderr)
     return r.returncode
 
@@ -81,7 +108,8 @@ def main(argv: list[str] | None = None) -> int:
     except OSError as e:
         print(f"입력 오류: {a.file}: {e}", file=sys.stderr)
         return 2
-    md = extract_md(html)
+    kind = load_bg().get("_checker_kind", {}).get(a.guide, "style")
+    md, line_map = extract_md_mapped(html, kind)
     if a.extract_only:
         if a.out:
             Path(a.out).write_text(md, encoding="utf-8")
@@ -95,7 +123,7 @@ def main(argv: list[str] | None = None) -> int:
     with tempfile.TemporaryDirectory() as d:
         md_path = Path(d) / (src.stem + ".md")
         md_path.write_text(md, encoding="utf-8")
-        return run_check(cmd, md_path)
+        return run_check(cmd, md_path, line_map)
 
 
 if __name__ == "__main__":

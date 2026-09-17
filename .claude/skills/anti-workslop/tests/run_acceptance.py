@@ -47,8 +47,13 @@ def test_modes_doc():
     md = (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
     assert "취향 0건, 가이드 hard 1건, 원칙 S1 2건, 사람 판단 3건" in md
     assert "Step 2" in md and "표시 규칙" in md
+    assert "## 범위 질문" in md and "## 윤문 뒤" in md, "범위 질문·윤문 뒤 절이 없다"
+    assert "뼈대 출처" in md and "템플릿" in md, "구조 진단표에 뼈대 출처 칸이 없다"
+    skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+    assert "문장만" in skill and "뼈대까지" in skill, "SKILL.md 에 범위 질문이 없다"
     cases = (SKILL / "tests" / "evals" / "cases.md").read_text(encoding="utf-8")
     assert "11-diagnose-isolation" in cases and "12-review-layer-counts" in cases
+    assert "17-scope-question" in cases and "18-skeleton-template" in cases
     print("PASS test_modes_doc")
 
 
@@ -239,6 +244,41 @@ def test_ai_tells_html_offsets():
     # <code>·<table> 안의 '결론적으로'는 블랭킹되어 AT-07 이 뜨지 않는다
     assert d["summary"]["by_rule"].get("AT-07", 0) == 0, d["findings"]
     print("PASS test_ai_tells_html_offsets")
+
+
+def test_ai_tells_html_nesting():
+    """중첩 목록. 상위 li 는 하위 목록 앞뒤 텍스트를 모두 담고 하위 li 를 삼키지 않는다.
+    <!-- style-exempt --> 바로 다음 요소는 안쪽까지 exempt 라 원칙 검사기가 세지 않는다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    from check_ai_tells import segment_html
+    src = (SKILL / "tests" / "fixtures" / "html-nested.html").read_text(encoding="utf-8")
+    segs = [s for s in segment_html(src) if s.kind == "list"]
+    top = segs[0]
+    assert "시작함" in top.text and "재판단 필요" in top.text, top.text
+    assert "원가율 38%" not in top.text, top.text
+    assert top.depth == 0 and [s.depth for s in segs[1:3]] == [1, 1], [s.depth for s in segs]
+    assert any(s.text == "원가율 38%로 목표 32%를 넘음" for s in segs), [s.text for s in segs]
+    ex = (SKILL / "tests" / "fixtures" / "html-exempt.html").read_text(encoding="utf-8")
+    kinds = {s.kind for s in segment_html(ex) if "논의가 부족" in s.text}
+    assert kinds == {"exempt"}, kinds
+    d = json.loads(run(CHECK, "--genre", "줄글", "--json", f"{FIX}/html-exempt.html").stdout)
+    assert d["summary"]["by_rule"].get("AT-16", 0) == 0, d["findings"]
+    print("PASS test_ai_tells_html_nesting")
+
+
+def test_html_exempt_consumers():
+    """면제 구역은 장르·원칙·힌트에서 빠지고, 불변식 검사기는 md 와 같이 계속 견준다."""
+    ex = run(".claude/skills/anti-workslop/scripts/check_html.py", "--extract-only", f"{FIX}/html-exempt.html")
+    assert "논의가 부족" not in ex.stdout and "보정" in ex.stdout, ex.stdout
+    h = run(ALL, "--guide", "없음", "--hint", f"{FIX}/html-exempt.html")
+    assert "문장 1 " in h.stdout, h.stdout                      # 면제 구역의 세 문장은 세지 않는다
+    with tempfile.TemporaryDirectory() as d:
+        src = (SKILL / "tests" / "fixtures" / "html-exempt.html").read_text(encoding="utf-8")
+        o = _tmp_md(d, "o.html", src)
+        p = _tmp_md(d, "p.html", src.replace("논의가 부족했다", "논의가 부족하지 않았다"))
+        f = json.loads(run(FID, "--json", o, p).stdout)
+        assert f["summary"]["by_rule"].get("F3", 0) > 0, f["summary"]   # 면제 구역의 부정이 바뀐 것은 잡는다
+    print("PASS test_html_exempt_consumers")
 
 
 def _expect(path):
@@ -443,6 +483,46 @@ def test_check_html_wrapper():
     print("PASS test_check_html_wrapper")
 
 
+def test_check_html_levels():
+    """개조식은 □(1단)·○(2단)·들여쓴 -(3단)으로, 장피엠은 들여쓴 '- ' 로 뽑는다.
+    층위가 살아야 H6(2·3단 숫자 비율)·H8(하위 1개)이 HTML 에서도 층위대로 센다."""
+    r = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식",
+            "--extract-only", f"{FIX}/html-nested.html")
+    lines = [l for l in r.stdout.splitlines() if l.strip()]
+    assert lines[1].startswith("□ 10월 전 매장"), lines
+    assert lines[2].startswith("○ 원가율 38%"), lines
+    s = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "장피엠",
+            "--extract-only", f"{FIX}/html-nested.html")
+    sl = [l for l in s.stdout.splitlines() if l.strip()]
+    assert sl[1].startswith("- 10월 전 매장") and sl[2].startswith("  - 원가율 38%"), sl
+    print("PASS test_check_html_levels")
+
+
+def test_check_html_line_map():
+    """장르 검사기가 보고하는 줄 번호는 추출 md 가 아니라 HTML 줄이다."""
+    src = (SKILL / "tests" / "fixtures" / "html-nested.html").read_text(encoding="utf-8").splitlines()
+    want = next(i for i, l in enumerate(src, 1) if "프로모션 할인과 배송비" in l)
+    r = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-nested.html")
+    nums = [int(x) for x in re.findall(r"H4 (\d+)행", r.stdout)]
+    assert nums and want in nums, (nums, want, r.stdout)   # 인용 항목은 Task 6 뒤 빠지므로 긴 무인용 항목으로 본다
+    print("PASS test_check_html_line_map")
+
+
+def test_report_h4_excludes_quote():
+    """인용이 든 항목은 인용을 빼고 센다. 인용 보존(F2)과 H4 가 부딪치지 않게 한다(가이드 §14 [종결] 선례)."""
+    with tempfile.TemporaryDirectory() as d:
+        quote = "가" * 150
+        item = f'□ 마케팅팀장은 "{quote}"고 말함\n'
+        plain = "□ " + "나" * 130 + "\n"
+        q = _tmp_md(d, "q.md", item)
+        p = _tmp_md(d, "p.md", plain)
+        rq = run("styleguides/report/scripts/check_report.py", q)
+        rp = run("styleguides/report/scripts/check_report.py", p)
+    assert "H4" not in rq.stdout, rq.stdout
+    assert "H4" in rp.stdout, rp.stdout
+    print("PASS test_report_h4_excludes_quote")
+
+
 def test_check_taste():
     """취향 검사기. W-NN 의 검출 필드(regex·literal·density)를 원칙 검사기 엔진으로 돌리고,
     human 은 건너뛰어 목록에 적는다. --strict 는 [규칙] 등급 finding 에만 실패한다."""
@@ -547,6 +627,35 @@ def test_fidelity_footnotes():
     print("PASS test_fidelity_footnotes")
 
 
+def test_fidelity_negation_equivalents():
+    """개조식 명사형 치환은 뜻이 같다(F3 S1 아님). 같은 표지가 여럿이면 실제로 바뀐 자리를 지목한다."""
+    with tempfile.TemporaryDirectory() as d:
+        orig = ("- 공급사 두 곳 중 한 곳은 물량을 보장할 수 없음\n"
+                "- 재구매율은 아직 확인되지 않았음\n"
+                "- 지방 수요는 잴 수 없음\n")
+        same = ("- 공급사 두 곳 중 한 곳은 물량 보장 불가\n"
+                "- 재구매율은 미확인\n"
+                "- 지방 수요는 잴 수 없음\n")
+        drift = ("- 공급사 두 곳 중 한 곳은 물량을 보장할 수 없음\n"
+                 "- 재구매율은 아직 확인되지 않았음\n"
+                 "- 지방 수요는 4주 뒤 집계\n")
+        level = ("- 공급사 두 곳 중 한 곳은 물량을 보장할 수 없음\n"
+                 "- 재구매율은 미정\n"
+                 "- 지방 수요는 잴 수 없음\n")
+        o = _tmp_md(d, "o.md", orig)
+        a = json.loads(run(FID, "--json", o, _tmp_md(d, "a.md", same)).stdout)
+        f3 = [f for f in a["findings"] if f["rule"] == "F3" and f["severity"] == "S1"]
+        assert not f3, f3
+        b = json.loads(run(FID, "--json", o, _tmp_md(d, "b.md", drift)).stdout)
+        s1 = [f for f in b["findings"] if f["rule"] == "F3" and f["severity"] == "S1"]
+        assert len(s1) == 1 and s1[0]["line"] == 3, s1        # 바꾸지 않은 1행이 아니라 3행
+        c = json.loads(run(FID, "--json", o, _tmp_md(d, "c.md", level)).stdout)
+        s1c = [f for f in c["findings"] if f["rule"] == "F3" and f["severity"] == "S1"]
+        assert len(s1c) == 1 and s1c[0]["line"] == 2, s1c     # 「확인되지 않음 → 미정」은 확정 수준이 바뀐다
+        assert "미정" in s1c[0]["detail"], s1c                 # 어디로 옮겨 갔는지 결과 쪽 자리를 함께 낸다
+    print("PASS test_fidelity_negation_equivalents")
+
+
 def test_check_all_hint():
     """--hint 는 원문을 열지 않고 가이드를 고르게 하는 한 줄이다. 산문이 이어지면 줄글, 명사형 종결 항목이 대세면 개조식,
     섞였거나 셋 미만이면 애매(호출자가 묻는다). 항목 끝의 이모지는 종결 판정에서 뗀다."""
@@ -592,6 +701,16 @@ def test_skill_budget():
     p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
     assert len(p) <= 9000, len(p)
     print("PASS test_skill_budget")
+
+
+def test_brief_write_rules():
+    """브리프는 호출 수로 재작성을 죄지 않는다. 큰 원문은 복사 뒤 구역별 Edit, 면제 구역은 손대지 않는다."""
+    b = BRIEF.read_text(encoding="utf-8")
+    assert "도구 호출 상한은 6회다" not in b, "호출 상한 문장이 남아 있다"
+    for s in ("1만 자", "cp", "3,000자", "style-exempt", "바뀐 줄"):
+        assert s in b, s
+    assert len(b) <= 4200, len(b)
+    print("PASS test_brief_write_rules")
 
 
 def test_check_all_diagnose():
@@ -884,6 +1003,8 @@ if __name__ == "__main__":
     test_ai_tells_borrowed_controls()
     test_ai_tells_json_envelope()
     test_ai_tells_html_offsets()
+    test_ai_tells_html_nesting()
+    test_html_exempt_consumers()
     test_ai_tells_fixture_expected()
     test_ai_tells_borrowed_expected()
     test_ai_tells_clean_control()
@@ -902,6 +1023,9 @@ if __name__ == "__main__":
     test_fidelity_status_line_removal()
     test_ai_tells_chars_nospace()
     test_check_html_wrapper()
+    test_check_html_levels()
+    test_check_html_line_map()
+    test_report_h4_excludes_quote()
     test_check_taste()
     test_ai_tells_explain_human()
     test_check_all_pack()
@@ -920,9 +1044,11 @@ if __name__ == "__main__":
     test_check_all_taste_skip()
     test_registered_guide()
     test_fidelity_footnotes()
+    test_fidelity_negation_equivalents()
     test_check_all_hint()
     test_check_all_bundle()
     test_skill_budget()
+    test_brief_write_rules()
     test_ai_tells_no_ai_slop_ko()
     test_at66_wiring()
     test_ai_tells_hortative_setup()

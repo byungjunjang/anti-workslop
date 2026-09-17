@@ -441,6 +441,7 @@ class Seg:
     text: str                   # 검사 대상 텍스트(표지·태그를 걷어낸 뒤)
     raw: str                    # 원본 줄
     index: list = field(default_factory=list)   # (텍스트 오프셋, 행, 0-기준 열, 길이)
+    depth: int = 0                              # 목록 깊이. 최상위 li 가 0, 그 아래가 1
 
     def locate(self, pos: int) -> tuple[int, int]:
         """세그먼트 텍스트의 오프셋을 원본 (행, 열 1-기준)로 되돌린다."""
@@ -659,9 +660,13 @@ def segment_markdown(text: str, teaching: set | None = None) -> list:
 
 # --- HTML -------------------------------------------------------------------
 HTML_BLANK = ("script", "style", "pre", "code", "svg", "table")
-HTML_KINDS = [("h1", "heading"), ("h2", "heading"), ("h3", "heading"), ("h4", "heading"),
-              ("h5", "heading"), ("h6", "heading"), ("blockquote", "quote"), ("li", "list"),
-              ("p", "prose")]
+HTML_OWNER = {"h1": "heading", "h2": "heading", "h3": "heading", "h4": "heading", "h5": "heading",
+              "h6": "heading", "blockquote": "quote", "li": "list", "p": "prose"}
+HTML_LISTS = ("ul", "ol")
+HTML_VOID = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "source", "track", "wbr"}
+# 태그 하나씩 읽어 스택을 쌓는다. 여는 태그와 닫는 태그를 정규식으로 짝지으면 중첩 목록에서
+# 상위 li 가 첫 하위 li 를 삼키고 하위 목록 뒤의 상위 텍스트를 잃는다(2026-09-15 재현).
+HTML_TOKEN = re.compile(r"<!--.*?-->|<(/?)([A-Za-z][A-Za-z0-9]*)\b[^>]*?(/?)>|<![^>]*>|<\?[^>]*>", re.S)
 TAG_RE = re.compile(r"<[^>]*>")
 ENT_RE = re.compile(r"&(?:#\d+|#[xX][0-9a-fA-F]+|[A-Za-z][A-Za-z0-9]{1,31});")
 
@@ -717,29 +722,31 @@ def _blank_html_elements(text: str) -> tuple[str, bytearray]:
 
 
 def segment_html(text: str, teaching: set | None = None) -> list:
+    """블록 요소마다 '직접 붙은 텍스트'를 모아 세그먼트로 만든다. 글자마다 원본 오프셋을 남겨
+    행·열이 원본 자리와 같다. li 는 깊이를 담고, <!-- style-exempt --> 다음 요소는 안쪽까지 exempt 다."""
     text = normalize_text(text)
     blanked, holes = _blank_html_elements(text)
     starts = _line_starts(blanked)
-    raw_hits = []
-    for tag, kind in HTML_KINDS:
-        for m in re.finditer(rf"<{tag}\b[^>]*>(.*?)</{tag}\s*>", blanked, re.I | re.S):
-            raw_hits.append((m.start(), -m.end(), kind, m.start(1), m.group(1)))
-    raw_hits.sort()
-    segs, claimed = [], []
-    for start, negend, kind, inner_at, inner in raw_hits:
-        end = -negend
-        if any(a <= start and end <= b for a, b in claimed):
-            continue
-        claimed.append((start, end))
-        body, offs = _strip_tags_mapped(inner, inner_at)
-        kept = [(c, o) for c, o in zip(body, offs) if not holes[o]]   # 지운 요소 자리는 뺀다
-        body, offs = "".join(c for c, _ in kept), [o for _, o in kept]
-        a, b = 0, len(body)
-        while a < b and body[a].isspace(): a += 1
-        while b > a and body[b - 1].isspace(): b -= 1
-        body, offs = body[a:b], offs[a:b]
-        if not body:
-            continue
+    segs: list = []
+    stack: list = []                 # [태그, 소유자|None, 면제 뿌리 여부]
+    pending_exempt = False
+
+    def owner_top():
+        for e in reversed(stack):
+            if e[1] is not None:
+                return e[1]
+        return None
+
+    def emit(o: dict) -> None:
+        chars = o["chars"]
+        a, b = 0, len(chars)
+        while a < b and chars[a][0].isspace(): a += 1
+        while b > a and chars[b - 1][0].isspace(): b -= 1
+        chars = chars[a:b]
+        if not chars:
+            return
+        body = "".join(c for c, _ in chars)
+        offs = [x for _, x in chars]
         index, k = [], 0
         while k < len(body):
             ln, col = _line_col(starts, offs[k])
@@ -748,7 +755,54 @@ def segment_html(text: str, teaching: set | None = None) -> list:
                 j += 1
             index.append((k, ln, col - 1, j - k))
             k = j
-        segs.append(Seg(kind, index[0][1], index[-1][1], body, body, index))
+        segs.append(Seg(o["kind"], index[0][1], index[-1][1], body, body, index, o["depth"]))
+
+    def close(i: int) -> None:
+        while len(stack) > i:
+            e = stack.pop()
+            if e[1] is not None:
+                emit(e[1])
+
+    def add_text(a: int, b: int) -> None:
+        o = owner_top()
+        if o is None or a >= b:
+            return
+        body, offs = _strip_tags_mapped(blanked[a:b], a)
+        for ch, off in zip(body, offs):
+            if not holes[off]:                                        # 지운 요소 자리는 뺀다
+                o["chars"].append((ch, off))
+
+    pos = 0
+    for m in HTML_TOKEN.finditer(blanked):
+        add_text(pos, m.start())
+        pos = m.end()
+        tok = m.group(0)
+        if tok.startswith("<!--"):
+            if EXEMPT_MARK.fullmatch(tok):
+                pending_exempt = True
+            continue
+        if m.group(2) is None:
+            continue
+        tag = m.group(2).lower()
+        if m.group(1) == "/":
+            for i in range(len(stack) - 1, -1, -1):
+                if stack[i][0] == tag:
+                    close(i)
+                    break
+            continue
+        exempt_root, pending_exempt = pending_exempt, False
+        if tag in ("p", "li") and stack and stack[-1][0] == tag:
+            close(len(stack) - 1)                                     # 닫는 태그를 생략한 p·li
+        owner = None
+        if tag in HTML_OWNER and (tag == "li" or owner_top() is None):
+            exempt = exempt_root or any(e[2] for e in stack)
+            depth = max(sum(1 for e in stack if e[0] in HTML_LISTS) - 1, 0) if tag == "li" else 0
+            owner = {"kind": "exempt" if exempt else HTML_OWNER[tag], "chars": [], "depth": depth}
+        if tag in HTML_VOID or m.group(3) == "/":
+            continue
+        stack.append([tag, owner, exempt_root])
+    add_text(pos, len(blanked))
+    close(0)
     segs.sort(key=lambda s: (s.line_start, s.index[0][2]))
     return segs
 

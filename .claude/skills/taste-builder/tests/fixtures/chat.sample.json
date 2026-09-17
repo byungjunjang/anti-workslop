@@ -1,0 +1,14 @@
+{
+  "origin": "chat",
+  "source_ref": "대화 2026-09-16 · anti-workslop 개조식 퇴고 후속",
+  "artifact_title": "",
+  "source_file": "",
+  "collected_at": "2026-09-16T11:00:00+09:00",
+  "doc": { "project": "sample", "genre": "의사결정 검토 리포트", "base_guideline": "개조식", "version": "개조식" },
+  "threads": [
+    { "thread_id": "chat-01", "anchor": { "quote": "", "section": "개요 상자", "context": "" },
+      "comments": [ { "author": "user", "text": "[규칙] 개요 상자에 계기·범위는 넣지 않는다", "at": "2026-09-16T11:00:00+09:00" } ] },
+    { "thread_id": "chat-02", "anchor": { "quote": "", "section": "전체", "context": "" },
+      "comments": [ { "author": "user", "text": "템플릿 뼈대가 더 이해된다", "at": "2026-09-16T11:01:00+09:00" } ], "kind_hint": "칭찬" }
+  ]
+}

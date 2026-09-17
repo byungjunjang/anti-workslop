@@ -1,6 +1,6 @@
 ---
 name: taste-builder
-description: 산출물을 코멘트용 claude.ai 아티팩트로 발행하고, 사용자가 「내가 쓴다면 이렇게 쓴다」고 단 코멘트를 케이스 원장에 쌓아 그 사람의 취향 문서(taste/writing-taste.md)를 증류한다. 취향을 적용해 글을 고치는 일은 anti-workslop 스킬이 한다. 트리거 — "코멘트 달 수 있게 올려줘", "taste collect <URL>", "코멘트 반영해줘", "취향 문서 갱신", "taste 갱신", "내 취향 만들기", "/taste-builder".
+description: 산출물을 코멘트용 claude.ai 아티팩트로 발행하고, 사용자가 「내가 쓴다면 이렇게 쓴다」고 단 코멘트나 대화에서 말한 취향을 케이스 원장에 쌓아 그 사람의 취향 문서(taste/writing-taste.md)를 증류한다. 취향을 적용해 글을 고치는 일은 anti-workslop 스킬이 한다. 트리거 — "코멘트 달 수 있게 올려줘", "taste collect <URL>", "코멘트 반영해줘", "취향 문서 갱신", "taste 갱신", "내 취향 만들기", "취향으로 기록해줘", "다음부터 이렇게 써줘", "이건 규칙으로 해줘", "/taste-builder".
 ---
 
 # taste-builder
@@ -81,6 +81,19 @@ URL을 알리고 먼저 **무엇을 적을지**를 말한다. AI가 쓴 문장�
 ## Step 9. 브리핑
 신규 케이스 수, 규칙 변동, 되물을 질문만. 갱신된 취향을 글에 적용하려면 `anti-workslop` 스킬을 쓴다고 한 줄 덧붙인다.
 
+## 모드 C: capture — 대화에서 들은 취향을 케이스로
+
+사용자가 "취향으로 기록해줘"·"다음부터 이렇게 써줘"·"이건 규칙으로 해줘"라고 할 때만 한다. 먼저 꺼내지 않는다. 취향 폴더가 없으면 Step 0 을 먼저 한다.
+
+## Step 1. 무엇을 기록할지 되읽기
+사용자의 말을 그대로 한 줄로 되읽고 맞는지 확인한다. 고쳐 쓰지 않는다. 문서를 보고 한 말이면 어느 문서·구역인지 함께 적는다.
+
+## Step 2. raw 스냅샷
+`taste/cases/raw/<YYYY-MM-DD>-<slug>.json` 에 `references/case-schema.md` 형식으로 쓴다. `origin`은 `chat`, `source_ref`는 어느 대화인지 한 줄, `thread_id`는 `chat-01`부터 매긴다. `anchor.quote`는 사용자가 가리킨 원문 문장이 있을 때만 그대로 넣고, 없으면 빈 문자열에 `section`을 `전체`로 둔다. 기밀 문서를 보고 한 말이면 인용을 넣지 않고 문서 종류만 `doc.genre`에 적는다. 사용자 문장은 `comments[].text`에 한 글자도 바꾸지 않고 넣는다.
+
+## Step 3. 병합부터 브리핑까지
+모드 B의 Step 3~7·9와 같다(ingest → 증류 → `--map` → 검증 → changelog). 스레드 답글(Step 8)은 아티팩트가 없으므로 건너뛴다.
+
 ## 테스트
 
-`python -X utf8 .claude/skills/taste-builder/tests/run_acceptance.py` — ingest 병합·중복, map, validate 통과/실패, to_artifact(html·md), init_taste, 문서 존재. 전부 `PASS`여야 한다.
+`python -X utf8 .claude/skills/taste-builder/tests/run_acceptance.py` — ingest 병합·중복, chat 케이스, map, validate 통과/실패, to_artifact(html·md), init_taste, 문서 존재. 전부 `PASS`여야 한다.

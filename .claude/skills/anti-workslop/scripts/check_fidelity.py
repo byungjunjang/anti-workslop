@@ -44,7 +44,7 @@ SIDES = ("orig", "polished", "both")
 MD_KINDS = {"prose", "heading", "list", "table", "quote", "code", "frontmatter", "exempt"}
 # HTML 모드는 산문 외에 표제·목록·인용도 견준다. F4(표제)·F5(항목 수)가 그 세그먼트를 쓰기 때문이다.
 # 산문만 견주려면 --prose-only. 원래 브리프는 산문만이었고 이 확장은 구현 중 결정이다(2026-09-08 검토에서 유지).
-HTML_KINDS = {"prose", "heading", "list", "quote"}
+HTML_KINDS = {"prose", "heading", "list", "quote", "exempt"}   # md(MD_KINDS)와 같이 면제 구역도 견준다
 
 # --- F1 수치·단위·날짜 -------------------------------------------------------
 UNITS = ["%p", "%", "퍼센트", "개월", "km", "kg", "GB", "MB", "KB", "px", "pt",
@@ -80,6 +80,11 @@ NEG_UNSURE_RE = re.compile(r"^(?:불가|미정|미확|미달|미비|미이행|�
 COND_RE = re.compile(r"이면|라면|다면|면\s|경우|한하|제외|예외|이상|이하|초과|미만|까지|부터|이전|이후")
 COND_LEAD_RE = re.compile(r"단,|다만")
 PREV_RE = re.compile(r"[가-힣]{1,6}$")
+# 개조식은 판단을 명사형으로 끝낸다(가이드 36행·775행). 아래 둘은 계열이 옮겨 가도 뜻이 같다.
+# 「없다 → 미정」처럼 확정 수준이 바뀌는 치환은 여기 없으므로 계속 S1 이다.
+NEG_EQUIV_STEM = re.compile(r"^(확인|확정|측정|검토|이행|완료)(?:되|하)지$")
+NEG_EQUIV_MARK = {"확인": "미확", "확정": "미확", "측정": "미측정",
+                  "검토": "미검토", "이행": "미이행", "완료": "미완"}
 # 앞 내용어에서 떼는 조사·어미. 짝 키가 조사 교체·띄어쓰기 손질에 깨지지 않게 한다.
 PARTICLES = ("지는", "은지", "까지", "부터", "에서", "에게",
              "은", "는", "이", "가", "도", "을", "를", "진")
@@ -411,6 +416,56 @@ def _neg_marks(items: list) -> Counter:
     return Counter(it.key[1] for it in items)
 
 
+def _equiv_shifts(oneg: list, pneg: list) -> Counter:
+    """부정 → 미확정 치환 가운데 뜻이 같은 짝의 수. 「할 수 없음 → 불가」·「확인되지 않 → 미확인」."""
+    want = Counter()
+    for it in oneg:
+        _kind, cls, prev, mark = it.key
+        if cls != "부정":
+            continue
+        if mark == "없" and prev == "수":
+            want["불가"] += 1
+        elif mark == "않":
+            m = NEG_EQUIV_STEM.match(prev)
+            if m:
+                want[NEG_EQUIV_MARK[m.group(1)]] += 1
+    have = Counter(it.key[3] for it in pneg if it.key[1] == "미확정")
+    base = Counter(it.key[3] for it in oneg if it.key[1] == "미확정")
+    out = Counter()
+    for mark, n in want.items():
+        got = have[mark] - base[mark]
+        if got > 0:
+            out[mark] = min(n, got)
+    return out
+
+
+def _ctx(text: str, at: int, width: int = 10) -> str:
+    """표지 앞 문맥. 공백을 털어 줄바꿈·띄어쓰기 손질에 흔들리지 않게 한다."""
+    return "".join(text[max(0, at - width):at].split())
+
+
+def _unpaired(o_items: list, p_items: list, otext: str, ptext: str, n: int) -> list:
+    """같은 키가 여럿일 때 앞 문맥이 결과에도 그대로 있는 자리를 짝지어 빼고 남은 자리를 준다."""
+    left = list(o_items)
+    for pit in p_items:
+        c = _ctx(ptext, pit.start)
+        hit = next((o for o in left if _ctx(otext, o.start) == c), None)
+        if hit is not None:
+            left.remove(hit)
+    if len(left) >= n:
+        return left[:n]
+    return (left + [o for o in o_items if o not in left])[:n]
+
+
+def _shift_echo(pd: "Doc", oneg: list, pneg: list, otext: str, ptext: str) -> str:
+    """결과 쪽에서 새로 생긴 미확정 표지 하나를 덧붙인다. 어디로 옮겨 갔는지 사람이 바로 보게."""
+    seen = {_ctx(otext, it.start) for it in oneg}
+    for it in pneg:
+        if it.key[1] == "미확정" and _ctx(ptext, it.start) not in seen:
+            return f" (결과 {pd.locate(it.start)[0]}행 「{it.label}」)"
+    return ""
+
+
 def extract_polarity(text: str) -> tuple:
     """(부정 짝, 조건 짝). 부정 키 = (NEG, 계열, 앞 내용어, 표지). 문장 정렬은 하지 않는다."""
     neg, cond = [], []
@@ -629,16 +684,20 @@ def compare(od: Doc, pd: Doc, length_min: float = LENGTH_MIN, length_max: float 
     # 두 층이다. S1 은 표지 계열 개수만 본다 — 부정이 정말 사라졌는가.
     # 짝(앞 내용어 + 표지)이 달라지기만 한 것은 어미·조사 손질이므로 S2 에 둔다.
     lost = _neg_marks(oneg) - _neg_marks(pneg)
+    shift = sum(_equiv_shifts(oneg, pneg).values())
+    if shift:
+        lost = lost - Counter({"부정": shift})       # 뜻이 같은 명사형 치환은 사라진 부정이 아니다
     gone = []
     for key, n in sorted((cn_o - cn_p).items()):
-        gone.extend(_pick(wn_o, key, n))
+        gone.extend(_unpaired(wn_o.get(key, []), wn_p.get(key, []), od.masked, pd.masked, n))
     gone.sort(key=lambda it: it.start)
     quota, rest = dict(lost), Counter()
     for it in gone:
         cls = it.key[1]
         if quota.get(cls, 0) > 0:
             quota[cls] -= 1
-            fs.append(_finding("F3", "S1", "missing", "orig", od, it, f"부정이 사라졌다: {it.label}"))
+            echo = _shift_echo(pd, oneg, pneg, od.masked, pd.masked)
+            fs.append(_finding("F3", "S1", "missing", "orig", od, it, f"부정이 사라졌다: {it.label}{echo}"))
         else:
             rest[it.key] += 1
     fs += _aggregate("F3", "S2", "missing", "orig", od, wn_o, rest, "표지는 남고 짝이 달라진 부정")

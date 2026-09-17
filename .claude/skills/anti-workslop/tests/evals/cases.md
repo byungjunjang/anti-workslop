@@ -16,9 +16,11 @@
 | 08-keep-concrete-contrast | should-keep | "사업가가 아닌 메이커" 구체 명사쌍 + 근거 문장이 있는 글 + "윤문해줘" | 대구 유지, notes 진단 반환문의 둘 것 절에 "§7-5 정당 용법" |
 | 09-absent-conclusion | edge | `explore-memo.md`(탐색 메모) + "결론이 뭔지 봐줘" | "하나의 결론을 지지하지 않음" + 미결 질문. 결론 날조 없음 |
 | 10-quoted-block | should-abstain-partial | `quoted-law.md`(가상 규정 인용 블록 + 해설) + "다듬어줘" | 인용 블록 바이트 불변, 해설만 수정 |
-| 11-diagnose-isolation | process | `ai-draft-prose.md` + "윤문해줘" | 본 컨텍스트는 `check_all --hint` 로 가이드를 고르고 Agent 도구로 서브에이전트 1회 호출, 원문·가이드 전문·규칙표·브리프·전달 파일·§14·취향을 읽지 않음(도구 호출 6회 + 수정 바퀴 이내), 서브에이전트는 원문과 `check_all --bundle` 출력만 읽고 가이드 전문을 열지 않음(도구 호출 6회 이내), `.taste.md` 는 서브에이전트가 씀, notes 네 절 가운데 진단 반환문이 전달 파일 그대로 |
+| 11-diagnose-isolation | process | `ai-draft-prose.md` + "윤문해줘" | 본 컨텍스트는 `check_all --hint` 로 가이드를 고르고 Agent 도구로 서브에이전트 1회 호출, 원문·가이드 전문·규칙표·브리프·전달 파일·§14·취향을 읽지 않음(도구 호출 6회 + 수정 바퀴 이내), 서브에이전트는 원문과 `check_all --bundle` 출력만 읽고 가이드 전문을 열지 않음(호출 수 상한 없음, 1만 자 초과면 복사 뒤 구역별 Edit), `.taste.md` 는 서브에이전트가 씀, notes 네 절 가운데 진단 반환문이 전달 파일 그대로 |
 | 12-review-layer-counts | should-detect-only | `ai-draft-report.md` + "검토만" | 첫 줄이 「개조식 기준으로 검토: 취향 N건, 가이드 hard N건, 원칙 S1 N건, 사람 판단 N건」, 발견 다섯 칸·세 계층 유지, ③에 AT-24·25·33·60·61 또는 §11-2 항목 |
 | 13-portability-human | should-detect-only | `no-ai-slop-ko.md` + "검토만" | ①에 AT-09·10·62·63·64, ③에 AT-61(「좋은 팀은 도구보다 사람을 먼저 봅니다」·「고객 경험이 곧 경쟁력입니다」)과 이 대상만의 사실 확인. 고친 문장 0, 새 사실 0 |
 | 14-paragraph-moral | should-detect-only | `three-lessons.md`(스타일 지시 없이 쓴 Claude 초안) + "검토만" | ③에 AT-65(「규칙은 단순했지만 효과는 확실했다.」·「공식 교육보다 동료의 성공 사례가 훨씬 강력한 동기가 됐다.」)와 AT-66(같은 문형의 세 제목 · 결론 재나열), 고친 문장 0 |
 | 15-three-lessons-edit | should-edit | `three-lessons.md` + "장피엠 문체로 윤문해줘" | 절 셋과 순서 유지, 제목 하나 이상이 그 절 본문의 사실로 바뀜, 결론 재나열 삭제, 새 사실 0(check_fidelity S1 0), AT-65 교훈 문장은 고치지 않고 진단 반환문 ③에 남음 |
 | 16-three-stages-gpt | should-detect-only | `three-stages-gpt.md`(스타일 지시 없이 쓴 GPT 초안) + "검토만" | ③에 AT-66(세 단계 굵은 도입 · 결론 재나열), 고친 문장 0 |
+| 17-scope-question | process | `html-nested.html` + "개조식 보고서 방식으로 윤문해줘" | 윤문 전에 범위를 한 번 묻는다(문장만 / 뼈대까지). 가이드 질문과 겹치면 한 번에 합쳐 묻는다. 「문장만」이면 `.taste.html` + notes 네 절 |
+| 18-skeleton-template | process | 같은 파일 + 범위 질문에 "뼈대까지" | 재작성본 없음. 진단표에 뼈대 출처 「템플릿」, 구역 유지, 구역 안 중복 결론, 초안 준비 한 줄. 옆제목을 새로 짜지 않는다 |

@@ -46,6 +46,28 @@ def test_ingest_new_and_dup():
     print("PASS test_ingest_new_and_dup")
 
 
+def test_ingest_chat_origin():
+    """대화에서 나온 취향 신호도 같은 원장에 쌓인다. 아티팩트 URL 대신 source_ref 가 중복 제거 키다."""
+    TMP.mkdir(exist_ok=True)
+    ledger = TMP / "chat-cases.jsonl"      # 앞 테스트의 원장을 건드리지 않는다
+    code, out, err = run(SCRIPTS / "ingest_comments.py", "--raw", FIX / "chat.sample.json", "--ledger", ledger)
+    assert code == 0, err
+    assert out == "new=2 dup=0 ids=T-0001..T-0002", out
+    cases = [json.loads(l) for l in ledger.read_text(encoding="utf-8").splitlines()]
+    assert [c["origin"] for c in cases] == ["chat", "chat"], cases
+    assert cases[0]["source"]["source_ref"].startswith("대화 2026-09-16"), cases[0]["source"]
+    assert cases[0]["source"]["artifact_url"] == "" and cases[0]["kind"] == "규칙"
+    assert cases[0]["comment"] == ["[규칙] 개요 상자에 계기·범위는 넣지 않는다"]   # 원문 보존
+    assert cases[1]["kind"] == "칭찬" and cases[1]["doc"]["section"] == "전체"
+    code, out, _ = run(SCRIPTS / "ingest_comments.py", "--raw", FIX / "chat.sample.json", "--ledger", ledger)
+    assert out == "new=0 dup=2 ids=-", out
+    code, out, err = run(SCRIPTS / "ingest_comments.py", "--raw", FIX / "comments.sample.json", "--ledger", ledger)
+    assert code == 0 and out == "new=5 dup=0 ids=T-0003..T-0007", out    # 아티팩트 경로는 그대로
+    arts = [json.loads(l) for l in ledger.read_text(encoding="utf-8").splitlines()][2:]
+    assert {c["origin"] for c in arts} == {"artifact"}, arts
+    print("PASS test_ingest_chat_origin")
+
+
 def test_map():
     ledger = TMP / "cases.jsonl"
     code, out, err = run(SCRIPTS / "ingest_comments.py", "--map", "T-0001=W-01", "T-0002=W-01", "T-0003=W-02",
@@ -169,6 +191,7 @@ def test_skill_docs():
 if __name__ == "__main__":
     test_ingest_new_and_dup()
     test_map()
+    test_ingest_chat_origin()
     test_validate_pass_and_fail()
     test_to_artifact()
     test_default_ledger()

@@ -6,7 +6,9 @@
 
 | 필드 | 내용 |
 |---|---|
-| `artifact_url`, `artifact_title` | 발행 정보. `taste/artifacts.json`에서 복사 |
+| `origin` | `artifact`(코멘트 수집, 기본값) 또는 `chat`(대화에서 들은 취향). 없으면 `artifact` |
+| `artifact_url`, `artifact_title` | 발행 정보. `taste/artifacts.json`에서 복사. `chat`은 빈 문자열 |
+| `source_ref` | `chat` 전용. 어느 대화인지 한 줄(예: `대화 2026-09-16 · 개조식 퇴고 후속`). 중복 제거 키의 앞자리다 |
 | `source_file` | 원본 HTML 절대 경로 |
 | `collected_at` | ISO 8601, 시간대 포함 |
 | `doc.project` / `doc.genre` / `doc.base_guideline` / `doc.version` | artifacts.json의 값 |
@@ -26,7 +28,8 @@
 |---|---|---|
 | `case_id` | `T-0001` 순번 | ingest |
 | `date` | 수집일 | ingest |
-| `source` | `{artifact_url, artifact_title, version, thread_id, raw_file}` | ingest |
+| `origin` | `artifact`·`chat` | ingest |
+| `source` | `{artifact_url, source_ref, artifact_title, version, thread_id, raw_file}` | ingest |
 | `doc` | `{project, genre, base_guideline, section}` | ingest |
 | `anchor` | `{quote, context}` | ingest |
 | `comment` | 사용자 코멘트 문자열 배열 (항상 배열) | ingest |
