@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[4]   # scripts → styleguide-builder �
 BASE = ROOT / ".claude" / "skills" / "anti-workslop" / "references" / "base-guidelines.json"
 
 # 블로그 템플릿(assets/templates/blog.template.md) §14 가운데 윤문에 쓰는 블록. 장피엠 기본 가이드와 같다.
-BLOG_S14 = ["작업", "보존", "문장", "종결", "접속", "어휘", "금지", "AI 티"]
+# [작업]·[보존]은 뺀다. anti-workslop 윤문에서는 불변식 셋이 그 자리를 대신한다(2026-09-17).
+BLOG_S14 = ["문장", "종결", "접속", "어휘", "금지", "AI 티"]
 BLOG_PACK = ["8", "11-2", "14"]
 STYLE = "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit {kit} {extra}--json {{file}}"
 HTML = "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide {name} {extra}{{file}}"

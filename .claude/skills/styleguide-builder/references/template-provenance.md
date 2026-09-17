@@ -50,3 +50,4 @@
 - v1 (2026-09-07): 최초. 슬롯 문법은 `render_guideline.py` 머리 주석 참조.
 - v1.1 (2026-09-08): §8 AI 티 공용 목록 행, §14 [AI 티] 줄. anti-workslop ai-tells-ko.md 연동.
 - v1.2 (2026-09-08): §8 행·§14 줄의 공용 목록 경로를 `principles/ai-tells-ko.md`로, §10 첫 문단 뒤에 불변식 연결 줄. anti-workslop 3레이어 재편.
+- v1.3 (2026-09-17): §10 불변식 연결 줄을 「이 절 대신 불변식 셋을 따른다」로. anti-workslop 자율 재작성.

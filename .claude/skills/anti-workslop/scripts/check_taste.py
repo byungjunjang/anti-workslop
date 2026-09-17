@@ -7,7 +7,7 @@
 검출 방식은 원칙 검사기(check_ai_tells.py)와 같은 어휘다. regex·literal 은 매치마다 finding,
 density 는 단위당 임계 이상일 때 finding 하나, human 은 건너뛰고 summary.human 에 적는다.
 finding 의 등급은 규칙 줄의 [규칙]·[경향]·[관찰]이다. --strict 는 [규칙] finding 이 있을 때만 exit 1.
-적용 범위(「적용: …」)는 finding 의 scope 에 실어 보낸다. 문서가 그 범위에 드는지는 호출자가 본다.
+「적용: …」은 규칙이 나온 장르이고 finding 의 scope 에 실어 보낸다. 모든 문서에 센다.
 종료 0 / 1(--strict 실패) / 2(입력·규칙 파일 오류).
 """
 from __future__ import annotations

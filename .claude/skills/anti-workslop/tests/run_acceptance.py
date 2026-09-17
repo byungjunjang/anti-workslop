@@ -30,10 +30,11 @@ def test_skill_doc():
     assert "description:" in md.splitlines()[2]
     assert len(md.splitlines()) <= 150, len(md.splitlines())
     for h in ("## Step 1", "## Step 5", "애매하면", "taste-builder", "base-guidelines.json",
-              "## 모드", "불변식", "재작성본", "두 문장", "기권", "수정 없음", "지운 문장",
+              "## 모드", "불변식", "재작성본", "두 문장", "기권", "수정 없음", "뺀 것",
               "check_all", "check_fidelity", "references/modes.md", "principles/invariants.md", "principles/ai-tells-ko.md",
               "references/subagent.md", "스타일가이드", "우선권", "## Step 2. 서브에이전트", "## Step 3. 검수", "## Step 4. notes",
-              "사람이 판단할 것", "전달 파일", "--hint", "--bundle", "진단 반환문", "--taste-skip"):
+              "사람이 판단할 것", "전달 파일", "--hint", "--bundle", "작업 기록", "--taste-skip",
+              "SendMessage", "불변식 셋", "자기 대조"):
         assert h in md, h
     assert "## Step 3. 재작성" not in md and "읽는 것 다섯" not in md, "재작성 절은 브리프로 옮겼다"
     assert "references/ai-tells-ko.md" not in md and "references/invariants.md" not in md
@@ -47,13 +48,14 @@ def test_modes_doc():
     md = (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
     assert "취향 0건, 가이드 hard 1건, 원칙 S1 2건, 사람 판단 3건" in md
     assert "Step 2" in md and "표시 규칙" in md
-    assert "## 범위 질문" in md and "## 윤문 뒤" in md, "범위 질문·윤문 뒤 절이 없다"
+    assert "## 범위 질문" not in md and "## 윤문 뒤" in md, "범위 질문은 2026-09-17 에 없앴다"
+    assert "작성자 확인" in md and "③ 사람이 판단할 것의 반영" not in md, "윤문 뒤 절이 옛 ③ 반영 절차다"
     assert "뼈대 출처" in md and "템플릿" in md, "구조 진단표에 뼈대 출처 칸이 없다"
     skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    assert "문장만" in skill and "뼈대까지" in skill, "SKILL.md 에 범위 질문이 없다"
+    assert "문장만" not in skill and "뼈대까지" not in skill, "SKILL.md 에 범위 질문이 남아 있다"
     cases = (SKILL / "tests" / "evals" / "cases.md").read_text(encoding="utf-8")
     assert "11-diagnose-isolation" in cases and "12-review-layer-counts" in cases
-    assert "17-scope-question" in cases and "18-skeleton-template" in cases
+    assert "17-no-scope-question" in cases and "18-skeleton-template" in cases
     print("PASS test_modes_doc")
 
 
@@ -590,13 +592,13 @@ def test_check_all_pack():
     §0(읽는 법)·자동 계측 표·§14 의 새 글 전용 블록은 싣지 않는다(2026-09-14 경량화). 가이드 전문을 열지 않으므로 다른 절은 없다."""
     r = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md")
     assert r.returncode == 0, r.stderr
-    for s in ("## 가이드 §8", "## 가이드 §11-2", "### 11-2.", "## 가이드 §14", "[작업]", "[보존]", "[AI 티]",
+    for s in ("## 가이드 §8", "## 가이드 §11-2", "### 11-2.", "## 가이드 §14", "[AI 티]",
               "| AT-24 |", "바꾸지 않는 것", "## 취향 §0~§6"):
         assert s in r.stdout, s
     # 취향 칸은 사용자 문서가 있으면 그 §0~§6, 없으면 한 줄 표시다.
     has_taste = (ROOT / "taste" / "writing-taste.md").exists()
     assert ("## 0. 우선순위와 적용 범위" in r.stdout) if has_taste else ("(취향 문서 없음)" in r.stdout), r.stdout[-400:]
-    for s in ("## 가이드 §0", "### 11-1.", "[목소리]", "[구조]", "[예시]", "[감정]",
+    for s in ("## 가이드 §0", "### 11-1.", "[목소리]", "[구조]", "[예시]", "[감정]", "[작업]", "[보존]",
               "## 3. 문장 길이와 호흡", "### 7-1.", "## 7. 보류·모순"):
         assert s not in r.stdout, s
     assert len(r.stdout) < 9500, len(r.stdout)
@@ -604,7 +606,7 @@ def test_check_all_pack():
     assert g.returncode == 0, g.stderr
     for s in ("### 11-1.", "### 11-3.", "[항목]", "[표기]"):
         assert s in g.stdout, s
-    for s in ("### 11-2.", "### 11-4.", "[작성 조건]", "[구조]", "[분량]", "[출력]", "### 3-1"):
+    for s in ("### 11-2.", "### 11-4.", "[작성 조건]", "[구조]", "[분량]", "[출력]", "### 3-1", "[작업]", "[보존]"):
         assert s not in g.stdout, s
     print("PASS test_check_all_pack")
 
@@ -694,22 +696,26 @@ def test_check_all_bundle():
 
 def test_skill_budget():
     """경량화 예산(2026-09-14). SKILL.md 는 본 컨텍스트가 매번 읽고, 브리프·묶음은 서브에이전트가 읽는다.
-    넘으면 무엇을 뺄지 다시 본다. 실측 · SKILL.md 8,732 → 6.8K자·111줄, 브리프 3,914 → 3.9K자(재작성 규칙 포함), 묶음 11,074 → 8.4K자."""
+    넘으면 무엇을 뺄지 다시 본다. 실측 · SKILL.md 8,732 → 6.8K자·111줄, 브리프 3,914 → 3.9K자(재작성 규칙 포함), 묶음 11,074 → 8.4K자.
+    2026-09-17 자율 재작성으로 브리프 ≤ 6.0K자(자기 대조·작업 기록 형식이 늘었다)."""
     skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    assert len(skill) <= 7000 and skill.count("\n") <= 115, (len(skill), skill.count("\n"))
-    assert len(BRIEF.read_text(encoding="utf-8")) <= 4200
+    assert len(skill) <= 7500 and skill.count("\n") <= 120, (len(skill), skill.count("\n"))
+    assert len(BRIEF.read_text(encoding="utf-8")) <= 6000
     p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
     assert len(p) <= 9000, len(p)
     print("PASS test_skill_budget")
 
 
 def test_brief_write_rules():
-    """브리프는 호출 수로 재작성을 죄지 않는다. 큰 원문은 복사 뒤 구역별 Edit, 면제 구역은 손대지 않는다."""
+    """브리프는 호출 수로 재작성을 죄지 않는다. 큰 원문은 절 단위로 나눠 이어 붙이고, 면제 구역은 손대지 않는다.
+    자리만 고치던 「cp 뒤 Edit」 방식은 전면 재작성(2026-09-17)에 맞지 않아 없앴다."""
     b = BRIEF.read_text(encoding="utf-8")
     assert "도구 호출 상한은 6회다" not in b, "호출 상한 문장이 남아 있다"
-    for s in ("1만 자", "cp", "3,000자", "style-exempt", "바뀐 줄"):
+    for s in ("1만 자", "3,000자", "style-exempt", "바뀐 줄", "자기 대조", "더한 것", "뺀 것", "작성자 확인"):
         assert s in b, s
-    assert len(b) <= 4200, len(b)
+    for gone in ("고칠 것 목록의 자리만", "확신이 있어도 ③에만", "cp 로 복사"):
+        assert gone not in b, gone
+    assert len(b) <= 6000, len(b)
     print("PASS test_brief_write_rules")
 
 
@@ -746,6 +752,26 @@ def test_fidelity_identical():
     d = json.loads(r.stdout)
     assert r.returncode == 0 and d["summary"]["total"] == 0 and d["stats"]["length_ratio"] == 1.0
     print("PASS test_fidelity_identical")
+
+
+def test_fidelity_structure_free():
+    """자율 재작성(2026-09-17). 표제 순서·문단 수·길이는 불변식이 아니다. 표제를 뒤집고 길이를 두 배로 늘려도
+    S1 0 이고 길이 비율은 통계로만 남는다. 숫자·부정은 그대로 S1 이다. --length-max 옵션은 없다."""
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "# 보고\n\n## 원인\n\n납기가 12% 늦었다. 아직 확정되지 않았다.\n\n## 대책\n\n담당자를 정한다.\n")
+        p = _tmp_md(d, "p.md", "# 보고\n\n## 대책\n\n담당자를 정한다. 담당자는 이번 주 안에 정해 두는 편이 낫다. "
+                               "그래야 다음 단계가 이어진다.\n\n## 원인\n\n납기가 12% 늦었다. 아직 확정되지 않았다. "
+                               "이 값은 잠정치라 바뀔 수 있다.\n")
+        r = run(FID, "--strict", "--json", o, p)
+        d1 = json.loads(r.stdout)
+        assert r.returncode == 0 and d1["summary"]["by_severity"]["S1"] == 0, d1["findings"]
+        assert all(f["severity"] == "S3" for f in d1["findings"] if f["rule"] in ("F4", "F5")), d1["findings"]
+        assert "F6" not in d1["summary"]["by_rule"] and d1["stats"]["length_ratio"] > 1.5, d1["stats"]
+        assert run(FID, "--length-max", "2", o, p).returncode == 2, "--length-max 옵션이 남아 있다"
+        bad = _tmp_md(d, "bad.md", "# 보고\n\n## 원인\n\n납기가 15% 늦었다. 확정되었다.\n\n## 대책\n\n담당자를 정한다.\n")
+        d2 = json.loads(run(FID, "--strict", "--json", o, bad).stdout)
+        assert d2["summary"]["by_severity"]["S1"] >= 2, d2["findings"]
+    print("PASS test_fidelity_structure_free")
 
 
 def test_abstain_fixture():
@@ -844,7 +870,7 @@ def test_diagnose_human_rules():
     human = set(re.findall(r"^(AT-\d\d)\s+S\d\s+human\s", out, re.M))
     assert human, out[:300]
     lines = BRIEF.read_text(encoding="utf-8").splitlines()
-    spots = {"단계 3": next(l for l in lines if l.startswith("3. 사람 판단.")),
+    spots = {"단계 2": next(l for l in lines if l.startswith("2. 사람 판단.")),
              "③ 규칙 ID": next(l for l in lines if "③의 규칙 ID는" in l)}
     for where, line in spots.items():
         assert set(re.findall(r"AT-\d\d", line)) == human, (where, sorted(human))
@@ -895,15 +921,17 @@ def test_ai_tells_no_ai_slop_ko():
 def test_at66_wiring():
     """세 가지 교훈형(AT-66)은 ③에 오지만 재작성이 정해진 조작으로 고친다. 브리프 단계 6 의 두 번째 예외와
     불변식 2 가 그 근거를 적는다. 하나라도 빠지면 재작성이 ③이라며 손대지 않거나 구조를 제멋대로 바꾼다."""
-    step3 = next(l for l in BRIEF.read_text(encoding="utf-8").splitlines()
-                 if "③의 AT-66 은 전달 파일에 적은 조작만" in l)
-    assert "순서를 바꾸지 않는다" in step3 and "굵게를 떼어" in step3, step3[-200:]
-    assert "부정·조건 표지" in step3, step3[-300:]   # 부정이 든 제목을 고르면 check_fidelity F3 S1 로 되돌려진다(2026-09-11 통합 실행)
-    for s in ("불변식 넷", "판정법 다섯", "고칠 것 목록의 자리만", "AT-07·14·16·17·38·39·45·46·63", "[근거 필요: …]", "[마무리 필요: 권유·전망]"):
-        assert s in BRIEF.read_text(encoding="utf-8"), s        # SKILL.md Step 3 에서 옮겨 온 재작성 규칙
+    b = BRIEF.read_text(encoding="utf-8")
+    at66 = next(l for l in b.splitlines() if "AT-66 은 같은 문형의 제목" in l)
+    assert "그 절 본문" in at66 and "부정·조건 표지" in at66, at66[-300:]   # 부정이 든 제목을 고르면 check_fidelity F3 S1 로 되돌려진다
+    for s in ("불변식 셋", "판정법 다섯", "[근거 필요: …]", "[사례 필요: …]", "[마무리 필요: 권유·전망]", "고정 구역"):
+        assert s in b, s
     inv = (PRINCIPLES / "invariants.md").read_text(encoding="utf-8")
-    inv2 = inv.split("## 2. 구조 보존", 1)[1].split("## 3.", 1)[0]
+    assert "## 4. 길이 예산" not in inv and "110%" not in inv, "길이 예산이 남아 있다(2026-09-17 삭제)"
+    inv2 = inv.split("## 2. 고정 구역 보존", 1)[1].split("## 3.", 1)[0]
     assert "AT-66" in inv2 and "그 절 본문에 이미 있는 것만" in inv2 and "부정·조건 표지" in inv2, inv2[:300]
+    inv1 = inv.split("## 1. 새 사실 금지", 1)[1].split("## 2.", 1)[0]
+    assert "연결 문장" in inv1 and "풀이" in inv1 and "더한 것" in inv1, inv1[:300]
     print("PASS test_at66_wiring")
 
 
@@ -916,6 +944,26 @@ def test_ai_tells_hortative_setup():
         r = json.loads(run(CHECK, "--genre", "줄글", "--json", p).stdout)
     assert r["summary"]["raw"].get("AT-11", 0) == 2, r["summary"]["raw"]
     print("PASS test_ai_tells_hortative_setup")
+
+
+def test_guides_defer_to_invariants():
+    """가이드 §10·§14 [작업]·[보존]은 가이드를 시스템 프롬프트로 쓰거나 손으로 편집할 때의 규칙이다. anti-workslop 윤문은
+    그 자리를 불변식 셋이 대신하므로 묶음에 싣지 않고, 가이드 §10 은 불변식 셋을 가리킨다(2026-09-17).
+    두 블록이 묶음에 남으면 「문단 순서 유지 · 문제 자리만 고친다」가 재작성을 다시 묶는다."""
+    bg = json.loads((SKILL / "references" / "base-guidelines.json").read_text(encoding="utf-8"))
+    for g, blocks in bg["_s14_blocks"].items():
+        assert "작업" not in blocks and "보존" not in blocks, (g, blocks)
+    sys.path.insert(0, str(ROOT / ".claude" / "skills" / "styleguide-builder" / "scripts"))
+    import register_guide as rg
+    assert "작업" not in rg.BLOG_S14 and "보존" not in rg.BLOG_S14, rg.BLOG_S14
+    assert "이 윤문에서는 불변식 셋이 그 자리를 대신한다" in BRIEF.read_text(encoding="utf-8")
+    line = "anti-workslop 윤문은 이 절 대신 `principles/invariants.md`의 불변식 셋을 따른다."
+    for p in (ROOT / ".claude" / "skills" / "styleguide-builder" / "assets" / "templates" / "blog.template.md",
+              ROOT / "styleguides" / "jangpm" / "장피엠 글쓰기 문체 가이드라인.md",
+              ROOT / "styleguides" / "report" / "개조식 보고서 작성 가이드라인.md"):
+        t = p.read_text(encoding="utf-8")
+        assert line in t and "불변식 넷" not in t, p
+    print("PASS test_guides_defer_to_invariants")
 
 
 def test_check_all_taste_skip():
@@ -934,6 +982,19 @@ def test_check_all_taste_skip():
             "--taste-skip", "W-01,W-02", f"{FIX}/clean-control.md")
     assert r.returncode in (0, 1) and "판정:" in r.stdout, r.stdout[-500:] + r.stderr[-500:]
     print("PASS test_check_all_taste_skip")
+
+
+def test_taste_scope_is_provenance():
+    """취향의 「적용: …」은 규칙이 나온 장르일 뿐이고 anti-workslop 은 모든 문서에 댄다(2026-09-17).
+    범위 판단을 호출자에게 맡기던 문구가 남으면 W-01·W-02 가 투자 분석 밖에서 다시 빠진다."""
+    tb = ROOT / ".claude" / "skills" / "taste-builder" / "references"
+    for p in (tb / "taste-template.md", tb / "distill-guide.md", SKILL / "references" / "base-guidelines.json",
+              SKILL / "scripts" / "check_all.py", SKILL / "scripts" / "check_taste.py", BRIEF, SKILL / "SKILL.md"):
+        assert "범위에 드는 문서에만" not in p.read_text(encoding="utf-8"), p
+        assert "적용 범위 밖" not in p.read_text(encoding="utf-8"), p
+    assert "모든 문서에 센다" in (tb / "taste-template.md").read_text(encoding="utf-8")
+    assert "출처" in (tb / "distill-guide.md").read_text(encoding="utf-8").split("## 5.", 1)[1].split("## 6.", 1)[0]
+    print("PASS test_taste_scope_is_provenance")
 
 
 def test_registered_guide():
@@ -1032,6 +1093,7 @@ if __name__ == "__main__":
     test_check_all_diagnose()
     test_check_all_verify()
     test_fidelity_identical()
+    test_fidelity_structure_free()
     test_abstain_fixture()
     test_compare_polish()
     test_compare_polish_bad_path()
@@ -1041,7 +1103,9 @@ if __name__ == "__main__":
     test_diagnose_human_rules()
     test_priority_chain_sync()
     test_ai_tells_at43_substitutes()
+    test_guides_defer_to_invariants()
     test_check_all_taste_skip()
+    test_taste_scope_is_provenance()
     test_registered_guide()
     test_fidelity_footnotes()
     test_fidelity_negation_equivalents()

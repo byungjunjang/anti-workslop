@@ -322,7 +322,7 @@
 
 문체 변환은 재집필이 아니다. 같은 요청·자료·가이드 버전으로 두 번 적용하면 결과가 같아야 한다.
 
-anti-workslop 윤문은 이 절의 보존 규칙을 `principles/invariants.md`의 불변식 넷으로 검수한다.
+anti-workslop 윤문은 이 절 대신 `principles/invariants.md`의 불변식 셋을 따른다. 이 절은 가이드를 시스템 프롬프트로 쓰거나 손으로 편집할 때의 규칙이다.
 
 ### 10-1. 보존할 것
 

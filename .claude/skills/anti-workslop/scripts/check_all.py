@@ -3,7 +3,7 @@
 
   python -X utf8 check_all.py --guide <가이드>|없음 FILE                   # 진단: 장르·원칙·취향. finding 한 줄씩
   python -X utf8 check_all.py --guide … --orig ORIG FILE                   # 검수: 넷 다. 막는 항목만 + 판정 한 줄. exit 1 = FAIL
-  python -X utf8 check_all.py --guide … --orig ORIG --taste-skip W-01 FILE # 적용 범위 밖 취향 [규칙]은 보이되 막지 않음
+  python -X utf8 check_all.py --guide … --orig ORIG --taste-skip W-01 FILE # 사용자가 빼라고 한 취향 [규칙]은 보이되 막지 않음
   python -X utf8 check_all.py --guide … --pack FILE                        # 읽기 묶음: 가이드 §8·§11-2·§14(윤문 블록), 원칙 human 행·§4, 취향 §0~§6
   python -X utf8 check_all.py --guide … --bundle FILE                      # 서브에이전트가 읽을 것 전부: 브리프 + 읽기 묶음 + 진단
   python -X utf8 check_all.py --guide 없음 --hint FILE                     # 장르 힌트(줄글·개조식·애매) + 레이어 한 줄(장르별 등록 가이드·취향 상태)
@@ -124,7 +124,7 @@ def ai_lines(d: dict, verify: bool) -> tuple[int, int, int, int, list]:
 
 
 def taste_lines(d: dict, verify: bool, skip: frozenset = frozenset()) -> tuple[dict, int, list, list]:
-    """(등급별 수, 막는 [규칙] 수, human 목록, 줄 목록). 검사기는 적용 범위를 모르므로 범위 밖 W-NN 은 호출자가 skip 으로 넘긴다."""
+    """(등급별 수, 막는 [규칙] 수, human 목록, 줄 목록). 취향은 모든 문서에 댄다. 사용자가 빼라고 한 W-NN 만 호출자가 skip 으로 넘긴다."""
     g = d["summary"]["by_grade"]
     blocking = 0
     lines = []
@@ -134,7 +134,7 @@ def taste_lines(d: dict, verify: bool, skip: frozenset = frozenset()) -> tuple[d
         tail = ""
         if f["grade"] == "규칙":
             if f["rule"] in skip:
-                tail = " · 적용 범위 밖, 막지 않음"
+                tail = " · 사용자 지시로 뺌, 막지 않음"
             else:
                 blocking += 1
         lines.append(f'{f["line"]}:{f["col"]}  [{f["rule"]} {f["grade"]}] {f["detail"]}  "{f["excerpt"]}"  (적용: {f["scope"]}){tail}')
@@ -293,7 +293,7 @@ def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
                    help="가이드 이름(base-guidelines.json 에 등록된 것) 또는 없음")
     p.add_argument("--genre", default=None, choices=["줄글", "개조식", "공통"], help="원칙 검사기 장르(기본 _genre_of[가이드], 없음이면 공통)")
     p.add_argument("--orig", default=None, help="원본 경로. 주면 검수 단계(불변식 포함, 막는 항목만)")
-    p.add_argument("--taste-skip", default="", help="이 문서가 적용 범위 밖인 취향 W-NN(쉼표로). 판정에서 뺀다")
+    p.add_argument("--taste-skip", default="", help="사용자가 빼라고 한 취향 W-NN(쉼표로). 판정에서 뺀다")
     p.add_argument("--pack", action="store_true", help="읽기 묶음만 출력")
     p.add_argument("--bundle", action="store_true", help="브리프 + 읽기 묶음 + 진단을 한 번에 출력(서브에이전트용)")
     p.add_argument("--hint", action="store_true", help="장르 힌트 한 줄만 출력")
@@ -349,7 +349,7 @@ def main(argv: list[str] | None = None) -> int:
     td = _json(run_cmd(bg["_checks_common"]["taste"], file=file_posix), "check_taste")
     skip = frozenset(x.strip() for x in a.taste_skip.split(",") if x.strip())
     g, t_block, human, tlines = taste_lines(td, verify, skip)
-    skipped = f" (범위 밖 {g['규칙'] - t_block})" if g["규칙"] != t_block else ""
+    skipped = f" (사용자 지시로 뺌 {g['규칙'] - t_block})" if g["규칙"] != t_block else ""
     state = " · 문서 없음" if td.get("doc_state") == "missing" else ""
     out += _block(f"취향 · check_taste{state} · 규칙 {g['규칙']}{skipped} · 경향 {g['경향']} · 관찰 {g['관찰']} · human: {', '.join(human) or '-'}", tlines)
 

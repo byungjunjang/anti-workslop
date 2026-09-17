@@ -3,10 +3,10 @@
 
   python -X utf8 check_fidelity.py ORIG POLISHED [--json|--summary] [--strict]
                                    [--mode md|html|auto] [--prose-only]
-                                   [--length-max 1.2] [--length-min 0.5]
 
 모든 비교는 문서 단위 다중집합(collections.Counter)이다. 문장을 짝지어 맞추지 않는다.
-규칙은 F1~F9. 표는 tasks 브리프와 SKILL.md 를 따른다. F9 각주는 humanize-korean finalizer 의 의미 보존 15항 가운데
+규칙은 F1~F5·F7~F9. 표제(F4)·문단·항목 수(F5)는 S3 보고만 하고 길이는 stats.length_ratio 로만 남긴다(2026-09-17 자율 재작성 —
+재작성이 구조를 다시 짜고 늘릴 수 있으므로 막지 않는다). 막는 것은 수치·인용·부정·자리표시자·링크·코드·표·각주의 S1 이다. F9 각주는 humanize-korean finalizer 의 의미 보존 15항 가운데
 「각주 원위치·원번호·개수 보존」에서 가져왔다(2026-09-14). 불변식 2 가 각주를 약속하는데 검사기가 없었다.
 종료 0 / 1(--strict 이고 S1 이 하나라도 있을 때) / 2(입력 오류).
 """
@@ -31,12 +31,11 @@ RULE_NAMES = {
     "F3": "부정·조건",
     "F4": "표제",
     "F5": "문단·항목 수",
-    "F6": "길이",
     "F7": "자리표시자",
     "F8": "링크·코드·표",
     "F9": "각주",
 }
-RULE_ORDER = ["F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9"]
+RULE_ORDER = ["F1", "F2", "F3", "F4", "F5", "F7", "F8", "F9"]
 SEVERITIES = ("S1", "S2", "S3")
 KINDS = ("missing", "added", "changed", "ratio")
 SIDES = ("orig", "polished", "both")
@@ -134,8 +133,6 @@ def blank_status(text: str) -> str:
             out = out[:j] + " " * len(lit) + out[j + len(lit):]
             start = j + len(lit)
     return out
-LENGTH_MIN, LENGTH_MAX = 0.5, 1.2   # F6 길이 비율 허용 구간. compare() 기본값과 --length-min/--length-max 기본값이 여기서 나온다.
-                                    # 불변식 4 는 +10% 인데 어미 치환(평서체→합쇼체 150문장이 +5% 였다)을 위해 1.2 까지 둔다(2026-09-09)
 
 
 # ---------------------------------------------------------------------------
@@ -620,7 +617,7 @@ def _ratio(new: float, old: float) -> float:
     return round(new / old, 4)
 
 
-def compare(od: Doc, pd: Doc, length_min: float = LENGTH_MIN, length_max: float = LENGTH_MAX) -> tuple:
+def compare(od: Doc, pd: Doc) -> tuple:
     fs: list = []
 
     # --- F1 수치·단위·날짜·비율 -------------------------------------------
@@ -707,47 +704,43 @@ def compare(od: Doc, pd: Doc, length_min: float = LENGTH_MIN, length_max: float 
     fs += _aggregate("F3", "S2", "missing", "orig", od, wc_o, cc_o - cc_p, "원문에만 있는 조건 짝")
     fs += _aggregate("F3", "S2", "added", "polished", pd, wc_p, cc_p - cc_o, "결과에만 있는 조건 짝")
 
-    # --- F4 표제 -------------------------------------------------------------
+    # --- F4 표제 (S3 보고만) ---------------------------------------------------
     oh, ph = extract_headings(od), extract_headings(pd)
     pairs, left_a, left_b = match_headings(oh, ph)
     seq = [j for _i, j in pairs]
     for k in range(1, len(seq)):
         if seq[k] < seq[k - 1]:
             i, j = pairs[k]
-            fs.append(Finding("F4", "S1", oh[i].line, 1, oh[i].text,
+            fs.append(Finding("F4", "S3", oh[i].line, 1, oh[i].text,
                               f"표제 순서가 바뀌었다: 「{oh[i].text}」 (polished {ph[j].line}행)",
                               "changed", "both"))
             break
     if len(oh) != len(ph):
-        fs.append(Finding("F4", "S2", 1, 1, "", f"표제 수가 다르다: {len(oh)}개 → {len(ph)}개", "ratio", "both"))
+        fs.append(Finding("F4", "S3", 1, 1, "", f"표제 수가 다르다: {len(oh)}개 → {len(ph)}개", "ratio", "both"))
     for i, j in zip(left_a, left_b):
         fs.append(Finding("F4", "S3", oh[i].line, 1, oh[i].text,
                           f"표제 글이 바뀌었다: 「{oh[i].text}」 → 「{ph[j].text}」 (polished {ph[j].line}행)",
                           "changed", "both"))
     for i in left_a[len(left_b):]:
-        fs.append(Finding("F4", "S2", oh[i].line, 1, oh[i].text,
+        fs.append(Finding("F4", "S3", oh[i].line, 1, oh[i].text,
                           f"표제가 사라졌다: 「{oh[i].text}」", "missing", "orig"))
     for j in left_b[len(left_a):]:
-        fs.append(Finding("F4", "S2", ph[j].line, 1, ph[j].text,
+        fs.append(Finding("F4", "S3", ph[j].line, 1, ph[j].text,
                           f"표제가 새로 생겼다: 「{ph[j].text}」", "added", "polished"))
 
-    # --- F5 문단·항목 수, F6 길이 -------------------------------------------
+    # --- F5 문단·항목 수 (S3 보고만), 길이는 stats 에만 ---------------------------
     so, sp = extract_structure(od), extract_structure(pd)
     para = _ratio(sp["paragraphs"], so["paragraphs"])
     lst = _ratio(sp["list_items"], so["list_items"])
     length = _ratio(sp["chars"], so["chars"])
     if not (RATIO_LO <= para <= RATIO_HI):
-        fs.append(Finding("F5", "S2", 1, 1, "",
+        fs.append(Finding("F5", "S3", 1, 1, "",
                           f"문단 수 비율 {para} (허용 {RATIO_LO}~{RATIO_HI}, "
                           f"{so['paragraphs']} → {sp['paragraphs']})", "ratio", "both"))
     if not (RATIO_LO <= lst <= RATIO_HI):
-        fs.append(Finding("F5", "S2", 1, 1, "",
+        fs.append(Finding("F5", "S3", 1, 1, "",
                           f"항목 수 비율 {lst} (허용 {RATIO_LO}~{RATIO_HI}, "
                           f"{so['list_items']} → {sp['list_items']})", "ratio", "both"))
-    if length > length_max or length < length_min:
-        fs.append(Finding("F6", "S2", 1, 1, "",
-                          f"길이 비율 {length} (허용 {length_min}~{length_max}, "
-                          f"{so['chars']}자 → {sp['chars']}자)", "ratio", "both"))
 
     # --- F7 자리표시자 -------------------------------------------------------
     oho = [Item((re.sub(r"\s+", " ", m.group(0)),), m.group(0), m.start(), m.end())
@@ -921,8 +914,6 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--strict", action="store_true", help="S1 이 있으면 실패(exit 1)")
     p.add_argument("--mode", default="auto", choices=["md", "html", "auto"], help="입력 형식")
     p.add_argument("--prose-only", action="store_true", help="산문 블록만 견준다")
-    p.add_argument("--length-max", type=float, default=LENGTH_MAX, help=f"허용 길이 비율 위 끝 (기본 {LENGTH_MAX})")
-    p.add_argument("--length-min", type=float, default=LENGTH_MIN, help=f"허용 길이 비율 아래 끝 (기본 {LENGTH_MIN})")
     return p
 
 
@@ -932,11 +923,8 @@ def main(argv: list | None = None) -> int:
     if not args.orig or not args.polished:
         print("원문과 결과 두 파일이 필요하다: check_fidelity.py ORIG POLISHED", file=sys.stderr)
         return 2
-    if args.length_min <= 0 or args.length_max < args.length_min:
-        print("입력 오류: --length-min 은 0 보다 크고 --length-max 이하여야 한다.", file=sys.stderr)
-        return 2
     od, pd, mode = load_pair(args.orig, args.polished, args.mode, args.prose_only)
-    findings, stats = compare(od, pd, args.length_min, args.length_max)
+    findings, stats = compare(od, pd)
     summary = summarize(findings)
     if args.json:
         print(json.dumps(to_json(findings, summary, stats, od, pd, mode), ensure_ascii=False, indent=2))
