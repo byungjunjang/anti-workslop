@@ -15,7 +15,7 @@ PY = sys.executable
 
 
 def run(*args):
-    p = subprocess.run([PY, *map(str, args)], capture_output=True, text=True, encoding="utf-8")
+    p = subprocess.run([PY, "-X", "utf8", *map(str, args)], capture_output=True, text=True, encoding="utf-8")
     return p.returncode, p.stdout.strip(), p.stderr.strip()
 
 
