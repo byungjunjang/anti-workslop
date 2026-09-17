@@ -22,6 +22,7 @@ SKILL_DIR = HERE.parent
 ROOT = SKILL_DIR.parents[2]
 BASE = SKILL_DIR / "references" / "base-guidelines.json"
 BRIEF = SKILL_DIR / "references" / "subagent.md"
+REPORT_TITLES = ROOT / "styleguides" / "report" / "title-claims.md"
 TASTE_MD = ROOT / "taste" / "writing-taste.md"
 sys.path.insert(0, str(HERE))
 from check_ai_tells import (RULES_MD, explain_human, force_utf8_stdout, is_label, load_rules,   # noqa: E402
@@ -192,6 +193,8 @@ def keep_blocks(section: str, labels: list) -> str:
 
 def pack(bg: dict, guide: str, sections: tuple) -> str:
     out = [f"# 읽기 묶음 · {guide} ({bg['_genre_of'].get(guide, '공통')})", ""]
+    # 문체 이름으로 보고서 여부를 추측하지 않는다. 본문을 읽는 담당이 판단한다.
+    out += [REPORT_TITLES.read_text(encoding="utf-8").strip(), ""]
     gp = guide_path(bg, guide) if guide != "없음" else None
     if gp is not None:
         md = unicodedata.normalize("NFC", gp.read_text(encoding="utf-8").replace("\r\n", "\n"))

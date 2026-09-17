@@ -601,7 +601,7 @@ def test_check_all_pack():
     for s in ("## 가이드 §0", "### 11-1.", "[목소리]", "[구조]", "[예시]", "[감정]", "[작업]", "[보존]",
               "## 3. 문장 길이와 호흡", "### 7-1.", "## 7. 보류·모순"):
         assert s not in r.stdout, s
-    assert len(r.stdout) < 9500, len(r.stdout)
+    assert len(r.stdout) - len((ROOT / "styleguides/report/title-claims.md").read_text(encoding="utf-8")) < 9500, len(r.stdout)
     g = run(ALL, "--guide", "개조식", "--pack", f"{FIX}/ai-draft-report.md")
     assert g.returncode == 0, g.stderr
     for s in ("### 11-1.", "### 11-3.", "[항목]", "[표기]"):
@@ -702,7 +702,9 @@ def test_skill_budget():
     assert len(skill) <= 7500 and skill.count("\n") <= 120, (len(skill), skill.count("\n"))
     assert len(BRIEF.read_text(encoding="utf-8")) <= 6000
     p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
-    assert len(p) <= 9000, len(p)
+    title_rule = (ROOT / "styleguides/report/title-claims.md").read_text(encoding="utf-8")
+    assert len(title_rule) <= 1300, len(title_rule)  # RT-01 입력 예산, 기존 묶음 한도는 유지
+    assert len(p) - len(title_rule) <= 9000, len(p)
     print("PASS test_skill_budget")
 
 
@@ -1051,6 +1053,8 @@ def test_ai_tells_at43_substitutes():
 
 
 if __name__ == "__main__":
+    from test_report_titles import test_report_titles
+    test_report_titles()
     test_skill_doc()
     test_modes_doc()
     test_base_guidelines_resolve()
