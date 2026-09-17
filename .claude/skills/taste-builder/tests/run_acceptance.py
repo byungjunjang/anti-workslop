@@ -127,6 +127,43 @@ def test_to_artifact():
     print("PASS test_to_artifact")
 
 
+def test_local_review():
+    """Codex 로컬 출력은 온라인 UI를 안내하지 않고 HTML 속성·리소스·본문을 보존한다."""
+    src = TMP / "한글 검토.html"
+    original = ('<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8">'
+                '<title>검토</title><link rel="stylesheet" href="theme.css"></head>'
+                '<body class="report" data-theme="light"><p>원문 그대로</p>'
+                '<img src="image.png"><script src="view.js"></script></body></html>')
+    src.write_text(original, encoding="utf-8")
+    dst = TMP / "한글 검토.review.html"
+    code, _, err = run(SCRIPTS / "to_artifact.py", "--local", src, dst)
+    assert code == 0, err
+    html = dst.read_text(encoding="utf-8")
+    assert '<!DOCTYPE html><html lang="ko">' in html
+    assert '<meta charset="utf-8">' in html
+    assert '<link rel="stylesheet" href="theme.css">' in html
+    assert '<body class="report" data-theme="light">' in html
+    assert '<p>원문 그대로</p><img src="image.png"><script src="view.js"></script>' in html
+    assert "대화에 보내 주세요" in html and "코멘트 입력·저장 기능이 없습니다" in html
+    assert "claude.ai" not in html and "코멘트 모드 버튼" not in html
+    assert src.read_text(encoding="utf-8") == original
+
+    md_src = TMP / "한글 검토.md"
+    md_src.write_text("# 원문\n\n보존할 문장\n", encoding="utf-8")
+    md_dst = TMP / "한글 검토.review.md"
+    code, _, err = run(SCRIPTS / "to_artifact.py", md_src, md_dst, "--local")
+    assert code == 0, err
+    md = md_dst.read_text(encoding="utf-8")
+    assert md.endswith(md_src.read_text(encoding="utf-8"))
+    assert "대화에 보내 주세요" in md and "claude.ai" not in md
+    for source in (src, md_src):
+        before = source.read_bytes()
+        code, _, err = run(SCRIPTS / "to_artifact.py", "--local", source, source)
+        assert code != 0 and "원본은 덮어쓰지 않는다" in err, err
+        assert source.read_bytes() == before
+    print("PASS test_local_review")
+
+
 def test_default_ledger():
     """--ledger 없이 부르면 두 스크립트 모두 프로젝트 루트의 taste/cases/cases.jsonl 을 읽어야 한다.
     parents[3] 은 .claude/ 라서 validate 는 모든 케이스가 E2·E9 로 떴고(SKILL.md Step 6), ingest 는 .claude/taste/ 에
@@ -194,6 +231,7 @@ if __name__ == "__main__":
     test_ingest_chat_origin()
     test_validate_pass_and_fail()
     test_to_artifact()
+    test_local_review()
     test_default_ledger()
     test_init_taste()
     test_validate_missing_doc()

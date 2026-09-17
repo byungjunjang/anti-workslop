@@ -7,7 +7,9 @@ MD   · 본문은 그대로 두고 맨 위에 같은 안내를 인용문으로 �
 
   python to_artifact.py in.html out.artifact.html
   python to_artifact.py in.md   out.artifact.md
+  python to_artifact.py --local in.html out.review.html  # 원본과 같은 폴더
 """
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -25,6 +27,14 @@ GUIDE = ("이 문장을 직접 쓴다면 어떻게 쓰시겠어요? 걸리는 �
          "태그는 선택입니다. [고침] 내가 쓸 문장 · [싫] 걸리는 이유 · [좋] 그대로 둘 것 · [규칙] 늘 지킬 원칙.")
 HOWTO = "우측 상단의 코멘트 모드 버튼을 켜야 드래그로 입력창이 뜨고, claude.ai에서 연 페이지에서만 됩니다."
 BANNER = f'<div class="taste-banner">{GUIDE}<br>{HOWTO}</div>'
+LOCAL_GUIDE = ("이 문장을 직접 쓴다면 어떻게 쓰시겠어요? 원문 문장과 고쳐 쓸 문장 또는 이유를 대화에 보내 주세요. "
+               "태그는 선택입니다. [고침] 내가 쓸 문장 · [싫] 걸리는 이유 · [좋] 그대로 둘 것 · [규칙] 늘 지킬 원칙.")
+LOCAL_HOWTO = "로컬 검토 파일입니다. 이 파일에는 코멘트 입력·저장 기능이 없습니다."
+LOCAL_BANNER = f'<div class="taste-banner">{LOCAL_GUIDE}<br>{LOCAL_HOWTO}</div>'
+LOCAL_STYLE = """<style>
+.taste-banner { background: #f5f5f5; border: 1px dashed #aaa; color: #333;
+  font: 13px/1.6 sans-serif; padding: 8px 12px; margin: 8px auto; max-width: 880px; }
+</style>"""
 # 태그 경계까지 본다. "<head" 만 찾으면 본문의 <header> 를 오인한다.
 FORBIDDEN = tuple(re.compile(p, re.I) for p in (r"<!doctype", r"<html[\s>]", r"<head[\s>]", r"<body[\s>]", r"</body>", r"</html>"))
 
@@ -48,21 +58,38 @@ def convert(html):
     return out
 
 
-def convert_md(md):
+def convert_local(html):
+    """로컬 HTML은 문서 외곽·속성·리소스를 유지하고 안내만 추가한다."""
+    head = re.search(r"</head\s*>", html, re.I)
+    body = re.search(r"<body\b[^>]*>", html, re.I)
+    if not head or not body:
+        sys.exit("로컬 HTML에는 <head>와 <body>가 필요합니다")
+    # 삽입 위치를 원문 기준으로 고정해 본문이나 기존 스타일을 재직렬화하지 않는다.
+    for offset, addition in sorted(((head.start(), LOCAL_STYLE), (body.end(), LOCAL_BANNER)), reverse=True):
+        html = html[:offset] + addition + html[offset:]
+    return html
+
+
+def convert_md(md, local=False):
     """마크다운은 아티팩트가 그대로 렌더한다. 안내만 인용문으로 앞에 붙인다."""
-    return f"> {GUIDE}\n>\n> {HOWTO}\n\n{md.lstrip(chr(0xFEFF))}"
+    guide, howto = (LOCAL_GUIDE, LOCAL_HOWTO) if local else (GUIDE, HOWTO)
+    return f"> {guide}\n>\n> {howto}\n\n{md.lstrip(chr(0xFEFF))}"
 
 
 def main(argv=None):
-    argv = argv if argv is not None else sys.argv[1:]
-    if len(argv) != 2:
-        sys.exit("usage: to_artifact.py in.html|in.md out.artifact.html|out.artifact.md")
-    src, dst = Path(argv[0]), Path(argv[1])
+    parser = argparse.ArgumentParser(description="코멘트용 아티팩트 또는 로컬 검토 파일 생성")
+    parser.add_argument("src", type=Path)
+    parser.add_argument("dst", type=Path)
+    parser.add_argument("--local", action="store_true", help="대화로 피드백을 받는 로컬 검토 파일")
+    args = parser.parse_args(argv)
+    src, dst = args.src, args.dst
+    if src.resolve() == dst.resolve() or (dst.exists() and src.samefile(dst)):
+        sys.exit("원본과 출력 경로가 같다. 원본은 덮어쓰지 않는다")
     is_md = src.suffix.lower() in (".md", ".markdown")
     if is_md != (dst.suffix.lower() == ".md"):
         sys.exit("입력과 출력의 형식이 다르다. md 는 .artifact.md, html 은 .artifact.html 로 쓴다")
     text = src.read_text(encoding="utf-8")
-    out = convert_md(text) if is_md else convert(text)
+    out = convert_md(text, local=args.local) if is_md else (convert_local(text) if args.local else convert(text))
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_text(out, encoding="utf-8", newline="\n")   # Windows 에서 CRLF 로 바뀌지 않게
     print(f"written {dst} {len(out.encode('utf-8'))}")

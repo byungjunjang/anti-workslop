@@ -46,7 +46,7 @@ Codex와 Claude Code는 `.claude/skills/`의 Python 구현, `principles/`, `styl
 
 Python이 필요하며 기본 검사에는 추가 패키지가 없다. 블로그 HTML 수집에는 `beautifulsoup4`, `lxml`이 필요할 수 있다. 모델 지정이나 별도 MCP 서버 설정 없이 시작할 수 있다.
 
-Claude 전용 아티팩트 도구가 없는 Codex 환경에서는 코멘트용 로컬 파일을 만들고 대화로 받은 피드백을 취향에 반영한다. 로컬 파일에는 온라인 코멘트 기능이 없으며, 온라인 발행·코멘트 수집은 연결된 도구가 있어야 한다. superpowers 플러그인은 명시적으로 요청했을 때만 사용한다.
+Claude 전용 아티팩트 도구가 없는 Codex 환경에서는 `to_artifact.py --local`로 원본과 같은 폴더에 `.review.html` 또는 `.review.md` 파일을 만들고 대화로 받은 피드백을 취향에 반영한다. 로컬 HTML은 문서 구조와 리소스 참조를 유지한다. 로컬 파일에는 온라인 코멘트 기능이 없으며, 온라인 발행·코멘트 수집은 연결된 도구가 있어야 한다. superpowers 플러그인은 명시적으로 요청했을 때만 사용한다.
 
 ## 세 스킬 (`.claude/skills/`, Codex 진입점 `.agents/skills/`)
 
