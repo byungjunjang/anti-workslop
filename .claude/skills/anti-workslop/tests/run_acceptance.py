@@ -169,14 +169,14 @@ def test_ai_tells_table_shape():
 def test_ai_tells_selftest():
     r = run(CHECK, "--selftest")
     assert r.returncode == 0, r.stdout + r.stderr
-    assert "규칙 66" in r.stdout, r.stdout
+    assert "규칙 67" in r.stdout, r.stdout
     print("PASS test_ai_tells_selftest")
 
 
 def test_ai_tells_list_handshake():
     r = run(CHECK, "--list", "--genre", "줄글")
     first = r.stdout.splitlines()[0]
-    assert first.startswith("ai-tells-ko 2026-09-14 · 규칙 66 ("), first
+    assert first.startswith("ai-tells-ko 2026-09-17 · 규칙 67 ("), first
     assert "활성" in first and "--genre 줄글" in first, first
     assert r.returncode == 0
     print("PASS test_ai_tells_list_handshake")
@@ -222,7 +222,7 @@ def test_ai_tells_json_envelope():
     d = json.loads(r.stdout)
     for k in ("tool", "rules_version", "genre", "rules_loaded", "rules_active", "file", "findings", "summary", "stats"):
         assert k in d, k
-    assert d["rules_loaded"] == 66
+    assert d["rules_loaded"] == 67
     for f in d["findings"]:
         for k in ("rule", "severity", "line", "col", "excerpt", "detail"):
             assert k in f, (k, f)

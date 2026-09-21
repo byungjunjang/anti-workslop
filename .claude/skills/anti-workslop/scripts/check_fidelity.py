@@ -19,6 +19,7 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
+from semantic_review import packet as semantic_packet
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -901,7 +902,8 @@ def fmt_summary(findings: list, summary: dict, stats: dict, od: Doc, pd: Doc) ->
 
 def to_json(findings: list, summary: dict, stats: dict, od: Doc, pd: Doc, mode: str) -> dict:
     return {"tool": "check_fidelity", "mode": mode, "orig": od.path, "polished": pd.path,
-            "findings": [f.as_dict() for f in findings], "summary": summary, "stats": stats}
+            "findings": [f.as_dict() for f in findings], "summary": summary, "stats": stats,
+            "semantic_review": semantic_packet(od, pd)}
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -1,0 +1,4 @@
+# 검사·수집 스크립트가 쓰는 서드파티 패키지. CI 와 로컬을 같은 조건으로 맞춘다.
+beautifulsoup4>=4.14.2   # styleguide-builder/scripts/collect.py 본문 추출
+lxml>=6.0.2              # 같은 파일의 파서 선택. 없으면 html.parser 로 떨어져 결과가 달라진다
+markdown>=3.10.2         # tools/build_examples.py 비교 HTML 생성

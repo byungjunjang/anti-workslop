@@ -296,6 +296,8 @@ def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
                    help="가이드 이름(base-guidelines.json 에 등록된 것) 또는 없음")
     p.add_argument("--genre", default=None, choices=["줄글", "개조식", "공통"], help="원칙 검사기 장르(기본 _genre_of[가이드], 없음이면 공통)")
     p.add_argument("--orig", default=None, help="원본 경로. 주면 검수 단계(불변식 포함, 막는 항목만)")
+    p.add_argument("--semantic-review", help="독립 검토 JSON 기록")
+    p.add_argument("--author-concern", action="store_true", help="재작성 담당이 의미 보존에 의문을 남김")
     p.add_argument("--taste-skip", default="", help="사용자가 빼라고 한 취향 W-NN(쉼표로). 판정에서 뺀다")
     p.add_argument("--pack", action="store_true", help="읽기 묶음만 출력")
     p.add_argument("--bundle", action="store_true", help="브리프 + 읽기 묶음 + 진단을 한 번에 출력(서브에이전트용)")
@@ -364,6 +366,11 @@ def main(argv: list[str] | None = None) -> int:
     fs, st, flines = fidelity_lines(fd)
     out += _block(f"불변식 · check_fidelity · S1 {fs['S1']} · S2 {fs['S2']} · 길이 {st['length_ratio']} · "
                   f"문단 {st['paragraph_ratio']} · 항목 {st['list_ratio']}", flines)
+    from semantic_review import review_status
+    semantic = review_status(fd["semantic_review"], a.semantic_review, a.author_concern)
+    out += [f"의미 검토: {semantic['status']} · 위험 구간 {len(fd['semantic_review']['risks'])}개"]
+    out += [f"작성자 확인: {item}" for item in semantic['issues']]
+    out += ["자동 판정은 문맥의 의미 보존을 보증하지 않습니다."]
     fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0
     out.append(f"판정: {'FAIL' if fail else 'PASS'} · 장르 hard {g_hard} · 원칙 S1 {s1} / S2 {s2} · 취향 규칙 {t_block} · 불변식 S1 {fs['S1']}")
     print("\n".join(out))

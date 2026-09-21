@@ -75,7 +75,11 @@ python -X utf8 .claude/skills/anti-workslop/scripts/check_all.py --guide 장피�
 
 넷은 `check_all.py --guide <가이드> --orig <원본> <결과>` 한 번으로 돌린다(`base-guidelines.json` 의 `_check_all`). 출력은 막는 항목과 판정 한 줄뿐이고, 어느 검사기의 전체 출력이 필요할 때만 표의 명령을 따로 돌린다. 사용자가 특정 취향 규칙을 빼라고 했을 때만 `--taste-skip W-NN` 을 붙인다.
 
-FAIL 이면 본 컨텍스트가 결과 파일을 읽지 않는다. 판정 줄과 막는 항목을 `SendMessage` 로 같은 서브에이전트에 보내 고치게 하고 `check_all` 을 다시 돌린다. 최대 두 바퀴다. 남은 지적은 notes 미결에 적는다. 서브에이전트가 없는 하네스에서는 본 컨텍스트가 지적된 줄 언저리만 Read(offset·limit) 하고 Edit 한다.
+FAIL 이면 본 컨텍스트가 결과 파일을 읽지 않는다. 판정 줄과 막는 항목을 `SendMessage` 로 같은 서브에이전트에 보내 고치게 하고 `check_all` 을 다시 돌린다. 코드와 의미 검토의 후속 수정은 합쳐 최대 두 바퀴다. 남은 지적은 notes 미결에 적는다. 서브에이전트가 없는 하네스에서는 본 컨텍스트가 지적된 줄 언저리만 Read(offset·limit) 하고 Edit 한다.
+
+## Step 3-1. 위험 구간의 독립 의미 검토
+
+`check_fidelity.py --json <원본> <결과>`의 `semantic_review`에 위험이 있거나 담당이 의문을 남기면 `references/semantic-review.md`대로 독립 담당을 호출한다. 원문·결과·위험·불변식만 전달한다. 기록은 `check_all --semantic-review <기록> --orig <원본>`으로 확인한다(담당 의문은 `--author-concern`). 코드 통과와 구분하며, 기록 누락·만료·판단 불가는 작성자 확인으로 남긴다. 후속 수정은 코드 검수와 합쳐 최대 두 바퀴다.
 
 ## Step 4. notes
 
@@ -85,6 +89,8 @@ FAIL 이면 본 컨텍스트가 결과 파일을 읽지 않는다. 판정 줄과
 2. 검수 · 첫 줄에 진단 경로(서브에이전트 / 본 컨텍스트). `check_all` 의 마지막 판정 줄 그대로, 바퀴 수, `--taste-skip` 한 W-NN 과 사용자 지시.
 3. 미결 · 두 바퀴 뒤에도 남은 지적, 자리표시자, RT-01의 보호·결론 부재·충돌에 따른 작성자 확인.
 4. 작업 기록 · 전달 파일을 셸로 덧붙인다(`cat <전달 파일> >> <notes>`). 뺀 것은 원문 그대로, 더한 것은 결과 그대로 인용되어 있다.
+
+사용자 응답은 `references/modes.md`의 네 항목 안내를 따른다. notes에 의미 검토 기록을 남긴다.
 
 완성본에는 점수·수정 이유·작업 상태를 섞지 않는다. 검사기 전체 출력은 적지 않는다. 원본과 결과 파일로 언제든 다시 돌릴 수 있다.
 

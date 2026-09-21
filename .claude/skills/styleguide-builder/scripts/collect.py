@@ -74,6 +74,21 @@ def discover_rss(url: str) -> list[str]:
 # ---------------------------------------------------------------------------
 # HTML → 블록
 # ---------------------------------------------------------------------------
+_CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]")
+
+
+def strip_control(s: str) -> str:
+    """C0/C1 제어문자를 지운다 (탭·개행·복귀는 남긴다).
+
+    원문에 섞여 들어온 U+0008 같은 문자는 파서마다 처리가 갈린다. lxml 은 묶인
+    libxml2 판에 따라 지우기도 하고 남기기도 하며, html.parser 는 그대로 둔다.
+    뒤이어 공백을 접는 정규식은 이들을 공백으로 보지 않으므로, 살아남으면 문장
+    분할이 어긋나 같은 원문에서 플랫폼마다 다른 수치가 나온다.
+    (2026-09-21 · nocode-for-landing-page 의 U+0008 하나로 CI 가 Linux 에서만 실패)
+    """
+    return _CONTROL_RE.sub("", s)
+
+
 def _parser() -> str:
     try:
         import lxml  # noqa: F401
@@ -134,7 +149,7 @@ def _meta(soup, *selectors) -> str:
 
 def extract_html(html: str, slug: str, url: str, selector: str | None, noise: list[str]) -> dict:
     from bs4 import BeautifulSoup
-    soup = BeautifulSoup(html, _parser())
+    soup = BeautifulSoup(strip_control(html), _parser())
     title = _meta(soup, "h1", 'meta[property="og:title"]', "title") or slug
     pub = _meta(soup, "time[datetime]", 'meta[property="article:published_time"]', 'meta[name="date"]')
     if soup.select_one("time[datetime]") is not None:
@@ -181,7 +196,7 @@ def load_md_dir(d: Path, recursive: bool = False) -> list[dict]:
     for f in files:
         if f.suffix.lower() not in (".md", ".txt") or not f.is_file():
             continue
-        raw = f.read_text(encoding="utf-8", errors="replace")
+        raw = strip_control(f.read_text(encoding="utf-8", errors="replace"))
         rel = f.relative_to(d).with_suffix("")
         slug = "__".join(rel.parts)
         title, pub = rel.parts[-1], ""
