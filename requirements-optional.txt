@@ -1,3 +1,4 @@
-# CI 가 설치하지 않는 선택 의존성. 사람이 손으로 돌리는 도구만 여기 둔다.
-# 검사·테스트 경로에서 쓰는 패키지는 requirements.txt 로 옮겨야 한다.
+# 유지보수 도구용. 파이프라인을 쓰는 데는 필요 없다.
+# 자료를 다시 모으거나 사례를 다시 빌드할 때만: pip install -r requirements-optional.txt
 pymupdf                  # styleguides/report/scripts/fetch_sources.py 의 PDF 텍스트 추출(fitz)
+markdown>=3.10.2         # tools/build_examples.py 비교 HTML 생성. tools/ 는 공개본에 실리지 않는다
