@@ -7,6 +7,7 @@
   python -X utf8 check_all.py --guide … --pack FILE                        # 읽기 묶음: 가이드 §8·§11-2·§14(윤문 블록), 원칙 human 행·§4, 취향 §0~§6
   python -X utf8 check_all.py --guide … --bundle FILE                      # 서브에이전트가 읽을 것 전부: 브리프 + 읽기 묶음 + 진단
   python -X utf8 check_all.py --guide 없음 --hint FILE                     # 장르 힌트(줄글·개조식·애매) + 레이어 한 줄(장르별 등록 가이드·취향 상태)
+  python -X utf8 check_all.py --guide … --prompt --record REC [--clean] FILE   # 윤문 담당의 한 장 프롬프트(P5). 진단 끝 「사전 검사:」 줄이 깨끗이면 --clean
 
 가이드 이름은 base-guidelines.json 의 밑줄 없는 최상위 키다(기본 둘 + register_guide.py 로 등록한 것).
 명령은 같은 파일에서 읽는다(_checks · _checks_short · _checks_common · _checker_kind · _pack_sections · _s14_blocks). 짧은 글 판정은
@@ -14,7 +15,7 @@
 출력만 읽는다. 검사기가 exit 2 를 내거나 죽으면 그 stderr 를 흘리고 exit 2.
 """
 from __future__ import annotations
-import argparse, json, re, shlex, subprocess, sys, unicodedata
+import argparse, json, re, shlex, subprocess, sys, tempfile, unicodedata
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -25,8 +26,9 @@ BRIEF = SKILL_DIR / "references" / "subagent.md"
 REPORT_TITLES = ROOT / "styleguides" / "report" / "title-claims.md"
 TASTE_MD = ROOT / "taste" / "writing-taste.md"
 sys.path.insert(0, str(HERE))
-from check_ai_tells import (RULES_MD, explain_human, force_utf8_stdout, is_label, load_rules,   # noqa: E402
-                            normalize_text, segment_html, segment_markdown, split_sentences)
+from check_ai_tells import (RULES_MD, TRAILER_MARK, explain_human, force_utf8_stdout, is_label,   # noqa: E402
+                            load_rules, normalize_text, segment_html, segment_markdown,
+                            split_sentences, strip_trailer)
 from check_fidelity import RULE_NAMES                                                          # noqa: E402
 
 # 읽기 묶음에 싣는 가이드 절의 기본값. 가이드마다 base-guidelines.json 의 _pack_sections 가 우선한다.
@@ -160,6 +162,21 @@ def _block(title: str, lines: list) -> list:
     return [f"## {title}"] + (lines if lines else ["(없음)"]) + [""]
 
 
+# Q3(2026-09-22) · 묶음에 목표 문체의 실물 예문을 싣는다. 베껴 쓰면 문체가 아니라 문장이 옮겨 오므로
+# 결과가 예문을 네 어절 이상 그대로 가져왔는지 센다. 원문에도 있는 말은 원문이 먼저라 세지 않는다.
+_WORD = re.compile(r"[^\w가-힣]+")
+
+
+def _windows(text: str, n: int = 4) -> set:
+    """마크다운 표식을 떼고 어절 n 개짜리 창을 만든다."""
+    words = [w for w in _WORD.sub(" ", text).split() if w]
+    return {" ".join(words[i:i + n]) for i in range(len(words) - n + 1)}
+
+
+def example_overlap(result: str, example: str, orig: str, n: int = 4) -> list:
+    return sorted((_windows(result, n) & _windows(example, n)) - _windows(orig, n))
+
+
 # ---------------------------------------------------------------------------
 # 읽기 묶음
 # ---------------------------------------------------------------------------
@@ -191,6 +208,33 @@ def keep_blocks(section: str, labels: list) -> str:
     return "\n\n".join(out)
 
 
+# Q1(2026-09-22) · 분포 목표를 지시에서도 뺀다. 검수에서 빼도 §14 가 같은 수치를 지시하면
+# 재작성이 그쪽으로 맞춘다(마케팅 사례 평균 37.4→55.2자, 합쇼체 51→86%).
+_NUM_TARGET = re.compile(r"\d+(?:\.\d+)?\s?(?:자|%|문장)(?![가-힣])|\(\d+(?:\.\d+)?~\d+(?:\.\d+)?%?\)")
+_NUM_PAREN = re.compile(r"\s*\(\d+(?:\.\d+)?%\)")       # 「(4%)」만. 「(1)」 같은 열거 표시는 둔다
+_S14_LABEL = re.compile(r"^\s*(\[[^\]]+\]\s*)")
+
+
+def strip_numeric(section: str) -> str:
+    """§14 블록에서 분포 목표가 든 문장을 지운다. 목표가 없는 지시 문장은 남긴다.
+
+    「평균 55자(43~65), 100자 초과 14% 이하.」는 통째로 빠지고 「주장으로 열고 …」는 남는다.
+    블록 라벨([문장]·[종결])은 첫 문장이 빠져도 지키고, 표제·울타리·표 줄은 건드리지 않는다.
+    """
+    out = []
+    for line in section.split("\n"):
+        if not line.strip() or line.lstrip().startswith(("```", "#", "|")):
+            out.append(line)
+            continue
+        m = _S14_LABEL.match(line)
+        label, body = (m.group(1), line[m.end():]) if m else ("", line)
+        kept = [s for s in re.split(r"(?<=[.])\s+", body) if not _NUM_TARGET.search(s)]
+        rebuilt = " ".join(_NUM_PAREN.sub("", s) for s in kept).strip()
+        if rebuilt:
+            out.append((label + rebuilt).strip())
+    return "\n".join(out)
+
+
 def pack(bg: dict, guide: str, sections: tuple) -> str:
     out = [f"# 읽기 묶음 · {guide} ({bg['_genre_of'].get(guide, '공통')})", ""]
     # 문체 이름으로 보고서 여부를 추측하지 않는다. 본문을 읽는 담당이 판단한다.
@@ -202,7 +246,13 @@ def pack(bg: dict, guide: str, sections: tuple) -> str:
             body = md_section(md, n)
             if n == "14" and body:
                 body = keep_blocks(body, bg.get("_s14_blocks", {}).get(guide, []))
+                if bg.get("_genre_of", {}).get(guide) in bg.get("_s14_strip_numeric", []):
+                    body = strip_numeric(body)
             out += [f"## 가이드 §{n}", "", body if body else "(없음)", ""]
+    exp = bg.get("_examples", {}).get(guide)
+    if exp and (ROOT / exp).exists():
+        out += [f"## 예문 · {guide}", "",
+                unicodedata.normalize("NFC", (ROOT / exp).read_text(encoding="utf-8")).strip(), ""]
     rules_md = unicodedata.normalize("NFC", RULES_MD.read_text(encoding="utf-8").replace("\r\n", "\n"))
     out += [explain_human(load_rules(), rules_md), ""]
     if TASTE_MD.exists():
@@ -296,13 +346,17 @@ def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
                    help="가이드 이름(base-guidelines.json 에 등록된 것) 또는 없음")
     p.add_argument("--genre", default=None, choices=["줄글", "개조식", "공통"], help="원칙 검사기 장르(기본 _genre_of[가이드], 없음이면 공통)")
     p.add_argument("--orig", default=None, help="원본 경로. 주면 검수 단계(불변식 포함, 막는 항목만)")
-    p.add_argument("--semantic-review", help="독립 검토 JSON 기록")
+    p.add_argument("--semantic-review", action="append", default=None,
+                   help="독립 검토 JSON 기록. 여러 번 줄 수 있다(뒤 기록이 같은 ID 를 덮는다)")
     p.add_argument("--author-concern", action="store_true", help="재작성 담당이 의미 보존에 의문을 남김")
     p.add_argument("--taste-skip", default="", help="사용자가 빼라고 한 취향 W-NN(쉼표로). 판정에서 뺀다")
     p.add_argument("--pack", action="store_true", help="읽기 묶음만 출력")
     p.add_argument("--bundle", action="store_true", help="브리프 + 읽기 묶음 + 진단을 한 번에 출력(서브에이전트용)")
     p.add_argument("--hint", action="store_true", help="장르 힌트 한 줄만 출력")
     p.add_argument("--sections", default=None, help="--pack 에 실을 가이드 절(예: 8,11-2,14). 기본은 _pack_sections[가이드]")
+    p.add_argument("--prompt", action="store_true", help="윤문 담당이 읽을 한 장 프롬프트를 출력(P5)")
+    p.add_argument("--clean", action="store_true", help="--prompt 에 기권 줄을 싣는다(사전 검사가 깨끗할 때)")
+    p.add_argument("--record", default=None, help="--prompt 에 적을 작업 기록 경로(스크래치패드)")
     return p
 
 
@@ -320,13 +374,37 @@ def main(argv: list[str] | None = None) -> int:
         print(f"입력 오류: {a.file}: 파일이 없다", file=sys.stderr)
         return 2
     ext = "html" if src.suffix.lower() in (".html", ".htm") else "md"
+    if a.prompt:
+        if not a.record:
+            print("입력 오류: --prompt 에는 --record <작업 기록 경로> 가 필요하다", file=sys.stderr)
+            return 2
+        from prompt import build_prompt          # 순환 import 를 피해 여기서만 부른다
+        print(build_prompt(bg, a.guide, src, a.clean, a.record))
+        return 0
     if a.hint:
-        print(hint(src.read_text(encoding="utf-8"), ext == "html"))
+        text = strip_trailer(src.read_text(encoding="utf-8"))
+        print(hint(text, ext == "html"))
         print(layers(bg))
+        # jev 는 키가 있을 때만 한 줄을 덧붙인다. 없거나 실패하면 위 두 줄이 지금까지와 같다.
+        import jev_gate
+        if jev_gate.enabled("gate"):
+            got = jev_gate.classify_input(text)
+            if isinstance(got, dict):
+                print(f"jev: 장르 {got['genre'][0]} {got['genre'][1]:.2f} · "
+                      f"유형 {got['doc_type'][0]} {got['doc_type'][1]:.2f} ({jev_gate.model_name()})")
+            else:
+                print(f"jev: 실패({got}) → 현행 경로")
         return 0
     genre = a.genre or bg["_genre_of"].get(a.guide, "공통")
     verify = a.orig is not None
-    file_posix = src.as_posix()
+    # 작성자 확인 트레일러는 본문이 아니다. 네 검사기 모두 그것을 뗀 사본에 대고 돌린다.
+    raw = src.read_text(encoding="utf-8")
+    body = strip_trailer(raw)
+    tmp = None
+    if body != raw:
+        tmp = Path(tempfile.mkdtemp(prefix="check_all-")) / src.name
+        tmp.write_bytes(body.encode("utf-8"))
+    file_posix = (tmp or src).as_posix()
     if a.bundle:
         # 서브에이전트가 읽을 것 전부. 원문은 Bash 출력 상한(30K자) 때문에 싣지 않고 따로 읽게 한다.
         print(BRIEF.read_text(encoding="utf-8").rstrip("\n"), "\n", sep="")
@@ -335,7 +413,8 @@ def main(argv: list[str] | None = None) -> int:
     ai = _json(run_cmd(bg["_checks_common"]["ai_tells"], genre=genre, file=file_posix), "check_ai_tells")
     chars = ai["stats"].get("chars_nospace", 0)
     short = genre == "줄글" and chars <= bg["_short_chars"]
-    out = [f"# check_all · {'검수' if verify else '진단'} · {a.guide} ({ext}) · 짧은 글 {'예' if short else '아니오'} (공백 제외 {chars:,}자)", ""]
+    out = [f"# check_all · {'검수' if verify else '진단'} · {a.guide} ({ext}) · 짧은 글 {'예' if short else '아니오'} "
+           f"(공백 제외 {chars:,}자){' · 작성자 확인 트레일러 뗌' if tmp else ''}", ""]
 
     g_hard = g_soft = 0
     if a.guide != "없음":
@@ -359,6 +438,9 @@ def main(argv: list[str] | None = None) -> int:
     out += _block(f"취향 · check_taste{state} · 규칙 {g['규칙']}{skipped} · 경향 {g['경향']} · 관찰 {g['관찰']} · human: {', '.join(human) or '-'}", tlines)
 
     if not verify:
+        pre = g_hard + s1 + s2 + t_block
+        out.append(f"사전 검사: {'깨끗' if pre == 0 else f'막을 것 {pre}'} · 장르 hard {g_hard} · "
+                   f"원칙 S1 {s1} / S2 {s2} · 취향 규칙 {t_block}")
         print("\n".join(out).rstrip("\n"))
         return 0
 
@@ -366,13 +448,25 @@ def main(argv: list[str] | None = None) -> int:
     fs, st, flines = fidelity_lines(fd)
     out += _block(f"불변식 · check_fidelity · S1 {fs['S1']} · S2 {fs['S2']} · 길이 {st['length_ratio']} · "
                   f"문단 {st['paragraph_ratio']} · 항목 {st['list_ratio']}", flines)
+    ex_hits = []
+    exp_path = bg.get("_examples", {}).get(a.guide)
+    if exp_path and (ROOT / exp_path).exists():
+        ex_hits = example_overlap(body,
+                                  (ROOT / exp_path).read_text(encoding="utf-8"),
+                                  Path(a.orig).read_text(encoding="utf-8"))
+        out += _block(f"예문 겹침 · {len(ex_hits)}자리",
+                      [f'"{h}"' for h in ex_hits[:5]] + (["…"] if len(ex_hits) > 5 else []))
     from semantic_review import review_status
     semantic = review_status(fd["semantic_review"], a.semantic_review, a.author_concern)
-    out += [f"의미 검토: {semantic['status']} · 위험 구간 {len(fd['semantic_review']['risks'])}개"]
+    c = semantic["counts"]
+    by = " · ".join(f"{k} {v}" for k, v in sorted(c["by_method"].items())) or "-"
+    out += [f"의미 검토: {semantic['status']} · 위험 구간 {len(fd['semantic_review']['risks'])}개 · "
+            f"보존 {c['preserved']} · 변경 {c['changed']} · 판단 불가 {c['unsure']} · 담당 {by}"]
     out += [f"작성자 확인: {item}" for item in semantic['issues']]
     out += ["자동 판정은 문맥의 의미 보존을 보증하지 않습니다."]
-    fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0
-    out.append(f"판정: {'FAIL' if fail else 'PASS'} · 장르 hard {g_hard} · 원칙 S1 {s1} / S2 {s2} · 취향 규칙 {t_block} · 불변식 S1 {fs['S1']}")
+    fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0 or bool(ex_hits)
+    out.append(f"판정: {'FAIL' if fail else 'PASS'} · 장르 hard {g_hard} · 원칙 S1 {s1} / S2 {s2} · "
+               f"취향 규칙 {t_block} · 불변식 S1 {fs['S1']} · 예문 겹침 {len(ex_hits)}")
     print("\n".join(out))
     return 1 if fail else 0
 

@@ -4,6 +4,6 @@
 
 각 위험 구간을 앞뒤 문맥과 함께 읽는다. 추가·삭제·대응 불명 구간은 section_start부터 section_end까지 해당 절 전체를 대조한다. 대상과 수치의 연결, 부정의 대상, 조건 범위, 시제, 확정 수준, 추가·삭제된 주장을 본다. 연결 문장과 용어 풀이의 허용은 불변식에 따른다. 근거가 부족하면 판단 불가다. 위험 신호를 곧바로 의미 오류로 간주하지 않는다.
 
-출력은 UTF-8 JSON이다. schema_version=1, orig_sha256와 polished_sha256는 실제 파일 바이트의 SHA-256, independent=true, reviewer는 담당 식별자, items는 모든 위험 ID의 목록이다. 항목은 id, verdict(보존 확인/의미 변경/판단 불가), evidence(원문·결과의 인용 또는 부재와 위치, 판단 근거)를 가진다. 같은 문서에 여러 위험이 있어도 항목을 생략하지 않는다. 재작성 담당의 의문이 별도로 전달되면 AUTHOR 항목도 쓴다.
+출력은 UTF-8 JSON이다. schema_version=2, orig_sha256와 polished_sha256는 실제 파일 바이트의 SHA-256, independent=true, reviewer는 담당 식별자, method는 llm이다. 보존을 확인한 위험은 preserved에 ID만 적는다. items에는 의미 변경과 판단 불가만 넣고 각각 id, verdict, evidence(원문·결과의 인용 또는 부재와 위치, 판단 근거)를 가진다. preserved와 items를 합치면 검토 대상 전체이고, 같은 ID가 두 곳에 있으면 안 된다. 대상 ID 목록을 함께 받았으면 그 ID만 검토하고 그 집합이 이 기록의 전체가 된다. 재작성 담당의 의문이 별도로 전달되면 AUTHOR 항목도 쓴다.
 
 기록은 현재 두 파일에만 유효하다. 한쪽이라도 바뀌면 기존 기록에 해시만 갈아 넣지 않고 다시 대조한다. 호출자는 check_all의 --semantic-review로 기록을 확인한다. 별도 담당을 실행할 수 없으면 확인 필요로 남기며 자기 대조를 독립 검토라고 쓰지 않는다. 코드와 독립 검토에 따른 후속 수정은 합쳐 최대 두 바퀴다.

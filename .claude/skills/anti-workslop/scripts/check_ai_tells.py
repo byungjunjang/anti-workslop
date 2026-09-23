@@ -84,6 +84,17 @@ def _blank(m: "re.Match") -> str:
     return "".join("\n" if ch == "\n" else " " for ch in m.group(0))
 
 
+# 작성자 확인 트레일러 — 윤문 결과 파일 끝에 붙는 구역(2026-09-22). 읽는 사람이 한 파일에서
+# 다 보게 하되, 검사기는 본문이 아닌 이 구역을 보지 않는다. 떼는 일은 check_all 이 한 번에 한다.
+TRAILER_MARK = "<!-- anti-workslop:작성자 확인"
+
+
+def strip_trailer(text: str) -> str:
+    """작성자 확인 트레일러를 뗀 본문. 표시가 없으면 그대로 돌려준다."""
+    i = text.find(TRAILER_MARK)
+    return text if i < 0 else text[:i].rstrip() + "\n"
+
+
 def mask(text: str) -> str:
     out = text
     for rx in MASK_PATTERNS:

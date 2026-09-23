@@ -1,0 +1,18 @@
+{
+  "ax": {
+    "orig": "docs/implementation-2026-09-17/pairs/ax.orig.md",
+    "polished": "docs/implementation-2026-09-17/pairs/ax.polished.md",
+    "record": "docs/implementation-2026-09-17/ax.semantic.json",
+    "orig_sha256": "9c2ada0e097e9a52cef2174b6d6b61b0b2fd878b21217b00f9894442642acabd",
+    "polished_sha256": "8fdc4ee05b84e75bf38948debaf75d041d51180030e2bbbf48d6dc5738eb8fe1",
+    "role": "재현율"
+  },
+  "marketing": {
+    "orig": "docs/implementation-2026-09-17/pairs/marketing.orig.md",
+    "polished": "docs/implementation-2026-09-17/pairs/marketing.polished.md",
+    "record": "docs/implementation-2026-09-17/marketing.semantic.json",
+    "orig_sha256": "280c221e5d9be6d278d474f406aebde6d9c7508b88bd7dea268965cad5d3a7f8",
+    "polished_sha256": "8c374f54f0999ab6f88f79588502ccccbb1b2ebc3c1362e6d3a105996f73b2a7",
+    "role": "오탐"
+  }
+}

@@ -36,12 +36,18 @@ class RegisterError(Exception):
 
 
 def entry(name: str, kit: str, guide: str) -> dict:
-    """표 이름 → 이 가이드의 값. 최상위 키(가이드 경로 목록)는 이름 자체다."""
+    """표 이름 → 이 가이드의 값. 최상위 키(가이드 경로 목록)는 이름 자체다.
+
+    2026-09-22 Q1 · 줄글 가이드는 보통 경로에서도 개수·불리언 규칙만 본다. 평균 문장 길이·
+    문단당 문장·종결 비율을 막는 조건으로 두면 재작성이 그 값에 맞춰 문장을 늘리고 문단을
+    합친다. 그래서 _checks 가 _checks_short 와 같고, §14 에서도 수치 목표를 뺀다.
+    """
+    counts = {"md": STYLE.format(kit=kit, extra="--subset counts "),
+              "html": HTML.format(name=name, extra="--short ")}
     return {
         name: [guide],
-        "_checks": {"md": STYLE.format(kit=kit, extra=""), "html": HTML.format(name=name, extra="")},
-        "_checks_short": {"md": STYLE.format(kit=kit, extra="--subset counts "),
-                          "html": HTML.format(name=name, extra="--short ")},
+        "_checks": dict(counts),
+        "_checks_short": dict(counts),
         "_checker_kind": "style",
         "_genre_of": "줄글",
         "_pack_sections": list(BLOG_PACK),

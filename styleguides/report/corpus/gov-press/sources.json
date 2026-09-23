@@ -1,0 +1,205 @@
+{
+ "_about": "정책브리핑(korea.kr) 보도자료 PDF 첨부에서 표 영역을 뺀 본문. R1 개조식 사람 코퍼스(2026-09-23). 머리(보도시점·배포)를 떼고 정책브리핑 제목을 첫 줄에 두었다. 줄바꿈은 PDF 그대로라 한 항목이 여러 줄에 걸친다.",
+ "license": "공공누리 제1유형(출처표시) — 각 보도자료 페이지 표기. 텍스트에 한한다.",
+ "collected_on": "2026-09-23",
+ "sources": [
+  {
+   "file": "156783110.md",
+   "title": "재외동포협력센터 통합 및 직원 고용안정 방안 관련",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783110",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559491&tblKey=GMN"
+  },
+  {
+   "file": "156783107.md",
+   "title": "'26년 8월 주요 유통업체 매출 동향",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783107",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559446&tblKey=GMN"
+  },
+  {
+   "file": "156783103.md",
+   "title": "정은경 보건복지부 장관, 서울의료원 응급의료 현장 방문",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783103",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559462&tblKey=GMN"
+  },
+  {
+   "file": "156783092.md",
+   "title": "사회보장급여 정기 확인조사 실시, 국민 불편은 줄이고 행정은 효율화",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783092",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559603&tblKey=GMN"
+  },
+  {
+   "file": "156783095.md",
+   "title": "2026년 7월 인구동향(출생, 사망, 혼인, 이혼)",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783095",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559398&tblKey=GMN"
+  },
+  {
+   "file": "156783067.md",
+   "title": "현장에서 듣고, 양 세무당국이 함께 푼다... 국세청, 제1차 한･멕시코 국세청장 회의 개최",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783067",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559496&tblKey=GMN"
+  },
+  {
+   "file": "156783057.md",
+   "title": "포항지진 아픔 위에 '지진안전 거점' 세운다… 기후부·기상청·경북도·포항시 업무협약 체결",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783057",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559255&tblKey=GMN"
+  },
+  {
+   "file": "156783054.md",
+   "title": "자원안보 중장기 로드맵 마련,  위기에 강한 자원안보 대비태세 구축한다",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783054",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559166&tblKey=GMN"
+  },
+  {
+   "file": "156783048.md",
+   "title": "재외동포청, 입양동포·청년이 겪는 제도 불편 개선 제안",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783048",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559191&tblKey=GMN"
+  },
+  {
+   "file": "156783042.md",
+   "title": "숙련자의 30년 노하우 AI가 배웠다면 지식재산의 경계는",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783042",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559570&tblKey=GMN"
+  },
+  {
+   "file": "156783032.md",
+   "title": "소부장 특화단지와 노후거점산단으로 전북의 성장엔진이 새롭게 출발한다",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783032",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559101&tblKey=GMN"
+  },
+  {
+   "file": "156783024.md",
+   "title": "철도역은 편리하게, 이동은 더 촘촘하게 …코레일 자회사 통합",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783024",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559069&tblKey=GMN"
+  },
+  {
+   "file": "156783108.md",
+   "title": "\"출산율은 반등해도 인구위기는 현재진행형\"",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783108",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559471&tblKey=GMN"
+  },
+  {
+   "file": "156783012.md",
+   "title": "한성숙 국무총리 주재 제1회 생명지킴 정책 간담회",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156783012",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559014&tblKey=GMN"
+  },
+  {
+   "file": "156782980.md",
+   "title": "홍지선 장관, 첫 행보로 3기 신도시 현장점검, \"주택공급 실행력 높여 국민 체감성과 창출\"",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782980",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558935&tblKey=GMN"
+  },
+  {
+   "file": "156782960.md",
+   "title": "김이탁 제1차관, \"전월세 안심신탁사업, 국민이 체감하는 주거지원 제도로 안착시킬 것\"",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782960",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558804&tblKey=GMN"
+  },
+  {
+   "file": "156782959.md",
+   "title": "국무조정실장 세종전통시장 방문",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782959",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558802&tblKey=GMN"
+  },
+  {
+   "file": "156782938.md",
+   "title": "무안국제공항 활주로 포장 보수·보강 추진",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782938",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558646&tblKey=GMN"
+  },
+  {
+   "file": "156782931.md",
+   "title": "정은경 장관, 첨단재생의료 치료 1호 현장 찾아 환자 격려",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782931",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558733&tblKey=GMN"
+  },
+  {
+   "file": "156782937.md",
+   "title": "에너지저장장치(ESS) 중앙계약시장 개설, 1,180MW 입찰 공고",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782937",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558924&tblKey=GMN"
+  },
+  {
+   "file": "156782929.md",
+   "title": "정부, 성착취물 유통 불법사이트 전방위 압박, 해외에 숨어도, 도메인 변경·사칭해도 끝까지 추적",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782929",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558672&tblKey=GMN"
+  },
+  {
+   "file": "156782928.md",
+   "title": "정부출연연구기관 유공 포상 수여식",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782928",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558602&tblKey=GMN"
+  },
+  {
+   "file": "156782920.md",
+   "title": "\"AI 시대 '기본사회' 위한 새로운 사회적 약속 필요\"  국민숙의단 91% 공감",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782920",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198559578&tblKey=GMN"
+  },
+  {
+   "file": "156782918.md",
+   "title": "폐자동차 구동모터 속 희토류, 순환이용 체계 구축 착수",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782918",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558568&tblKey=GMN"
+  },
+  {
+   "file": "156782907.md",
+   "title": "자살예방 현장 목소리 듣고,추석 연휴 대비 대응체계 점검",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782907",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558731&tblKey=GMN"
+  },
+  {
+   "file": "156782883.md",
+   "title": "2025년 사망원인통계 결과",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782883",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558370&tblKey=GMN"
+  },
+  {
+   "file": "156782889.md",
+   "title": "[설명자료] 추석 당일 대체로 흐리고 일부 비, 보름달 보기 어려워",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782889",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558458&tblKey=GMN"
+  },
+  {
+   "file": "156782864.md",
+   "title": "APEC 교통장관회의서 AI·스마트 모빌리티 미래협력 제안 나선다",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782864",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558221&tblKey=GMN"
+  },
+  {
+   "file": "156782861.md",
+   "title": "추석 명절 대비 특별근로감독으로 선원 임금체불 지속 관리체계 마련한다",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782861",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558212&tblKey=GMN"
+  },
+  {
+   "file": "156782868.md",
+   "title": "가습기살균제 피해구제, 국가·사업자 공동책임 배상체계로 전환",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782868",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558291&tblKey=GMN"
+  },
+  {
+   "file": "156782857.md",
+   "title": "제주 첨단과학기술단지, 전북 완주산단, 강원 문막산단 \"청년이 모이는 첨단산단으로 거듭난다\"",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782857",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558182&tblKey=GMN"
+  },
+  {
+   "file": "156782844.md",
+   "title": "기업 역량이 사회문제 현장으로 원활하게 흘러가도록 '모두의 연결' 본격 시동",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782844",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558580&tblKey=GMN"
+  },
+  {
+   "file": "156782838.md",
+   "title": "올해 추석 연휴 4일간  \"고속도로 통행료 면제, 고속도로 주유소 유류 가격 리터당 100원 인하\"",
+   "url": "https://www.korea.kr/briefing/pressReleaseView.do?newsId=156782838",
+   "pdf": "https://www.korea.kr/common/download.do?fileId=198558067&tblKey=GMN"
+  }
+ ]
+}

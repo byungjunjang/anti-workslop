@@ -23,7 +23,8 @@
 """
 import re, sys, argparse
 
-BULLET = re.compile(r"^(\s*)([□○◦▪■●•・·\-‑–—\*※]|\d+[\.\)]|[가-힣][\.\)]|\(\d+\)|[①-⑳])\s*(.*)$")
+# ㅇ·❍·☐·∙ 는 정부 문서가 □○· 대신 쓰는 기호다(2026-09-23 R1, 정책브리핑 보도자료 33편). ㅇ 은 뒤에 공백이 있을 때만.
+BULLET = re.compile(r"^(\s*)([□○◦▪■●•・·∙☐❍\-‑–—\*※]|ㅇ(?=\s)|\d+[\.\)]|[가-힣][\.\)]|\(\d+\)|[①-⑳])\s*(.*)$")
 CONNECTIVES = ["다만", "그러나", "또한", "한편", "특히", "아울러", "이에", "따라서", "반면", "향후", "이후", "그동안",
                "최근", "우선", "먼저", "이를 위해", "나아가", "즉", "그 외", "이와 같은", "이러한", "상기", "그리고", "하지만"]
 CONN_RE = re.compile(r"^(" + "|".join(re.escape(c) for c in CONNECTIVES) + r")[\s,]")
@@ -64,11 +65,11 @@ def parse_items(lines):
         indent = len(m.group(1).replace("\t", "  "))
         sym = m.group(2)
         # 계층: 기호 우선, 없으면 들여쓰기
-        if sym in "□■":
+        if sym in "□■☐":
             lvl = 1
-        elif sym in "○●":
+        elif sym in "○●❍ㅇ":
             lvl = 2
-        elif sym in "-‑–—·・•◦":
+        elif sym in "-‑–—·・•◦∙":
             lvl = 3 if indent >= 2 else 2
         elif sym in "▪":
             lvl = 1

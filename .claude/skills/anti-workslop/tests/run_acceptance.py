@@ -32,9 +32,9 @@ def test_skill_doc():
     for h in ("## Step 1", "## Step 5", "애매하면", "taste-builder", "base-guidelines.json",
               "## 모드", "불변식", "재작성본", "두 문장", "기권", "수정 없음", "뺀 것",
               "check_all", "check_fidelity", "references/modes.md", "principles/invariants.md", "principles/ai-tells-ko.md",
-              "references/subagent.md", "스타일가이드", "우선권", "## Step 2. 서브에이전트", "## Step 3. 검수", "## Step 4. notes",
+              "references/subagent.md", "스타일가이드", "우선권", "## Step 2. 사전 검사와 쓰기", "## Step 3. 검수", "## Step 4. notes",
               "사람이 판단할 것", "전달 파일", "--hint", "--bundle", "작업 기록", "--taste-skip",
-              "SendMessage", "불변식 셋", "자기 대조"):
+              "SendMessage", "불변식 셋", "사전 검사:", "references/writer.md", "--prompt", "--clean", "꼼꼼히"):
         assert h in md, h
     assert "## Step 3. 재작성" not in md and "읽는 것 다섯" not in md, "재작성 절은 브리프로 옮겼다"
     assert "references/ai-tells-ko.md" not in md and "references/invariants.md" not in md
@@ -479,7 +479,10 @@ def test_check_html_wrapper():
     s = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "장피엠", "--short", f"{FIX}/html-sample.html")
     ds = json.loads(s.stdout)
     ds = ds[0] if isinstance(ds, list) else ds
-    assert len(ds["rows"]) < len(d["rows"]), (len(ds["rows"]), len(d["rows"]))
+    # Q1(2026-09-22) 뒤로 장피엠은 보통 경로도 개수·불리언 규칙만 본다. 짧은 글 명령과 같아졌다.
+    assert len(ds["rows"]) == len(d["rows"]), (len(ds["rows"]), len(d["rows"]))
+    all_rules = json.loads((ROOT / "styleguides/jangpm/targets.json").read_text(encoding="utf-8"))["rules"]
+    assert len(d["rows"]) < len(all_rules), (len(d["rows"]), len(all_rules))   # 분포 규칙이 빠졌다
     g = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-sample.html")
     assert "[반드시 고칠 것]" in g.stdout, g.stdout + g.stderr
     print("PASS test_check_html_wrapper")
@@ -585,6 +588,7 @@ def test_ai_tells_explain_human():
 
 
 ALL = ".claude/skills/anti-workslop/scripts/check_all.py"
+SEM = ".claude/skills/anti-workslop/scripts/semantic_review.py"
 
 
 def test_check_all_pack():
@@ -697,14 +701,20 @@ def test_check_all_bundle():
 def test_skill_budget():
     """경량화 예산(2026-09-14). SKILL.md 는 본 컨텍스트가 매번 읽고, 브리프·묶음은 서브에이전트가 읽는다.
     넘으면 무엇을 뺄지 다시 본다. 실측 · SKILL.md 8,732 → 6.8K자·111줄, 브리프 3,914 → 3.9K자(재작성 규칙 포함), 묶음 11,074 → 8.4K자.
-    2026-09-17 자율 재작성으로 브리프 ≤ 6.0K자(자기 대조·작업 기록 형식이 늘었다)."""
+    2026-09-17 자율 재작성으로 브리프 ≤ 6.0K자(자기 대조·작업 기록 형식이 늘었다).
+    2026-09-22 실험으로 SKILL.md 를 8.3K자·128줄로 올렸다 — J1 이 Step 1 에, J2 가 Step 3-1 에,
+    Q6 이 Step 2-1 에 들어온다. 중복을 두 번 줄여 207자를 뺀 뒤의 값이다(Step 2-1 과 Step 3
+    되돌림 설명 병합, 짧은 글 기제 설명 축약). 기각되는 실험이 생기면 그 단계를 빼고 한도도 되돌린다.
+    2026-09-23 P5 로 7,500자·120줄로 되돌렸다 — 읽기 검토·의미 검토를 켤 때만 도는 한 절로 줄였다."""
     skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
     assert len(skill) <= 7500 and skill.count("\n") <= 120, (len(skill), skill.count("\n"))
     assert len(BRIEF.read_text(encoding="utf-8")) <= 6000
     p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
     title_rule = (ROOT / "styleguides/report/title-claims.md").read_text(encoding="utf-8")
     assert len(title_rule) <= 1300, len(title_rule)  # RT-01 입력 예산, 기존 묶음 한도는 유지
-    assert len(p) - len(title_rule) <= 9000, len(p)
+    examples = (ROOT / "styleguides/jangpm/examples.md")
+    ex_len = len(examples.read_text(encoding="utf-8")) if examples.exists() else 0
+    assert len(p) - len(title_rule) - ex_len <= 9000, (len(p), ex_len)   # 예문은 Q3 의 새 입력이다
     print("PASS test_skill_budget")
 
 
@@ -734,6 +744,10 @@ def test_check_all_diagnose():
     assert d.returncode == 0 and "[반드시 고칠 것]" in d.stdout and "짧은 글 아니오" in d.stdout, d.stdout[:300]
     n = run(ALL, "--guide", "없음", f"{FIX}/ai-draft-prose.md")
     assert n.returncode == 0 and "## 장르" not in n.stdout and "## 원칙" in n.stdout, n.stdout[:300]
+    last = r.stdout.rstrip("\n").splitlines()[-1]
+    assert last.startswith("사전 검사: 막을 것 "), last
+    c = run(ALL, "--guide", "장피엠", f"{FIX}/abstain/already-clean.md")
+    assert c.stdout.rstrip("\n").splitlines()[-1].startswith("사전 검사: 깨끗 · "), c.stdout[-300:]
     print("PASS test_check_all_diagnose")
 
 
@@ -898,6 +912,10 @@ def test_priority_chain_sync():
     skill = chain((SKILL / "SKILL.md").read_text(encoding="utf-8"), r"^- 우선권 · (.+?)\. ")
     diag = chain(BRIEF.read_text(encoding="utf-8"), r"우선권 체인\((.+?)\)")
     assert diag == skill, (diag, skill)
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import prompt as P
+    one = chain(P.PRIORITY, r"^우선권 · (.+?)\. ")
+    assert one == skill, (one, skill)
     cut = next(i for i, p in enumerate(skill) if p.startswith("원칙"))
     docs = [ROOT / ".claude" / "skills" / "taste-builder" / "references" / "taste-template.md",
             ROOT / "taste" / "writing-taste.md"]
@@ -926,7 +944,8 @@ def test_at66_wiring():
     b = BRIEF.read_text(encoding="utf-8")
     at66 = next(l for l in b.splitlines() if "AT-66 은 같은 문형의 제목" in l)
     assert "그 절 본문" in at66 and "부정·조건 표지" in at66, at66[-300:]   # 부정이 든 제목을 고르면 check_fidelity F3 S1 로 되돌려진다
-    for s in ("불변식 셋", "판정법 다섯", "[근거 필요: …]", "[사례 필요: …]", "[마무리 필요: 권유·전망]", "고정 구역"):
+    # Q5(2026-09-22) 뒤로 근거·사례·마무리는 본문 자리표시자가 아니라 작성자 확인으로 간다.
+    for s in ("불변식 셋", "판정법 다섯", "작성자 확인", "본문에 자리표시자를 넣지 않는다", "고정 구역"):
         assert s in b, s
     inv = (PRINCIPLES / "invariants.md").read_text(encoding="utf-8")
     assert "## 4. 길이 예산" not in inv and "110%" not in inv, "길이 예산이 남아 있다(2026-09-17 삭제)"
@@ -1052,6 +1071,452 @@ def test_ai_tells_at43_substitutes():
     print("PASS test_ai_tells_at43_substitutes")
 
 
+def test_semantic_recall_eval():
+    """T1 정답 재생. 쌍 파일이 없으면 SKIP 을 찍고 통과한다(공개본·CI 에는 쌍이 없다)."""
+    r = run(".claude/skills/anti-workslop/tests/eval_semantic_recall.py")
+    assert r.returncode == 0, r.stdout + r.stderr
+    assert "FAIL" not in r.stdout, r.stdout
+    print("PASS test_semantic_recall_eval")
+
+
+def _env(**over):
+    """TYPESAFE_* 와 ANTI_WORKSLOP_JEV* 를 지운 깨끗한 환경에 over 를 얹는다."""
+    import os
+    env = {k: v for k, v in os.environ.items()
+           if not k.startswith(("TYPESAFE_", "ANTI_WORKSLOP_JEV"))}
+    env.update(PYTHONUTF8="1", **over)
+    return env
+
+
+def test_jev_offline_identical():
+    """jev 를 쓰지 않는 두 경로의 출력이 서로 같고 현행과 같다. jev 는 덧붙이기만 한다.
+
+    환경변수를 비우는 것만으로는 「키 없음」을 흉내 낼 수 없다 — load_env 가 루트 .env 에서
+    읽어 채우기 때문이다. 그래서 스위치를 끈 경우와 빈 키를 준 경우 둘을 본다. 개발기에
+    .env 가 있든 없든 같은 결과여야 한다."""
+    args = [sys.executable, "-X", "utf8", ALL, "--guide", "없음", "--hint", f"{FIX}/ai-draft-prose.md"]
+    off = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                         env=_env(ANTI_WORKSLOP_JEV="0"))
+    nokey = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                           env=_env(TYPESAFE_API_KEY=""))
+    assert off.stdout == nokey.stdout, "스위치를 끈 경우와 키가 없는 경우의 출력이 다르다"
+    assert len(off.stdout.splitlines()) == 2, off.stdout     # 힌트 + 레이어. jev 줄 없음
+    assert "jev" not in off.stdout
+    print("PASS test_jev_offline_identical")
+
+
+def test_jev_mock_hint():
+    """가짜 서버로 J1 경로를 본다. 힌트 셋째 줄 · state 상한 · 재시도 · 실패는 현행 경로."""
+    sys.path.insert(0, str(HERE))
+    from jev_mock import Mock, answer_choice
+    args = [sys.executable, "-X", "utf8", ALL, "--guide", "없음", "--hint", f"{FIX}/ai-draft-prose.md"]
+    answers = {"genre": answer_choice("줄글", {"줄글": .94, "개조식": .04, "섞임": .02}),
+               "doc_type": answer_choice("논설·설명", {"논설·설명": .91, "시간순": .04, "감사·사과문": .02,
+                                                  "인용·전재": .02, "표·코드만": .01})}
+    with Mock(answers) as m:
+        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                           env=_env(TYPESAFE_API_KEY="k", TYPESAFE_BASE_URL=m.url))
+        assert "jev: 장르 줄글 0.9" in r.stdout, r.stdout
+        assert "유형 논설·설명 0.8" in r.stdout or "유형 논설·설명 0.9" in r.stdout, r.stdout
+        req = m.requests[0]
+        assert req["model"] == "jev-1.13.0" and set(req["questions"]) == {"genre", "doc_type"}
+        assert len(req["state"]) <= 8000, len(req["state"])
+    with Mock({}, status=422) as m:
+        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                           env=_env(TYPESAFE_API_KEY="k", TYPESAFE_BASE_URL=m.url))
+        assert r.returncode == 0 and "jev: 실패" in r.stdout, r.stdout
+    with Mock(answers, fail_times=1) as m:                  # 429 는 재시도한다
+        r = subprocess.run(args, capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                           env=_env(TYPESAFE_API_KEY="k", TYPESAFE_BASE_URL=m.url))
+        assert "jev: 장르" in r.stdout and m.calls == 2, (r.stdout, m.calls)
+    print("PASS test_jev_mock_hint")
+
+
+def test_jev_gate_paths():
+    """jev_gate 의 ROOT 는 프로젝트 루트다(.env 를 거기서 읽는다). parents 깊이가 한 단계
+    얕게 잡혀 .claude/ 를 루트로 보던 버그를 막는다. 다른 스크립트와 같은 패턴을 쓴다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import importlib
+    jg = importlib.import_module("jev_gate")
+    assert jg.ROOT == ROOT, (jg.ROOT, ROOT)
+    assert (jg.ROOT / ".env.example").exists(), jg.ROOT
+    import check_all
+    assert jg.ROOT == check_all.ROOT
+    print("PASS test_jev_gate_paths")
+
+
+def test_jev_semantic_mock():
+    """가짜 서버로 J2 경로를 본다. 확신이 높은 보존만 preserved 로 지운다."""
+    sys.path.insert(0, str(HERE))
+    from jev_mock import Mock, answer_choice
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "서울 매출은 10억원이다.\n")
+        q = _tmp_md(d, "p.md", "서울 매출은 20억원이다.\n")
+        rec = Path(d) / "jev.json"
+        answers = {"verdict": answer_choice("보존", {"보존": .97, "변경": .02, "판단_불가": .01})}
+        with Mock(answers) as m:
+            r = subprocess.run([sys.executable, "-X", "utf8", SEM, "--jev", o, q, "-o", str(rec)],
+                               capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                               env=_env(TYPESAFE_API_KEY="k", TYPESAFE_BASE_URL=m.url))
+        assert r.returncode == 0, r.stdout + r.stderr
+        got = json.loads(rec.read_text(encoding="utf-8"))
+        assert got["schema_version"] == 2 and got["method"] == "jev"
+        assert got["reviewer"].startswith("jev-") and got["independent"] is True
+        assert got["items"] == [] and got["preserved"], got
+        assert "판단 불가 0" in r.stdout, r.stdout
+        assert "독립 담당 대상 · 없음" in r.stdout, r.stdout
+        state = m.requests[0]["state"]
+        assert "원문 문맥" in state and "결과 문맥" in state, state
+    print("PASS test_jev_semantic_mock")
+
+
+def test_jev_semantic_never_declares_change():
+    """jev 는 의미 변경을 선언하지 않는다. 보존이 아니면 전부 판단 불가로 사람에게 간다.
+
+    2026-09-22 측정에서 09-17 검토가 보존이라 한 쌍에 변경 8건을 냈다. 그 판정이 되돌림으로
+    가면 멀쩡한 문장을 되돌리게 되므로 자동 해소만 맡긴다."""
+    sys.path.insert(0, str(HERE))
+    from jev_mock import Mock, answer_choice
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "도입을 검토 중이다.\n")
+        q = _tmp_md(d, "p.md", "도입을 확정했다.\n")
+        rec = Path(d) / "jev.json"
+        for probs in ({"보존": .5, "변경": .4, "판단_불가": .1},       # 확신이 낮은 보존
+                      {"보존": .01, "변경": .98, "판단_불가": .01}):    # 확신이 높은 변경
+            answers = {"verdict": answer_choice(max(probs, key=probs.get), probs)}
+            with Mock(answers) as m:
+                r = subprocess.run([sys.executable, "-X", "utf8", SEM, "--jev", o, q, "-o", str(rec)],
+                                   capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                                   env=_env(TYPESAFE_API_KEY="k", TYPESAFE_BASE_URL=m.url))
+            got = json.loads(rec.read_text(encoding="utf-8"))
+            assert got["preserved"] == [], got
+            assert got["items"] and all(x["verdict"] == "판단 불가" for x in got["items"]), got
+            assert "jev 보존 0 · 변경 0" in r.stdout, r.stdout
+            assert "독립 담당 대상 · R" in r.stdout, r.stdout
+    print("PASS test_jev_semantic_never_declares_change")
+
+
+def test_jev_semantic_off_without_key():
+    """스위치를 끄면 기록을 쓰지 않고 위험 전부를 독립 담당으로 넘긴다."""
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "서울 매출은 10억원이다.\n")
+        q = _tmp_md(d, "p.md", "서울 매출은 20억원이다.\n")
+        rec = Path(d) / "jev.json"
+        r = subprocess.run([sys.executable, "-X", "utf8", SEM, "--jev", o, q, "-o", str(rec)],
+                           capture_output=True, text=True, encoding="utf-8", cwd=ROOT,
+                           env=_env(ANTI_WORKSLOP_JEV="0"))
+        assert r.returncode == 0 and "jev 없음" in r.stdout, r.stdout
+        assert not rec.exists()
+    print("PASS test_jev_semantic_off_without_key")
+
+
+def test_check_all_pack_numeric_free():
+    """Q1 · 장피엠 묶음의 §14 에 분포 목표가 남지 않는다. 문체 지시 문장은 남는다."""
+    p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
+    start = p.index("## 가이드 §14")
+    s14 = p[start:p.index("## 원칙", start)]     # §14 블록만. 뒤의 원칙·취향에는 수치가 있다
+    for bad in ("평균 55자", "86%", "3.5문장", "14% 이하", "(4%)", "(6%)"):
+        assert bad not in s14, (bad, s14[:400])
+    assert re.search(r"\d+자|\d+%|\d+문장", s14) is None, s14[:400]
+    for keep in ("주장으로 열고", "문단 끝 한 문장만 해요체", "본문 해라체 금지"):
+        assert keep in s14, (keep, s14[:400])
+    # 개조식 묶음은 손대지 않는다
+    q = run(ALL, "--guide", "개조식", "--pack", f"{FIX}/ai-draft-report.md").stdout
+    assert "## 가이드 §14" in q
+    print("PASS test_check_all_pack_numeric_free")
+
+
+def test_jangpm_checks_are_counts_only():
+    """Q1 · 장피엠 md 검수는 개수·불리언 규칙만 본다. 개조식은 그대로다."""
+    bg = json.loads((SKILL / "references/base-guidelines.json").read_text(encoding="utf-8"))
+    assert "--subset counts" in bg["_checks"]["장피엠"]["md"], bg["_checks"]["장피엠"]
+    assert "--short" in bg["_checks"]["장피엠"]["html"], bg["_checks"]["장피엠"]
+    assert bg["_checks"]["개조식"] == bg["_checks_short"]["개조식"], "개조식은 바뀌지 않는다"
+    assert bg["_s14_strip_numeric"] == ["줄글"], bg.get("_s14_strip_numeric")
+    # 장르로 걸리므로 사용자가 등록한 줄글 가이드도 같은 길을 간다
+    assert bg["_genre_of"]["장피엠"] == "줄글"
+    print("PASS test_jangpm_checks_are_counts_only")
+
+
+def test_fidelity_placeholder_added_s1():
+    """Q5 · 결과에만 새로 생긴 자리표시자는 S1 이다. 본문에 달지 않고 작업 기록에 적는다."""
+    r = json.loads(run(FID, "--json", f"{FIX}/fidelity/orig.md", f"{FIX}/fidelity/hole-added.md").stdout)
+    holes = [f for f in r["findings"] if f["rule"] == "F7"]
+    assert holes, r["findings"]
+    assert all(f["severity"] == "S1" and f["kind"] == "added" for f in holes), holes
+    assert r["summary"]["by_severity"]["S1"] >= 1
+    # 원문에 있던 자리표시자가 사라지는 것은 지금처럼 S1 이다
+    back = json.loads(run(FID, "--json", f"{FIX}/fidelity/hole-added.md", f"{FIX}/fidelity/orig.md").stdout)
+    assert any(f["rule"] == "F7" and f["severity"] == "S1" and f["kind"] == "missing"
+               for f in back["findings"]), back["findings"]
+    print("PASS test_fidelity_placeholder_added_s1")
+
+
+def test_brief_places_holes_in_record():
+    """Q5 · 브리프·원칙·모드는 본문 자리표시자 대신 작성자 확인으로 보낸다."""
+    b = BRIEF.read_text(encoding="utf-8")
+    assert "작성자 확인" in b
+    for gone in ("`[근거 필요: …]` 를", "`[사례 필요: …]` 를", "`[마무리 필요: 권유·전망]` 을"):
+        assert gone not in b, gone
+    assert "본문에 자리표시자를 넣지 않는다" in b, b[:200]
+    inv = (PRINCIPLES / "invariants.md").read_text(encoding="utf-8")
+    assert "본문에 자리표시자를 넣지 않는다" in inv
+    modes = (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
+    assert "본문에는 표시가 없으므로" in modes
+    print("PASS test_brief_places_holes_in_record")
+
+
+def test_brief_delivery_plan():
+    """Q2 · 브리프에 전달 계획 단계와 작업 기록 절이 있다. 재작성보다 앞이고 시간순 문서는 뺀다."""
+    b = BRIEF.read_text(encoding="utf-8")
+    assert "## 전달 계획" in b, "작업 기록 형식에 절이 없다"
+    for s in ("독자", "핵심 판단", "절별 요점", "시간순"):
+        assert s in b, s
+    assert "핵심 판단은 첫 문단에" in b
+    i_plan, i_rewrite = b.index("전달 계획"), b.index("전면 재작성(윤문 모드)")
+    assert i_plan < i_rewrite, "전달 계획은 재작성보다 앞이다"
+    assert len(b) <= 6000, len(b)
+    print("PASS test_brief_delivery_plan")
+
+
+READER = SKILL / "references" / "reader.md"
+
+
+def test_reader_brief():
+    """Q6 · 읽기 검토 담당은 결과만 읽고 넷을 적는다. 고치지 않고 SKILL 이 Step 2-1 로 부른다."""
+    assert READER.exists(), "reader.md 가 없다"
+    r = READER.read_text(encoding="utf-8")
+    assert len(r) <= 1200, len(r)
+    for s in ("①", "②", "③", "④", "결과 파일 하나만 Read"):
+        assert s in r, s
+    assert "원문·규칙·가이드·취향·작업 기록은 받지 않고" in r
+    assert "고치지 않고" in r and "점수를 매기지" in r
+    skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
+    # 2026-09-23 P5 · 읽기 검토는 기본 끔. 사용자가 켤 때만 Step 3-1 에서 부른다.
+    assert "## Step 3-1. 켤 때만" in skill and "references/reader.md" in skill, "SKILL 이 담당을 부르지 않는다"
+    assert "기본은 끔" in skill and "꼼꼼히" in skill, "켜는 조건이 없다"
+    assert "읽기 검토" in (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
+    print("PASS test_reader_brief")
+
+
+def test_check_all_pack_examples():
+    """Q3 · 묶음에 예문 절이 붙는다. 개조식은 실물이 없어 비워 두었다."""
+    p = run(ALL, "--guide", "장피엠", "--pack", f"{FIX}/ai-draft-prose.md").stdout
+    assert "## 예문 · 장피엠" in p, p[:200]
+    ex = (ROOT / "styleguides/jangpm/examples.md").read_text(encoding="utf-8")
+    assert ex.strip() in p, "예문 파일이 그대로 실리지 않았다"
+    assert "그대로 옮겨 쓰지 않는다" in ex, "베껴 쓰기 금지 문구가 없다"
+    bg = json.loads((SKILL / "references/base-guidelines.json").read_text(encoding="utf-8"))
+    assert bg["_examples"] == {"장피엠": "styleguides/jangpm/examples.md"}, bg.get("_examples")
+    q = run(ALL, "--guide", "개조식", "--pack", f"{FIX}/ai-draft-report.md").stdout
+    assert "## 예문" not in q, "개조식에는 예문이 없어야 한다"
+    print("PASS test_check_all_pack_examples")
+
+
+def test_example_overlap():
+    """Q3 · 예문을 네 어절 이상 베끼면 막는다. 원문에도 있는 말은 원문이 먼저라 세지 않는다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import importlib
+    ca = importlib.import_module("check_all")
+    ex = "작은 팀에서 도구를 먼저 고르면 일이 꼬입니다. 무엇을 줄일지부터 정해야 합니다."
+    assert ca.example_overlap("무엇을 줄일지부터 정해야 합니다. 그래야 도구가 정해집니다.", ex, "원문에는 없는 말")
+    assert not ca.example_overlap("무엇을 줄일지부터 정해야 합니다.", ex, "무엇을 줄일지부터 정해야 합니다.")
+    assert not ca.example_overlap("전혀 다른 문장을 썼습니다.", ex, "원문")
+    # 검수 판정 줄에 자리 수가 실린다
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "노코드 도구를 도입했습니다. 반복 업무를 줄이려는 뜻이었습니다.\n")
+        q = _tmp_md(d, "p.md", "노코드 도구를 도입했습니다. 모든 자동화에는 담당자와 목적을 적고, "
+                               "분기마다 한 번씩 쓰지 않는 것을 정리합니다.\n")
+        r = run(ALL, "--guide", "장피엠", "--orig", o, q)
+        assert "예문 겹침" in r.stdout, r.stdout
+        assert "예문 겹침 · 0자리" not in r.stdout, r.stdout      # 예문 문장을 옮겨 왔다
+    print("PASS test_example_overlap")
+
+
+def test_author_trailer_is_not_body():
+    """작성자 확인 트레일러는 결과 파일 끝에 붙지만 본문이 아니다. 검사기는 떼고 본다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import importlib
+    ca = importlib.import_module("check_ai_tells")
+    body = "# 제목\n\n본문 한 줄이다.\n"
+    tail = body + "\n<!-- anti-workslop:작성자 확인 · 제출 전에 이 줄부터 끝까지 지운다 -->\n\n- 근거 · 1문단 · 「30%」 · 출처 없음\n"
+    assert ca.strip_trailer(tail).rstrip() == body.rstrip(), ca.strip_trailer(tail)
+    assert ca.strip_trailer(body) == body                      # 표시가 없으면 그대로
+
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "매출은 10억원이다. 다음 달 도입을 검토 중이다.\n")
+        plain = _tmp_md(d, "p.md", "매출은 10억원이다. 다음 달 도입을 검토 중이다.\n")
+        withtail = _tmp_md(d, "q.md",
+                           "매출은 10억원이다. 다음 달 도입을 검토 중이다.\n\n"
+                           "<!-- anti-workslop:작성자 확인 -->\n\n"
+                           "- 근거 · 1문단 · 「10억원」 · 산정 근거가 본문에 없음\n"
+                           "- 확신 낮음 · 1문단 · 「검토 중」 → 「검토 중」 · 확정 수준 유지\n")
+        a = run(ALL, "--guide", "없음", "--orig", o, plain)
+        b = run(ALL, "--guide", "없음", "--orig", o, withtail)
+        va = [l for l in a.stdout.splitlines() if l.startswith("판정:")][0]
+        vb = [l for l in b.stdout.splitlines() if l.startswith("판정:")][0]
+        assert va == vb, (va, vb)                              # 트레일러가 판정을 바꾸지 않는다
+        assert "트레일러 뗌" in b.stdout and "트레일러 뗌" not in a.stdout
+    print("PASS test_author_trailer_is_not_body")
+
+
+def test_brief_writes_trailer():
+    """브리프가 트레일러 형식을 정하고, 작성자만 채울 수 있는 것만 적게 한다."""
+    b = BRIEF.read_text(encoding="utf-8")
+    assert "## 2-1. 작성자 확인 트레일러" in b, b[:200]
+    assert "anti-workslop:작성자 확인" in b
+    assert "§4 로 둔 것" in b and "적지 않는다" in b, "§4 를 빼라는 지시가 없다"
+    assert "제출 전에 이 줄부터 끝까지 지운다" in b
+    modes = (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
+    assert "표시 줄부터 끝까지 지운다" in modes, "정본 교체 때 떼라는 말이 없다"
+    assert len(b) <= 6000, len(b)
+    print("PASS test_brief_writes_trailer")
+
+
+def test_prompt_core_covers_s1():
+    """P5(2026-09-23) · 한 장 프롬프트의 원칙 요약이 S1 규칙을 빠뜨리지 않는다.
+    prompt-core.md 는 손으로 관리하므로 ai-tells-ko.md 에 S1 행이 늘면 이 테스트가 잡는다."""
+    core = (PRINCIPLES / "prompt-core.md").read_text(encoding="utf-8")
+    assert "## 지키는 것" in core and "## 지우는 것" in core, core[:200]
+    sys.path.insert(0, str(SKILL / "scripts"))
+    from check_ai_tells import load_rules
+    s1 = sorted(r.id for r in load_rules().rules if r.severity == "S1")
+    missing = [i for i in s1 if i not in core]
+    assert not missing, missing
+    for inv in ("새 사실 금지", "고정 구역 보존", "의미 보존"):
+        assert inv in core, inv
+    assert "[근거 필요" not in core.split("## 지우는 것")[1], "본문 태그를 권하면 안 된다(트레일러로 옮겼다)"
+    # 2026-09-23 · P5 메타프롬프팅 1바퀴가 인용 4·부정 5를 지웠다. 지운 문장의 부정·인용을 다시 보게 한다
+    keep = core.split("## 지우는 것")[0]
+    assert "지운 문장에 부정" in keep and "인용" in keep, "부정·인용 재확인 줄이 없다"
+    rules_md = (PRINCIPLES / "ai-tells-ko.md").read_text(encoding="utf-8")
+    assert "prompt-core.md" in rules_md, "§5 절차에 prompt-core 갱신이 없다"
+    print("PASS test_prompt_core_covers_s1")
+
+
+def test_r1_adjustments():
+    """R1 검수(2026-09-23, docs/superpowers/evals/2026-09-23-r1-rule-audit.md) 권고 둘.
+    AT-27 완충어 과잉은 장피엠 14편 중 6편을 막아 S3 로 내렸다. AT-18 은 링크 텍스트 안 제목의 줄표를 세지 않는다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    from check_ai_tells import load_rules
+    sev = {r.id: r.severity for r in load_rules().rules}
+    assert sev["AT-27"] == "S3", sev["AT-27"]
+    links = "\n\n".join(f"자세한 내용은 [{t} — 부제 {i}](../post-{i}.md)에 적었습니다." for i, t in
+                        enumerate(("조직이 온다", "도구를 고른다", "팀이 바뀐다", "일이 줄어든다")))
+    with tempfile.TemporaryDirectory() as d:
+        p = Path(d) / "links.md"
+        p.write_bytes(links.encode("utf-8"))
+        r = json.loads(run(CHECK, "--genre", "줄글", "--json", str(p)).stdout)
+        assert r["summary"]["raw"].get("AT-18", 0) == 0, r["summary"]["raw"]
+        p.write_bytes(links.replace("](", "] (").replace("[", "").replace("]", "").encode("utf-8"))
+        r = json.loads(run(CHECK, "--genre", "줄글", "--json", str(p)).stdout)
+        assert r["summary"]["raw"].get("AT-18", 0) >= 3, "링크가 아닌 줄표는 여전히 센다"
+    print("PASS test_r1_adjustments")
+
+
+def test_report_gov_bullets():
+    """R1 개조식 코퍼스(2026-09-23, 정책브리핑 보도자료 33편)에서 정부 문서의 기호 ㅇ·❍·☐·∙ 를 못 읽어
+    하위 항목이 위 항목에 이어 붙었다. ☐ 는 1단, ㅇ·❍ 는 2단, ∙ 는 -·와 같이 들여쓰면 3단으로 읽는다."""
+    sys.path.insert(0, str(ROOT / "styleguides/report/scripts"))
+    import check_report as CR
+    lines = ["☐ 정부는 자원안보 로드맵을 마련", "ㅇ 원유 특정지역 의존도 50% 이하로 완화", "  ∙ 중동 의존도 단계적 축소",
+             "❍ 핵심광물 38종에서 51종으로 확대"]
+    items = CR.parse_items(lines)
+    assert [i["level"] for i in items] == [1, 2, 3, 2], [(i["sym"], i["level"]) for i in items]
+    corp = ROOT / "styleguides/report/corpus/gov-press"
+    assert len(list(corp.glob("*.md"))) >= 30 and (corp / "sources.json").exists()
+    print("PASS test_report_gov_bullets")
+
+
+def _build(guide, clean=False, taste_md=None, orig=None):
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import prompt as P
+    import check_all as C
+    orig = orig or (ROOT / FIX / "ai-draft-prose.md")
+    return P, P.build_prompt(C.load_bg(), guide, orig, clean, "SCRATCH/rec.md", taste_md=taste_md)
+
+
+def test_prompt_build():
+    """P5(2026-09-23) · check_all --prompt 의 한 장 프롬프트. 스펙 §4·§10."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import check_all as C
+    from check_ai_tells import load_rules
+    bg = C.load_bg()
+    budget = bg["_prompt_budget"]
+    # 1 · 예산 — 기권 줄까지 실은 가장 긴 경우로 잰다
+    for g in C.guide_names(bg):
+        _, text = _build(g, clean=True)
+        assert len(text) <= budget, (g, len(text))
+    P, jang = _build("장피엠")
+    # 4 · 사람 판단 규칙 ID 전부
+    for r in load_rules().rules:
+        if r.detect == "human":
+            assert f"- {r.id} · " in jang, r.id
+    # 6 · 기권 줄은 clean 일 때만
+    assert P.ABSTAIN not in jang and P.ABSTAIN in _build("장피엠", clean=True)[1]
+    # 2026-09-23 · 검사기가 깨끗해도 기권이 기본이 아니다. 걸리는 문장만 고치고 나머지는 글자 그대로
+    for s in ("걸리는 문장만", "글자 그대로", "문단 단위 재작성을 적용하지 않는다", "하나도 없을 때만"):
+        assert s in P.ABSTAIN, s
+    # 7 · §14 [AI 티] 는 빼고, 줄글이면 분포 목표 문장이 없다
+    assert "[AI 티]" not in jang and "[문장]" in jang and "[금지]" in jang
+    assert not re.search(r"\d+(?:\.\d+)?\s?(?:자|%)(?![가-힣])", jang.split("## 가이드")[1].split("## ")[0]), "분포 목표가 남았다"
+    rep = _build("개조식", orig=ROOT / FIX / "ai-draft-report.md")[1]
+    assert "[AI 티]" not in rep and "[항목]" in rep and "RT-01" in rep and "RT-01" not in jang
+    # 8 · 우선권 줄이 SKILL.md 와 같은 순서
+    skill_chain = re.search(r"^- 우선권 · (.+?)\. ", (SKILL / "SKILL.md").read_text(encoding="utf-8"), re.M).group(1)
+    assert re.search(r"^우선권 · (.+?)\. ", jang, re.M).group(1) == skill_chain
+    # 9 · 원문 본문은 싣지 않고 경로만
+    src = (ROOT / FIX / "ai-draft-prose.md").read_text(encoding="utf-8")
+    first = next(l for l in src.splitlines() if len(l) > 20)
+    assert first not in jang and "ai-draft-prose.md" in jang and "ai-draft-prose.taste.md" in jang
+    assert "SCRATCH/rec.md" in jang
+    # 예문 · 전/후 줄과 완성 문단, 머리말 없음
+    assert "전 · " in jang and "완성 문단 · " in jang and "주제를 가져오지 말고" not in jang
+    print("PASS test_prompt_build")
+
+
+def test_prompt_taste_lines():
+    """P5 · 취향 W 규칙이 한 줄씩 전부 실리고, 취향 문서가 없으면 블록째 빠진다. 스펙 §10 2·3."""
+    # 공개본에는 주인 취향 문서가 없다. 그때는 taste-builder 표본으로 잰다.
+    own = ROOT / "taste" / "writing-taste.md"
+    sample = ROOT / ".claude/skills/taste-builder/tests/fixtures/writing-taste.sample.md"
+    real = (own if own.exists() else sample).read_text(encoding="utf-8")
+    with tempfile.TemporaryDirectory() as d:
+        t = Path(d) / "writing-taste.md"
+        extra = "W-99 [경향] 시험용 규칙은 한 줄로 실린다 — 적용: 공통 (시험) — 근거: T-9999 (n=1) — 예: 전 → 후 — 검출: human — 갱신 2026-09-23\n"
+        t.write_bytes(real.replace("## 7.", extra + "\n## 7.", 1).encode("utf-8"))
+        _, text = _build("장피엠", taste_md=t)
+        assert "- W-99 [경향] 시험용 규칙은 한 줄로 실린다 (적용: 공통)" in text, text[:800]
+        for m in re.finditer(r"^(W-\d+) \[", real.split("## 7.")[0], re.M):
+            assert f"- {m.group(1)} [" in text, m.group(1)
+        assert "근거: T-" not in text, "근거·예·검출 꼬리는 싣지 않는다"
+        _, none = _build("장피엠", taste_md=Path(d) / "없는파일.md")
+        assert "## 이 사람의 취향" not in none and "W-0" not in none
+    print("PASS test_prompt_taste_lines")
+
+
+def test_check_all_prompt():
+    """P5 · check_all --prompt 는 build_prompt 를 그대로 내고, --record 가 없으면 exit 2."""
+    ok = run(ALL, "--guide", "장피엠", "--prompt", "--record", "S/rec.md", "--clean", f"{FIX}/ai-draft-prose.md")
+    assert ok.returncode == 0, ok.stderr
+    assert ok.stdout.startswith("당신은 한국어 글을 퇴고하는 편집자다") and "S/rec.md" in ok.stdout
+    assert "검사기는 이 원문에서 막을 것을 찾지 못했다" in ok.stdout
+    bad = run(ALL, "--guide", "장피엠", "--prompt", f"{FIX}/ai-draft-prose.md")
+    assert bad.returncode == 2 and "--record" in bad.stderr, bad.stderr
+    print("PASS test_check_all_prompt")
+
+
+def test_writer_brief():
+    """P5 · 윤문 담당 브리프는 짧고, 프롬프트를 따르게만 한다. 절차는 프롬프트 안에 있다."""
+    md = (SKILL / "references" / "writer.md").read_text(encoding="utf-8")
+    assert len(md) <= 1500, len(md)
+    for s in ("--prompt", "--record", "세 줄", "짚힌 자리만", "수정 없음", "원문 파일은 고치지 않는다"):
+        assert s in md, s
+    for bad in ("전달 계획", "--bundle", "계약", "게이트"):
+        assert bad not in md, bad
+    print("PASS test_writer_brief")
+
+
 if __name__ == "__main__":
     from test_report_titles import test_report_titles
     test_report_titles()
@@ -1100,6 +1565,23 @@ if __name__ == "__main__":
     test_fidelity_structure_free()
     test_abstain_fixture()
     test_compare_polish()
+    test_semantic_recall_eval()
+    test_jev_gate_paths()
+    test_jev_offline_identical()
+    test_jev_mock_hint()
+    test_jev_semantic_mock()
+    test_jev_semantic_never_declares_change()
+    test_jev_semantic_off_without_key()
+    test_check_all_pack_numeric_free()
+    test_jangpm_checks_are_counts_only()
+    test_fidelity_placeholder_added_s1()
+    test_brief_places_holes_in_record()
+    test_brief_delivery_plan()
+    test_reader_brief()
+    test_check_all_pack_examples()
+    test_example_overlap()
+    test_author_trailer_is_not_body()
+    test_brief_writes_trailer()
     test_compare_polish_bad_path()
     test_ai_tells_loader_rejects_structure_key()
     test_ai_tells_segmenter_edges()
@@ -1120,4 +1602,11 @@ if __name__ == "__main__":
     test_ai_tells_no_ai_slop_ko()
     test_at66_wiring()
     test_ai_tells_hortative_setup()
+    test_prompt_core_covers_s1()
+    test_prompt_build()
+    test_prompt_taste_lines()
+    test_check_all_prompt()
+    test_writer_brief()
+    test_r1_adjustments()
+    test_report_gov_bullets()
     print("ALL PASS")

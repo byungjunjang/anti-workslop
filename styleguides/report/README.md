@@ -13,6 +13,7 @@
 | `corpus/raw/` | 원본 PDF. `*.pdf`는 gitignore라 저장소에 없다. `fetch_sources.py`로 다시 받는다 (2026-09-08 재수집: 13개 전부 해시 일치, 총 406MB) |
 | `corpus/text/` | 추출 텍스트 22개. **고정 코퍼스**. 통계는 이 파일들에서 나온다 |
 | `corpus/items_ko.jsonl`, `docs_ko.json`, `titles_ko.json` | `parse_ko.py` 산출. NABO Focus 합본 4,042항목 + 개별호 182항목 + 국립국어원 예시 191항목 |
+| `corpus/gov-press/` | 정책브리핑 보도자료 33편(공공누리 제1유형). 검사기가 사람이 쓴 정부 문서를 막는지 재는 코퍼스이고 통계에는 쓰지 않는다(2026-09-23 R1) |
 | `stats.json`, `stats.md` | `analyze_corpus.py` 산출. 가이드라인 수치의 출처 |
 | `scripts/` | `fetch_sources.py`, `parse_ko.py`, `analyze_corpus.py`, `check_report.py` |
 | `samples/bad_draft.md` | 검사기 대조군. 검사하면 종료 코드 1이 나와야 정상 |

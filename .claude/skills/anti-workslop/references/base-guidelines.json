@@ -15,8 +15,8 @@
   },
   "_checks": {
     "장피엠": {
-      "md": "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit styleguides/jangpm --json {file}",
-      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 장피엠 {file}"
+      "md": "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit styleguides/jangpm --subset counts --json {file}",
+      "html": "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide 장피엠 --short {file}"
     },
     "개조식": {
       "md": "python -X utf8 styleguides/report/scripts/check_report.py {file}",
@@ -77,6 +77,17 @@
       "표기"
     ]
   },
+  "_s14_strip_numeric": [
+    "줄글"
+  ],
+  "_prompt_s14_blocks": {
+    "장피엠": ["문장", "종결", "접속", "어휘", "금지"],
+    "개조식": ["항목", "종결", "서술형", "어휘·접속", "표기"]
+  },
+  "_prompt_budget": 6000,
+  "_examples": {
+    "장피엠": "styleguides/jangpm/examples.md"
+  },
   "_genre_of": {
     "장피엠": "줄글",
     "개조식": "개조식"
@@ -91,5 +102,5 @@
     "max_rounds": 2,
     "fix_scope": "flagged_only"
   },
-  "_note": "상대 경로는 anti-workslop/ 기준. 가이드 후보는 순서대로 첫 실존 파일을 쓴다. 어느 가이드를 고를지는 SKILL.md Step 1의 글 종류 판단을 따른다. _checks 는 확장자별 검수 명령이고 html 은 check_html.py 가 산문 블록을 md 로 뽑아 같은 md 검사기에 넘긴다. 줄글이 공백 제외 _short_chars 이하면 _checks_short(비율·불리언 규칙 제외)를 쓴다. 개조식은 짧은 글 구분이 없다(1쪽≈900자가 표준 분량).\n_checks_common 은 확장자 무관(셋 다 .html 을 산문 블록으로 받는다). 순서는 _check_order.\n_check_all 은 넷을 한 번에 돌려 막는 항목과 판정 한 줄만 낸다(검수). --orig 없이 부르면 진단(장르·원칙·취향, finding 한 줄씩), --pack 이면 서브에이전트가 읽는 묶음(가이드 §8·§11-2·§14 가운데 _s14_blocks 의 윤문 블록만, 원칙 human 행·§4, 취향 §0~§6), --bundle 이면 브리프 + 묶음 + 진단, --hint 면 장르 힌트 한 줄이다. 짧은 글 판정과 _checks_short 선택은 check_all 이 한다.\n가이드는 밑줄 없는 최상위 키다. _builtin 은 저장소에 딸린 기본 가이드이고, 사용자가 styleguide-builder 로 만든 가이드는 register_guide.py 가 같은 표들에 한 줄씩 더한다. _checker_kind 는 장르 검사기 출력 형식이다(style = check_style JSON, report = check_report 텍스트)."
+  "_note": "상대 경로는 anti-workslop/ 기준. 가이드 후보는 순서대로 첫 실존 파일을 쓴다. 어느 가이드를 고를지는 SKILL.md Step 1의 글 종류 판단을 따른다. _checks 는 확장자별 검수 명령이고 html 은 check_html.py 가 산문 블록을 md 로 뽑아 같은 md 검사기에 넘긴다. 줄글이 공백 제외 _short_chars 이하면 _checks_short(비율·불리언 규칙 제외)를 쓴다. 개조식은 짧은 글 구분이 없다(1쪽≈900자가 표준 분량).\n_checks_common 은 확장자 무관(셋 다 .html 을 산문 블록으로 받는다). 순서는 _check_order.\n_check_all 은 넷을 한 번에 돌려 막는 항목과 판정 한 줄만 낸다(검수). --orig 없이 부르면 진단(장르·원칙·취향, finding 한 줄씩), --pack 이면 서브에이전트가 읽는 묶음(가이드 §8·§11-2·§14 가운데 _s14_blocks 의 윤문 블록만, 원칙 human 행·§4, 취향 §0~§6), --bundle 이면 브리프 + 묶음 + 진단, --hint 면 장르 힌트 한 줄이다. 짧은 글 판정과 _checks_short 선택은 check_all 이 한다.\n가이드는 밑줄 없는 최상위 키다. _builtin 은 저장소에 딸린 기본 가이드이고, 사용자가 styleguide-builder 로 만든 가이드는 register_guide.py 가 같은 표들에 한 줄씩 더한다. _checker_kind 는 장르 검사기 출력 형식이다(style = check_style JSON, report = check_report 텍스트).\n_s14_strip_numeric 에 든 장르의 가이드는 §14 블록에서 분포 목표가 든 문장을 빼고 싣는다(2026-09-22 Q1 실험 — 평균 문장 길이·문단당 문장·합쇼체 비율을 판정과 지시 양쪽에서 뺀다). 장피엠 md 검수가 _checks_short 와 같아진 것도 같은 실험이다.\n_examples 는 가이드마다 목표 문체의 실물 예문 파일이다(2026-09-22 Q3 실험). 묶음에 §14 뒤로 싣고, 결과가 예문을 네 어절 이상 그대로 옮기면 check_all 이 막는다. 개조식은 쓸 수 있는 실물이 없어 비워 두었다 — 09-17 보고서 신판은 평가 입력과 같은 글이고, 사업계획서 예제는 고객 정보라 공개본에 싣지 못한다.\n_prompt_s14_blocks 는 한 장 프롬프트(check_all --prompt, 2026-09-23 P5)에 싣는 §14 라벨 줄이다. [AI 티] 줄은 principles/prompt-core.md 와 겹쳐 뺀다. 키가 없는 등록 가이드는 _s14_blocks 에서 AI 티만 뺀 것을 쓴다. _prompt_budget 은 프롬프트 글자 수 상한이고 인수 테스트가 등록 가이드마다 잰다."
 }

@@ -1,6 +1,9 @@
 # third-party source documents (copyright / bulk)
 *.pdf
 styleguides/report/analysis-codex/sources/
+# API 키 (.env.example 을 복사해 만든다)
+.env
+
 # scratch
 __pycache__/
 *.pyc
