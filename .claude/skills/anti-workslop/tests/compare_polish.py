@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""compare_polish.py — 원문·윤문본 여러 판을 네 검사기(장르·AI 티·취향·의미 보존)로 같은 잣대로 채점해 표로 낸다 (읽기 전용).
+"""compare_polish.py — 원문·윤문본 여러 판을 네 검사기(장르·AI 티·취향·원문 대조)로 같은 잣대로 채점해 표로 낸다 (읽기 전용).
 
   python -X utf8 compare_polish.py --genre 줄글|개조식 --orig ORIG.md LABEL=PATH [LABEL=PATH...]
   python -X utf8 compare_polish.py --genre 줄글|개조식 --orig ORIG.md LABEL=PATH [LABEL=PATH...] --json
@@ -12,7 +12,7 @@
           섞여 있어(예: 검토할 것 절의 H6·H7·H8), 줄 접두어만으로 세면 어긋난다).
   - AI 티: check_ai_tells.py --genre GENRE --json 의 summary.by_severity.
   - 취향: check_taste.py --json 의 summary.by_grade (규칙 / 경향+관찰). 적용 범위는 보지 않는다.
-  - 의미 보존: check_fidelity.py --json ORIG FILE 의 summary.by_severity·stats.length_ratio.
+  - 원문 대조: check_fidelity.py --json ORIG FILE 의 summary.by_severity·stats.length_ratio.
     원문 행 자신은 fidelity 를 매기지 않는다(자기 자신과 비교할 대상이 없다).
 
 --strict 는 네 검사기 어디에도 넘기지 않는다(exit code 로 판을 가려내지 않고 수치만 모은다).
@@ -49,7 +49,7 @@ SOFT_HDR_RE = re.compile(r"^\[검토할 것\]\s*(\d+)건", re.M)
 PAIR_RE = re.compile(r"^([^=]+)=(.+)$")
 
 TABLE_HEADER = ("| 판 | 장르 hard | 장르 soft | AI 티 S1 | AI 티 S2 | AI 티 S3 | 취향 규칙 | 취향 경향·관찰 | "
-                "의미 보존 S1 | 의미 보존 S2 | 길이 비율 |")
+                "대조 S1 | 대조 S2 | 길이 비율 |")
 TABLE_SEP = "|---|---|---|---|---|---|---|---|---|---|---|"
 
 

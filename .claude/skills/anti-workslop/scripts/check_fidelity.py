@@ -648,7 +648,10 @@ def compare(od: Doc, pd: Doc) -> tuple:
             if kd[0] != ks[0] or kd[1] == ks[1] or deficit[kd] == 0 or surplus[ks] == 0:
                 continue
             n = min(deficit[kd], surplus[ks])
-            changed.append((kd, ks, n))
+            # 한쪽 단위가 비면 추출기가 단위를 못 읽은 것이다(「3단계」→「3개」의 단계). 같은 값으로 보고 넘긴다.
+            # 양쪽 단위를 다 읽었는데 다를 때(12% → 12%p)만 단위가 바뀐 수치다(2026-10-02)
+            if kd[1] and ks[1]:
+                changed.append((kd, ks, n))
             deficit[kd] -= n
             surplus[ks] -= n
     deficit += Counter()        # 0 이 된 항목을 턴다

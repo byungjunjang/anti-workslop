@@ -34,7 +34,7 @@ def test_skill_doc():
               "check_all", "check_fidelity", "references/modes.md", "principles/invariants.md", "principles/ai-tells-ko.md",
               "references/subagent.md", "스타일가이드", "우선권", "## Step 2. 사전 검사와 쓰기", "## Step 3. 검수", "## Step 4. notes",
               "사람이 판단할 것", "전달 파일", "--hint", "--bundle", "작업 기록", "--taste-skip",
-              "SendMessage", "불변식 셋", "사전 검사:", "references/writer.md", "--prompt", "--clean", "꼼꼼히"):
+              "SendMessage", "불변식 셋", "사전 검사:", "references/writer.md", "--prompt", "꼼꼼히"):
         assert h in md, h
     assert "## Step 3. 재작성" not in md and "읽는 것 다섯" not in md, "재작성 절은 브리프로 옮겼다"
     assert "references/ai-tells-ko.md" not in md and "references/invariants.md" not in md
@@ -1464,7 +1464,7 @@ def test_prompt_core_covers_s1():
 
 
 def test_r1_adjustments():
-    """R1 검수(2026-09-23, docs/superpowers/evals/2026-09-23-r1-rule-audit.md) 권고 둘.
+    """R1 검수(2026-09-23) 권고 둘.
     AT-27 완충어 과잉은 장피엠 14편 중 6편을 막아 S3 로 내렸다. AT-18 은 링크 텍스트 안 제목의 줄표를 세지 않는다."""
     sys.path.insert(0, str(SKILL / "scripts"))
     from check_ai_tells import load_rules
@@ -1506,7 +1506,7 @@ def test_business_guide():
     assert ok.stdout.rstrip().splitlines()[-1].startswith("사전 검사:"), ok.stdout[-200:]
     v = run(ALL, "--guide", "업무", "--orig", f"{FIX}/purpose/notice.md", f"{FIX}/purpose/notice.md")
     assert v.returncode == 0 and "판정: PASS · 장르 hard 0" in v.stdout, v.stdout[-400:]
-    p = run(ALL, "--guide", "업무", "--prompt", "--record", "r", "--clean", f"{FIX}/purpose/notice.md").stdout
+    p = run(ALL, "--guide", "업무", "--prompt", "--record", "r", f"{FIX}/purpose/notice.md").stdout
     for s in ("[구성]", "[문장]", "[종결]", "[어휘]", "[금지]", "## 예문", "완성 문단"):
         assert s in p, s
     assert len(p) <= 6000, len(p)
@@ -1525,12 +1525,15 @@ def test_business_guide():
     print("PASS test_business_guide")
 
 
-def _build(guide, clean=False, taste_md=None, orig=None):
+def _build(guide, clean=False, taste_md=None, orig=None, flags=None):
+    """clean 이면 원문 사전 검사에 걸린 것이 없는 경우, 아니면 걸린 항목 한 줄이 있는 경우로 조립한다."""
     sys.path.insert(0, str(SKILL / "scripts"))
     import prompt as P
     import check_all as C
     orig = orig or (ROOT / FIX / "ai-draft-prose.md")
-    return P, P.build_prompt(C.load_bg(), guide, orig, clean, "SCRATCH/rec.md", taste_md=taste_md)
+    if flags is None:
+        flags = [] if clean else ["3행 · AT-07 문두 요약어 「결론적으로 이 방식은…」"]
+    return P, P.build_prompt(C.load_bg(), guide, orig, flags, "SCRATCH/rec.md", taste_md=taste_md)
 
 
 def test_prompt_build():
@@ -1540,17 +1543,25 @@ def test_prompt_build():
     from check_ai_tells import load_rules
     bg = C.load_bg()
     budget = bg["_prompt_budget"]
-    # 1 · 예산 — 기권 줄까지 실은 가장 긴 경우로 잰다
+    # 1 · 예산 — 기권 줄을 실은 경우와 걸린 곳 블록이 가득 찬 경우 둘 다 잰다(2026-10-02)
+    many = [f"{i}행 · AT-18 줄표 남용 「" + "가" * 24 + "…」" for i in range(1, 40)]
     for g in C.guide_names(bg):
-        _, text = _build(g, clean=True)
-        assert len(text) <= budget, (g, len(text))
+        for kw in (dict(clean=True), dict(flags=many)):
+            _, text = _build(g, **kw)
+            assert len(text) <= budget, (g, list(kw), len(text))
     P, jang = _build("장피엠")
     # 4 · 사람 판단 규칙 ID 전부
     for r in load_rules().rules:
         if r.detect == "human":
             assert f"- {r.id} · " in jang, r.id
-    # 6 · 기권 줄은 clean 일 때만
+    # 6 · 기권 줄은 원문이 깨끗할 때만, 걸린 곳 블록은 걸린 것이 있을 때만
     assert P.ABSTAIN not in jang and P.ABSTAIN in _build("장피엠", clean=True)[1]
+    assert P.FLAGS_HEAD in jang and P.FLAGS_HEAD not in _build("장피엠", clean=True)[1]
+    capped = _build("장피엠", flags=many)[1]
+    assert "- 외 " in capped and capped.count("행 · AT-18") < len(many), "걸린 곳 블록이 예산에서 끊기지 않았다"
+    # 담당이 검수를 직접 한 번 돌리고 한 번만 고친다(2026-10-02)
+    assert "--orig" in jang and "한 번 더 돌린다" in jang and "더 고치지 않는다" in jang
+    assert "처음 읽는 독자" in jang
     # 2026-09-23 · 검사기가 깨끗해도 기권이 기본이 아니다. 걸리는 문장만 고치고 나머지는 글자 그대로
     for s in ("걸리는 문장만", "글자 그대로", "문단 단위 재작성을 적용하지 않는다", "하나도 없을 때만"):
         assert s in P.ABSTAIN, s
@@ -1594,10 +1605,15 @@ def test_prompt_taste_lines():
 
 def test_check_all_prompt():
     """P5 · check_all --prompt 는 build_prompt 를 그대로 내고, --record 가 없으면 exit 2."""
-    ok = run(ALL, "--guide", "장피엠", "--prompt", "--record", "S/rec.md", "--clean", f"{FIX}/ai-draft-prose.md")
+    ok = run(ALL, "--guide", "장피엠", "--prompt", "--record", "S/rec.md", f"{FIX}/ai-draft-prose.md")
     assert ok.returncode == 0, ok.stderr
     assert ok.stdout.startswith("당신은 한국어 글을 퇴고하는 편집자다") and "S/rec.md" in ok.stdout
-    assert "검사기는 이 원문에서 막을 것을 찾지 못했다" in ok.stdout
+    # 원문 사전 검사에 걸린 것이 있으면 그 줄들이 실리고 기권 줄은 없다
+    assert "## 원문에서 이미 걸린 곳" in ok.stdout and "검사기는 이 원문에서 막을 것을 찾지 못했다" not in ok.stdout
+    assert re.search(r"^- \d+행 · AT-\d+", ok.stdout, re.M), ok.stdout[-1500:]
+    clean = run(ALL, "--guide", "장피엠", "--prompt", "--record", "S/rec.md", f"{FIX}/abstain/already-clean.md")
+    assert clean.returncode == 0 and "검사기는 이 원문에서 막을 것을 찾지 못했다" in clean.stdout, clean.stdout[-600:]
+    assert "## 원문에서 이미 걸린 곳" not in clean.stdout
     bad = run(ALL, "--guide", "장피엠", "--prompt", f"{FIX}/ai-draft-prose.md")
     assert bad.returncode == 2 and "--record" in bad.stderr, bad.stderr
     print("PASS test_check_all_prompt")
@@ -1612,6 +1628,33 @@ def test_writer_brief():
     for bad in ("전달 계획", "--bundle", "계약", "게이트"):
         assert bad not in md, bad
     print("PASS test_writer_brief")
+
+
+def test_report_table_not_item_text():
+    """2026-10-02 · 항목 바로 아래 붙은 표 줄을 항목의 이어지는 줄로 세지 않는다. 표 글자가 H4(항목 길이)에 섞였다."""
+    with tempfile.TemporaryDirectory() as d:
+        rows = "\n".join(f"| 구분{i} | 내용 {'가' * 30} | 비고 {'나' * 20} |" for i in range(4))
+        md = ("# 시범 사업 결과 보고\n\n□ 개요\n  ○ (목표) 협약 기간 내 유료 고객사 3곳 확보\n"
+              "| 구분 | 내용 | 비고 |\n|---|---|---|\n" + rows + "\n")
+        p = Path(d) / "r.md"
+        p.write_bytes(md.encode("utf-8"))
+        out = run("styleguides/report/scripts/check_report.py", str(p)).stdout
+        assert "H4" not in out, out
+    print("PASS test_report_table_not_item_text")
+
+
+def test_fidelity_unitless_number():
+    """2026-10-02 · 원문 「3단계」의 단계는 단위 목록에 없어 단위가 빈다. 결과 「3개」를 단위가 바뀐 수치로 막지 않는다.
+    양쪽 단위를 다 읽었는데 다르면(12% → 12%p) 계속 막는다."""
+    with tempfile.TemporaryDirectory() as d:
+        o = _tmp_md(d, "o.md", "AI 업무 자동화는 3단계로 나뉜다. 오류율은 12% 줄었다.\n")
+        ok = _tmp_md(d, "ok.md", "AI 업무 자동화는 3개 층으로 나뉜다. 오류율은 12% 줄었다.\n")
+        bad = _tmp_md(d, "bad.md", "AI 업무 자동화는 3단계로 나뉜다. 오류율은 12%p 줄었다.\n")
+        a = json.loads(run(FID, "--json", o, ok).stdout)
+        assert a["summary"]["by_severity"]["S1"] == 0, a["findings"]
+        b = json.loads(run(FID, "--json", o, bad).stdout)
+        assert any(f["rule"] == "F1" and f["kind"] == "changed" and f["severity"] == "S1" for f in b["findings"]), b["findings"]
+    print("PASS test_fidelity_unitless_number")
 
 
 if __name__ == "__main__":
@@ -1704,4 +1747,6 @@ if __name__ == "__main__":
     test_r1_adjustments()
     test_report_gov_bullets()
     test_business_guide()
+    test_report_table_not_item_text()
+    test_fidelity_unitless_number()
     print("ALL PASS")

@@ -8,7 +8,7 @@
   python -X utf8 check_all.py --guide … --bundle FILE                      # 서브에이전트가 읽을 것 전부: 브리프 + 읽기 묶음 + 진단
   python -X utf8 check_all.py --guide 없음 --hint FILE                     # 힌트·용도·레이어 세 줄 + 「가이드: <이름>|묻는다 · <이유>」 + 고른 가이드의 「사전 검사:」 줄(물을 때는 없다)
   python -X utf8 check_all.py --guide <가이드> --hint FILE                 # 고르지 않고 그 가이드로. 사용자가 가이드를 지정했거나 질문에 답한 뒤
-  python -X utf8 check_all.py --guide … --prompt --record REC [--clean] FILE   # 윤문 담당의 한 장 프롬프트(P5). 진단 끝 「사전 검사:」 줄이 깨끗이면 --clean
+  python -X utf8 check_all.py --guide … --prompt --record REC FILE   # 윤문 담당의 한 장 프롬프트(P5). 원문 사전 검사에서 걸린 곳을 함께 싣는다. 「사전 검사:」 줄이 깨끗이면 --clean
 
 가이드 이름은 base-guidelines.json 의 밑줄 없는 최상위 키다(기본 셋 + register_guide.py 로 등록한 것).
 명령은 같은 파일에서 읽는다(_checks · _checks_short · _checks_common · _checker_kind · _pack_sections · _s14_blocks). 짧은 글 판정은
@@ -182,6 +182,23 @@ def shrink_line(st: dict) -> str:
     if chars >= SHRINK_WARN and (items is None or items >= SHRINK_WARN):
         return ""
     return f"경고: 많이 줄었다 · 글자 {chars:.2f}" + ("" if items is None else f" · 항목 {items:.2f}")
+
+
+def _cut(s: str, n: int) -> str:
+    s = " ".join(str(s).split())
+    return s if len(s) <= n else s[:n] + "…"
+
+
+def genre_flags(kind: str, r: subprocess.CompletedProcess) -> list:
+    """장르 검사기의 hard 항목을 한 줄씩 짧게. 프롬프트의 「원문에서 이미 걸린 곳」에 싣는다."""
+    if kind == "style":
+        d = _json(r, "check_style")
+        if "error" in d:
+            return []
+        return [f"장르 · {x['label']} {x['value']} (목표 {x['target']})" for x in d["rows"]
+                if not x["ok"] and x["level"] == "hard"]
+    sec = re.search(r"^\[반드시 고칠 것\][^\n]*\n(.*?)(?=^\[|\Z)", r.stdout, re.M | re.S)
+    return ["장르 · " + _cut(l.strip(" -"), 60) for l in (sec.group(1) if sec else "").splitlines() if l.strip()]
 
 
 def _block(title: str, lines: list) -> list:
@@ -427,7 +444,6 @@ def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
     p.add_argument("--hint", action="store_true", help="힌트·용도·레이어 + 가이드 줄 + 사전 검사 줄만 출력")
     p.add_argument("--sections", default=None, help="--pack 에 실을 가이드 절(예: 8,11-2,14). 기본은 _pack_sections[가이드]")
     p.add_argument("--prompt", action="store_true", help="윤문 담당이 읽을 한 장 프롬프트를 출력(P5)")
-    p.add_argument("--clean", action="store_true", help="--prompt 에 기권 줄을 싣는다(사전 검사가 깨끗할 때)")
     p.add_argument("--record", default=None, help="--prompt 에 적을 작업 기록 경로(스크래치패드)")
     return p
 
@@ -451,7 +467,11 @@ def main(argv: list[str] | None = None) -> int:
             print("입력 오류: --prompt 에는 --record <작업 기록 경로> 가 필요하다", file=sys.stderr)
             return 2
         from prompt import build_prompt          # 순환 import 를 피해 여기서만 부른다
-        print(build_prompt(bg, a.guide, src, a.clean, a.record))
+        # 원문 사전 검사에서 막을 항목을 프롬프트에 싣는다. 없으면 「걸리는 문장만 고친다」가 실린다(2026-10-02)
+        rc, _out, flags = check(bg, a.guide, a.genre or bg["_genre_of"].get(a.guide, "공통"), src, ext)
+        if rc != 0:
+            return rc
+        print(build_prompt(bg, a.guide, src, flags, a.record))
         return 0
     if a.hint:
         text = strip_trailer(src.read_text(encoding="utf-8"))
@@ -465,7 +485,7 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         print(f"가이드: {guide}")
         # 사전 검사 · 고른 가이드로 돌린 진단의 마지막 줄이다. 본 컨텍스트가 진단을 따로 부르지 않게 한다
-        rc, out = check(bg, guide, a.genre or bg["_genre_of"].get(guide, "공통"), src, ext)
+        rc, out, _flags = check(bg, guide, a.genre or bg["_genre_of"].get(guide, "공통"), src, ext)
         if rc != 0:
             return rc
         print(out.splitlines()[-1])
@@ -474,16 +494,17 @@ def main(argv: list[str] | None = None) -> int:
         # 서브에이전트가 읽을 것 전부. 원문은 Bash 출력 상한(30K자) 때문에 싣지 않고 따로 읽게 한다.
         print(BRIEF.read_text(encoding="utf-8").rstrip("\n"), "\n", sep="")
         print(pack(bg, a.guide, secs), "\n", sep="")
-    rc, out = check(bg, a.guide, a.genre or bg["_genre_of"].get(a.guide, "공통"), src, ext, a.orig, a.taste_skip)
+    rc, out, _flags = check(bg, a.guide, a.genre or bg["_genre_of"].get(a.guide, "공통"), src, ext, a.orig, a.taste_skip)
     if out:
         print(out)
     return rc
 
 
 def check(bg: dict, guide: str, genre: str, src: Path, ext: str,
-          orig: str | None = None, taste_skip: str = "") -> tuple[int, str]:
-    """(종료 코드, 출력). orig 가 없으면 진단(마지막 줄 「사전 검사:」), 있으면 검수(마지막 줄 「판정:」).
-    짧은 글 판정과 트레일러 떼기를 여기서 한다. --hint 의 사전 검사 줄은 이 진단의 마지막 줄이다."""
+          orig: str | None = None, taste_skip: str = "") -> tuple[int, str, list]:
+    """(종료 코드, 출력, 막을 항목 요약). orig 가 없으면 진단(마지막 줄 「사전 검사:」), 있으면 검수(마지막 줄 「판정:」).
+    짧은 글 판정과 트레일러 떼기를 여기서 한다. --hint 의 사전 검사 줄은 이 진단의 마지막 줄이다.
+    막을 항목 요약은 --prompt 가 담당에게 「원문에서 이미 걸린 곳」으로 넘기는 짧은 줄들이다."""
     verify = orig is not None
     # 작성자 확인 트레일러는 본문이 아니다. 네 검사기 모두 그것을 뗀 사본에 대고 돌린다.
     raw = src.read_text(encoding="utf-8")
@@ -501,23 +522,30 @@ def check(bg: dict, guide: str, genre: str, src: Path, ext: str,
            f"(공백 제외 {chars:,}자){' · 작성자 확인 트레일러 뗌' if tmp else ''}", ""]
 
     g_hard = g_soft = 0
+    flags: list = []
     kind = bg.get("_checker_kind", {}).get(guide) if guide != "없음" else None
     # none · 장르 검사기가 없는 가이드(업무, 2026-09-23). 장르 단계를 건너뛰고 원칙·취향·불변식만 본다
     if guide != "없음" and kind != "none":
         if kind not in ("style", "report"):
             print(f"입력 오류: base-guidelines.json 의 _checker_kind 에 {guide!r} 가 없다. "
                   f"styleguide-builder 의 register_guide.py 로 등록한다", file=sys.stderr)
-            return 2, ""
+            return 2, "", []
         table = bg["_checks_short"] if short else bg["_checks"]
-        g_hard, g_soft, glines = genre_lines(kind, run_cmd(table[guide][ext], file=file_posix), verify)
+        gr = run_cmd(table[guide][ext], file=file_posix)
+        g_hard, g_soft, glines = genre_lines(kind, gr, verify)
+        flags += genre_flags(kind, gr)
         out += _block(f"장르 · {guide}{' (짧은 글 명령)' if short else ''} · hard {g_hard} / soft {g_soft}", glines)
 
     s1, s2, s3, demoted, alines = ai_lines(ai, verify)
+    flags += [f'{f["line"]}행 · {f["rule"]} {f["detail"]} 「{_cut(f["excerpt"], 24)}」' for f in ai["findings"]
+              if f["severity"] == "S1" or (f["severity"] == "S2" and not f.get("demoted"))]
     out += _block(f"원칙 · check_ai_tells --genre {genre} · S1 {s1} · S2 {s2} · S3 {s3} · 강등 {demoted}", alines)
 
     td = _json(run_cmd(bg["_checks_common"]["taste"], file=file_posix), "check_taste")
     skip = frozenset(x.strip() for x in taste_skip.split(",") if x.strip())
     g, t_block, human, tlines = taste_lines(td, verify, skip)
+    flags += [f'{f["line"]}행 · {f["rule"]} 「{_cut(f["excerpt"], 24)}」' for f in td["findings"]
+              if f["grade"] == "규칙" and f["rule"] not in skip]
     skipped = f" (사용자 지시로 뺌 {g['규칙'] - t_block})" if g["규칙"] != t_block else ""
     state = " · 문서 없음" if td.get("doc_state") == "missing" else ""
     out += _block(f"취향 · check_taste{state} · 규칙 {g['규칙']}{skipped} · 경향 {g['경향']} · 관찰 {g['관찰']} · human: {', '.join(human) or '-'}", tlines)
@@ -526,7 +554,7 @@ def check(bg: dict, guide: str, genre: str, src: Path, ext: str,
         pre = g_hard + s1 + s2 + t_block
         out.append(f"사전 검사: {'깨끗' if pre == 0 else f'막을 것 {pre}'} · 장르 hard {g_hard} · "
                    f"원칙 S1 {s1} / S2 {s2} · 취향 규칙 {t_block}")
-        return 0, "\n".join(out).rstrip("\n")
+        return 0, "\n".join(out).rstrip("\n"), flags
 
     fd = _json(run_cmd(bg["_checks_common"]["fidelity"], orig=Path(orig).as_posix(), file=file_posix), "check_fidelity")
     fs, st, flines = fidelity_lines(fd)
@@ -537,7 +565,7 @@ def check(bg: dict, guide: str, genre: str, src: Path, ext: str,
     fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0
     out.append(f"판정: {'FAIL' if fail else 'PASS'} · 장르 hard {g_hard} · 원칙 S1 {s1} / S2 {s2} · "
                f"취향 규칙 {t_block} · 불변식 S1 {fs['S1']}")
-    return (1 if fail else 0), "\n".join(out)
+    return (1 if fail else 0), "\n".join(out), flags
 
 
 if __name__ == "__main__":

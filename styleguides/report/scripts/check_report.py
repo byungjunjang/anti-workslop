@@ -58,7 +58,8 @@ def parse_items(lines):
         m = BULLET.match(line)
         if not m:
             # 이어지는 줄은 직전 항목에 붙인다
-            if items and items[-1]["lineno_end"] == n - 1 and not re.match(r"^\s*(\[표|\[그림|자료|주:|※)", line):
+            # 표 줄(|…|)은 항목의 이어지는 줄이 아니다. 붙이면 표 글자가 항목 길이(H4)에 섞인다(2026-10-02)
+            if items and items[-1]["lineno_end"] == n - 1 and not re.match(r"^\s*(\[표|\[그림|자료|주:|※|\|)", line):
                 items[-1]["text"] += " " + line.strip()
                 items[-1]["lineno_end"] = n
             continue

@@ -2,7 +2,7 @@
 """prompt.py — 윤문 담당이 읽는 한 장 프롬프트를 레이어 파일에서 조립한다 (P5, 2026-09-23).
 
 check_all.py --prompt 가 부른다. 검사기를 돌리지 않고 원문 본문도 싣지 않는다(담당이 Read 한다).
-블록 순서와 출처는 docs/superpowers/specs/2026-09-23-p5-one-prompt-design.md §4 다.
+블록 순서는 아래 build_prompt 가 정한다(2026-09-23 P5, 결정 기록 0007).
 레이어 파일(취향·가이드·원칙)이 바뀌면 다음 호출에 그대로 반영된다. 길이를 코드로 자르지 않는다 —
 넘치면 인수 테스트가 막고 사람이 prompt-core.md·예문 파일을 줄인다.
 """
@@ -27,13 +27,30 @@ WRITE = [
     "- 자리를 땜질하지 말고 문단 단위로 다시 쓴다. 문단 순서·병합·분할은 스스로 정한다.",
     "- 길이는 묶지 않는다. 핵심이 아닌 문장은 빼도 된다. 뺀 문장은 작업 기록의 「뺀 것」에 적는다.",
     "- AT-66 에 걸리면 같은 문형의 제목을 그 절 본문의 사실로 바꾸고 결론의 재나열과 개수 예고를 지우되, 부정·조건 표지나 수치가 든 제목은 고르지 않는다.",
+    "- 다 쓴 뒤 처음 읽는 독자로 한 번 읽고, 두 번 읽어야 뜻이 잡히는 문장만 고친다.",
 ]
 RT01 = "- 보고서 제목·소제목에는 그 절의 핵심 판단을 담는다(RT-01). 본문에 결론이 없거나 제목에 부정·조건·수치가 있으면 원제목을 둔다."
 # 2026-09-23 · 검사기 통과가 가이드상 깨끗함은 아니다(분포 규칙은 검사기가 세지 않는다). 기권 대조군에서 사용자는
 # 기권한 판보다 [종결]에 걸린 문장만 고친 판을 골랐다. 그래서 기권이 기본이 아니라, 걸리는 곳만 고치고 없을 때만 기권한다.
-ABSTAIN = ("검사기는 이 원문에서 막을 것을 찾지 못했다. 글 전체를 다시 쓰지 말고(위 「쓰는 법」의 문단 단위 재작성을 적용하지 않는다), "
-           "취향·가이드·판정 질문에 걸리는 문장만 고친다. 나머지 문장은 글자 그대로 둔다. "
-           "걸리는 곳이 하나도 없을 때만 결과 파일을 쓰지 말고 `수정 없음: <이유 한 구>` 한 줄로만 답한다.")
+ABSTAIN = ("검사기는 이 원문에서 막을 것을 찾지 못했다. 위 「쓰는 법」의 문단 단위 재작성을 적용하지 않는다. "
+           "취향·가이드·판정 질문에 걸리는 문장만 고치고 나머지는 글자 그대로 둔다. "
+           "걸리는 곳이 하나도 없을 때만 결과 파일 없이 `수정 없음: <이유 한 구>` 한 줄로 답한다.")
+# 2026-10-02 · 되돌림 셋 가운데 둘이 원문부터 걸려 있던 항목이었다. 담당이 첫 결과에서 고치도록 원문 사전 검사의
+# 막을 항목을 미리 싣는다. 프롬프트 예산(_prompt_budget)을 지키려고 글자 수로 끊는다.
+FLAGS_HEAD = "## 원문에서 이미 걸린 곳 (함께 없앤다)"
+FLAGS_BUDGET = 200
+
+
+def flags_block(flags: list) -> list:
+    out, used = [FLAGS_HEAD], 0
+    for i, f in enumerate(flags):
+        line = f"- {f}"
+        if used + len(line) > FLAGS_BUDGET:
+            out.append(f"- 외 {len(flags) - i}곳")
+            break
+        out.append(line)
+        used += len(line) + 1
+    return out
 
 
 def _read(p: Path) -> str:
@@ -128,13 +145,15 @@ def output_block(guide: str, orig: Path, result: Path, record: str) -> list[str]
         "<원문 인용 그대로> · <규칙 ID 또는 이유>",
         "```",
         f"규칙 ID 는 취향 W-NN, 가이드 {tag}[라벨](예: {tag}[금지]), 원칙과 사람 판단 AT-NN.",
-        "5. 답은 세 줄 · 집계 줄 · 작업 기록 경로 · 트레일러 줄 수.",
-        "6. 검수 결과가 오면 짚힌 자리만 고치고 글 전체를 다시 쓰지 않는다. 집계 줄을 고쳐 쓰고 같은 세 줄로 답한다.",
+        f"5. 다 쓰면 위 명령과 같은 `check_all.py` 로 검수를 돌린다 · `--guide {guide} --orig <원문> <결과>`. "
+        "FAIL 이면 짚힌 자리만 고치고 한 번 더 돌린다. 그래도 FAIL 이면 더 고치지 않는다.",
+        "6. 답은 세 줄 · 집계 줄 · 작업 기록 경로 · 트레일러 줄 수와 마지막 판정.",
     ]
 
 
-def build_prompt(bg: dict, guide: str, orig: Path, clean: bool, record: str,
+def build_prompt(bg: dict, guide: str, orig: Path, flags: list, record: str,
                  taste_md: Path | None = None) -> str:
+    """flags 는 원문 사전 검사에서 막을 항목의 요약 줄이다(check_all.check). 비어 있으면 원문이 깨끗한 것이다."""
     taste_md = TASTE_MD if taste_md is None else taste_md
     genre = bg.get("_genre_of", {}).get(guide, "공통")
     result = orig.with_name(orig.stem + ".taste" + orig.suffix)
@@ -158,7 +177,9 @@ def build_prompt(bg: dict, guide: str, orig: Path, clean: bool, record: str,
     if genre == "개조식":
         out.append(RT01)
     out.append("")
-    if clean:
+    if flags:
+        out += [*flags_block(flags), ""]
+    else:
         out += [ABSTAIN, ""]
     out += output_block(guide, orig, result, record)
     return "\n".join(out)
