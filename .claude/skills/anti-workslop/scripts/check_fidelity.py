@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
-"""check_fidelity.py — 원문과 윤문 결과를 대조해 뜻이 그대로 남았는지 본다 (읽기 전용).
+"""check_fidelity.py — 원문과 윤문 결과를 대조해 결과에 지어낸 것이 없는지 본다 (읽기 전용).
 
   python -X utf8 check_fidelity.py ORIG POLISHED [--json|--summary] [--strict]
                                    [--mode md|html|auto] [--prose-only]
 
 모든 비교는 문서 단위 다중집합(collections.Counter)이다. 문장을 짝지어 맞추지 않는다.
-규칙은 F1~F5·F7~F9. 표제(F4)·문단·항목 수(F5)는 S3 보고만 하고 길이는 stats.length_ratio 로만 남긴다(2026-09-17 자율 재작성 —
-재작성이 구조를 다시 짜고 늘릴 수 있으므로 막지 않는다). 막는 것은 수치·인용·부정·자리표시자·링크·코드·표·각주의 S1 이다. 자리표시자(F7)는
-사라진 것과 새로 생긴 것이 모두 S1 이다 — 근거·사례가 필요한 자리는 본문이 아니라 작업 기록의
-「작성자 확인」에 적는다(2026-09-22 Q5, 09-17 평가가 남긴 선택지 (가)). F9 각주는 humanize-korean finalizer 의 의미 보존 15항 가운데
-「각주 원위치·원번호·개수 보존」에서 가져왔다(2026-09-14). 불변식 2 가 각주를 약속하는데 검사기가 없었다.
+규칙은 F1~F5·F7~F9. 막는 것(S1)은 결과에만 있는 것 넷이다(2026-10-02 — 자연스러움이 1순위라 어색한 문장은
+수치·인용·부정이 들었어도 지울 수 있고, 코드는 지어낸 것만 막는다).
+  - 수치(F1) · 결과에만 있는 값(원문에 0회), 같은 값에 다른 단위
+  - 인용(F2) · 결과의 따옴표 안 글이 원문 본문 어디에도 없다. 양쪽 공백을 다 지우고 부분 문자열로 본다.
+    원문이 따옴표 없이 쓴 구절을 결과가 따옴표로 감싼 것은 있는 것으로 친다
+  - 자리표시자(F7) · 결과에만 있는 자리표시자. 근거·사례가 필요한 자리는 본문이 아니라 작업 기록의
+    「작성자 확인」에 적는다(2026-09-22 Q5)
+  - 각주(F9) · 결과에만 있는 각주 참조·정의
+사라진 것 여섯(원문에만 있는 수치, 결과에 남지 않은 원문 인용, 사라진 부정, 사라진 자리표시자, 사라진 링크,
+사라진 각주 참조·정의)은 S2 보고이고 summary.dropped 에 종류별로 센다. 전부터 S2 였던 것(빈도가 준 수치, 이름·토큰 묶음,
+표지는 남고 짝이 달라진 부정)은 거기 세지 않는다. 뜻이 뒤집혔는지는 이 검사기가 가리지 않는다.
+표제(F4)·문단·항목 수(F5)는 S3 보고만 하고 길이는 stats.length_ratio 로만 남긴다(2026-09-17 자율 재작성).
+F9 각주는 humanize-korean finalizer 의 의미 보존 15항 가운데 「각주 원위치·원번호·개수 보존」에서 가져왔다(2026-09-14).
 종료 0 / 1(--strict 이고 S1 이 하나라도 있을 때) / 2(입력 오류).
 """
 from __future__ import annotations
@@ -21,7 +29,6 @@ import sys
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
-from semantic_review import packet as semantic_packet
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -42,6 +49,8 @@ RULE_ORDER = ["F1", "F2", "F3", "F4", "F5", "F7", "F8", "F9"]
 SEVERITIES = ("S1", "S2", "S3")
 KINDS = ("missing", "added", "changed", "ratio")
 SIDES = ("orig", "polished", "both")
+# 사라진 것 여섯. 2026-10-02 에 S1 에서 S2 로 내렸고 summary.dropped 가 이 순서로 센다.
+DROP_KINDS = ("수치", "인용", "부정", "자리표시자", "링크", "각주")
 
 MD_KINDS = {"prose", "heading", "list", "table", "quote", "code", "frontmatter", "exempt"}
 # HTML 모드는 산문 외에 표제·목록·인용도 견준다. F4(표제)·F5(항목 수)가 그 세그먼트를 쓰기 때문이다.
@@ -77,13 +86,13 @@ NEG_ANI = (r"아니(?!라(?=[\s,，、.!?…]|$)|고(?=[\s,，、.!?…]|$))"
            r"|아닌(?![\s,，、.!?…]|$)|아닙|아님|아냐")
 NEG_RE = re.compile(r"않|없|못\s?하|못\s|" + NEG_ANI +
                     r"|안\s|불가|미정|미확|미달|미비|미이행|미측정|미검토|미완")
-# 표지 계열 둘. S1 은 계열별 개수만 본다 — 없다↔않다 같은 갈아 끼우기는 뜻이 아니라 표현이다.
+# 표지 계열 둘. 사라진 부정은 계열별 개수만 본다 — 없다↔않다 같은 갈아 끼우기는 뜻이 아니라 표현이다.
 NEG_UNSURE_RE = re.compile(r"^(?:불가|미정|미확|미달|미비|미이행|미측정|미검토|미완)$")
 COND_RE = re.compile(r"이면|라면|다면|면\s|경우|한하|제외|예외|이상|이하|초과|미만|까지|부터|이전|이후")
 COND_LEAD_RE = re.compile(r"단,|다만")
 PREV_RE = re.compile(r"[가-힣]{1,6}$")
 # 개조식은 판단을 명사형으로 끝낸다(가이드 36행·775행). 아래 둘은 계열이 옮겨 가도 뜻이 같다.
-# 「없다 → 미정」처럼 확정 수준이 바뀌는 치환은 여기 없으므로 계속 S1 이다.
+# 「없다 → 미정」처럼 확정 수준이 바뀌는 치환은 여기 없으므로 계속 사라진 부정으로 보고한다.
 NEG_EQUIV_STEM = re.compile(r"^(확인|확정|측정|검토|이행|완료)(?:되|하)지$")
 NEG_EQUIV_MARK = {"확인": "미확", "확정": "미확", "측정": "미측정",
                   "검토": "미검토", "이행": "미이행", "완료": "미완"}
@@ -166,6 +175,7 @@ class Finding:
     detail: str
     kind: str
     side: str
+    drop: str = ""          # 사라진 것 여섯(DROP_KINDS) 가운데 하나면 그 이름. summary.dropped 가 세고 JSON 에는 싣지 않는다
 
     def as_dict(self) -> dict:
         return {"rule": self.rule, "severity": self.severity, "line": self.line, "col": self.col,
@@ -412,7 +422,7 @@ def _neg_class(mark: str) -> str:
 
 
 def _neg_marks(items: list) -> Counter:
-    """부정 표지 계열 다중집합. 짝이 아니라 표지만 센다(S1 기준)."""
+    """부정 표지 계열 다중집합. 짝이 아니라 표지만 센다(사라진 부정의 기준)."""
     return Counter(it.key[1] for it in items)
 
 
@@ -571,11 +581,16 @@ def _index(items: list) -> tuple:
     return counts, where
 
 
-def _finding(rule: str, sev: str, kind: str, side: str, doc: Doc, it, detail: str) -> Finding:
+def _finding(rule: str, sev: str, kind: str, side: str, doc: Doc, it, detail: str, drop: str = "") -> Finding:
     if it is None or doc is None:
-        return Finding(rule, sev, 1, 1, "", detail, kind, side)
+        return Finding(rule, sev, 1, 1, "", detail, kind, side, drop)
     line, col = doc.locate(it.start)
-    return Finding(rule, sev, line, col, doc.excerpt(it.start, it.end), detail, kind, side)
+    return Finding(rule, sev, line, col, doc.excerpt(it.start, it.end), detail, kind, side, drop)
+
+
+def _squeeze(text: str) -> str:
+    """공백을 전부 지운다. 인용이 원문에 있는지 볼 때 줄바꿈·띄어쓰기 손질에 흔들리지 않게 한다."""
+    return "".join(text.split())
 
 
 def _pick(where: dict, key: tuple, n: int) -> list:
@@ -652,7 +667,7 @@ def compare(od: Doc, pd: Doc) -> tuple:
         gone = mp.get(key, 0) == 0
         for it in _pick(wo, key, n):
             if gone:
-                fs.append(_finding("F1", "S1", "missing", "orig", od, it, f"원문에만: {it.label}"))
+                fs.append(_finding("F1", "S2", "missing", "orig", od, it, f"원문에만: {it.label}", "수치"))
             else:
                 fs.append(_finding("F1", "S2", "missing", "orig", od, it,
                                    f"빈도가 줄었다: {it.label} {mo[key]}회 → {mp[key]}회"))
@@ -670,7 +685,12 @@ def compare(od: Doc, pd: Doc) -> tuple:
     pn, pq = extract_names(pd.scan)
     for it in oq:
         if it.key[0] not in pd.scan:
-            fs.append(_finding("F2", "S1", "missing", "orig", od, it, f"인용이 그대로 남지 않았다: {it.label}"))
+            fs.append(_finding("F2", "S2", "missing", "orig", od, it, f"인용이 그대로 남지 않았다: {it.label}", "인용"))
+    # 결과의 따옴표 안 글은 원문 본문 어디엔가 있어야 한다. 원문이 따옴표 없이 쓴 구절이어도 된다.
+    obody = _squeeze(od.scan)
+    for it in pq:
+        if _squeeze(it.key[0]) not in obody:
+            fs.append(_finding("F2", "S1", "added", "polished", pd, it, f"원문에 없는 인용이다: {it.label}"))
     ct_o, wt_o = _index(on)
     ct_p, wt_p = _index(pn)
     fs += _aggregate("F2", "S2", "missing", "orig", od, wt_o, ct_o - ct_p, "원문에만 있는 이름·토큰")
@@ -681,8 +701,9 @@ def compare(od: Doc, pd: Doc) -> tuple:
     pneg, pcond = extract_polarity(pd.masked)
     cn_o, wn_o = _index(oneg)
     cn_p, wn_p = _index(pneg)
-    # 두 층이다. S1 은 표지 계열 개수만 본다 — 부정이 정말 사라졌는가.
-    # 짝(앞 내용어 + 표지)이 달라지기만 한 것은 어미·조사 손질이므로 S2 에 둔다.
+    # 두 층이다. 「부정이 사라졌다」는 표지 계열 개수만 본다 — 부정이 정말 사라졌는가. 자리마다 한 줄씩 내고
+    # summary.dropped 에 센다. 짝(앞 내용어 + 표지)이 달라지기만 한 것은 어미·조사 손질이므로 한 줄로 묶는다.
+    # 둘 다 S2 보고다(2026-10-02). 부정이 든 문장을 지울 수 있고, 뜻이 뒤집혔는지는 여기서 가리지 않는다.
     lost = _neg_marks(oneg) - _neg_marks(pneg)
     shift = sum(_equiv_shifts(oneg, pneg).values())
     if shift:
@@ -697,7 +718,7 @@ def compare(od: Doc, pd: Doc) -> tuple:
         if quota.get(cls, 0) > 0:
             quota[cls] -= 1
             echo = _shift_echo(pd, oneg, pneg, od.masked, pd.masked)
-            fs.append(_finding("F3", "S1", "missing", "orig", od, it, f"부정이 사라졌다: {it.label}{echo}"))
+            fs.append(_finding("F3", "S2", "missing", "orig", od, it, f"부정이 사라졌다: {it.label}{echo}", "부정"))
         else:
             rest[it.key] += 1
     fs += _aggregate("F3", "S2", "missing", "orig", od, wn_o, rest, "표지는 남고 짝이 달라진 부정")
@@ -754,8 +775,8 @@ def compare(od: Doc, pd: Doc) -> tuple:
     chp, whp = _index(pho)
     for key, n in sorted((cho - chp).items()):
         for it in _pick(who, key, n):
-            fs.append(_finding("F7", "S1", "missing", "orig", od, it,
-                               f"자리표시자가 사라졌다: {it.label}"))
+            fs.append(_finding("F7", "S2", "missing", "orig", od, it,
+                               f"자리표시자가 사라졌다: {it.label}", "자리표시자"))
     for key, n in sorted((chp - cho).items()):
         for it in _pick(whp, key, n):
             fs.append(_finding("F7", "S1", "added", "polished", pd, it,
@@ -769,8 +790,8 @@ def compare(od: Doc, pd: Doc) -> tuple:
     for key, n in sorted((cuo - cup).items()):
         for it in _pick(wuo, key, n):
             line, col = od.rawloc(it.start)
-            fs.append(Finding("F8", "S1", line, col, it.label, f"링크가 사라졌다: {it.label}",
-                              "missing", "orig"))
+            fs.append(Finding("F8", "S2", line, col, it.label, f"링크가 사라졌다: {it.label}",
+                              "missing", "orig", "링크"))
     for key, n in sorted((cup - cuo).items()):
         for it in _pick(wup, key, n):
             line, col = pd.rawloc(it.start)
@@ -803,7 +824,7 @@ def compare(od: Doc, pd: Doc) -> tuple:
         cb, wb = _index(b)
         for key, n in sorted((ca - cb).items()):
             for it in _pick(wa, key, n):
-                fs.append(_finding("F9", "S1", "missing", "orig", da, it, f"각주 {what}가 사라졌다: {it.label}"))
+                fs.append(_finding("F9", "S2", "missing", "orig", da, it, f"각주 {what}가 사라졌다: {it.label}", "각주"))
         for key, n in sorted((cb - ca).items()):
             for it in _pick(wb, key, n):
                 fs.append(_finding("F9", "S1", "added", "polished", db, it, f"각주 {what}가 새로 생겼다: {it.label}"))
@@ -854,12 +875,15 @@ def summarize(findings: list) -> dict:
     by_sev = {s: 0 for s in SEVERITIES}
     by_rule: dict = {}
     by_kind: dict = {}
+    dropped = {k: 0 for k in DROP_KINDS}
     for f in findings:
         by_sev[f.severity] += 1
         by_rule[f.rule] = by_rule.get(f.rule, 0) + 1
         by_kind[f.kind] = by_kind.get(f.kind, 0) + 1
+        if f.drop:
+            dropped[f.drop] += 1
     return {"total": len(findings), "by_severity": by_sev, "by_rule": by_rule,
-            "by_kind": by_kind, "strict_fail": by_sev["S1"] > 0}
+            "by_kind": by_kind, "strict_fail": by_sev["S1"] > 0, "dropped": dropped}
 
 
 def _tail(summary: dict, stats: dict) -> str:
@@ -904,13 +928,12 @@ def fmt_summary(findings: list, summary: dict, stats: dict, od: Doc, pd: Doc) ->
 
 def to_json(findings: list, summary: dict, stats: dict, od: Doc, pd: Doc, mode: str) -> dict:
     return {"tool": "check_fidelity", "mode": mode, "orig": od.path, "polished": pd.path,
-            "findings": [f.as_dict() for f in findings], "summary": summary, "stats": stats,
-            "semantic_review": semantic_packet(od, pd)}
+            "findings": [f.as_dict() for f in findings], "summary": summary, "stats": stats}
 
 
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="check_fidelity.py", add_help=True,
-                                description="원문과 윤문 결과를 대조해 뜻이 보존됐는지 본다(읽기 전용).")
+                                description="원문과 윤문 결과를 대조해 결과에 지어낸 것이 없는지 본다(읽기 전용).")
     p.add_argument("orig", nargs="?", help="원문")
     p.add_argument("polished", nargs="?", help="윤문 결과")
     p.add_argument("--json", action="store_true", help="JSON 출력")

@@ -1,7 +1,7 @@
 # third-party source documents (copyright / bulk)
 *.pdf
 styleguides/report/analysis-codex/sources/
-# API 키 (.env.example 을 복사해 만든다)
+# 예전에 쓰던 API 키 파일. 지금은 쓰지 않지만 남아 있을 때 커밋되지 않게 둔다
 .env
 
 # scratch
@@ -16,6 +16,9 @@ tests/.tmp/
 
 # git worktrees created by Claude Code (EnterWorktree)
 .claude/worktrees/
+
+# 로컬 작업 표시와 백업
+.dryforge/
 
 # 취향은 쓰는 사람 각자의 것이고 코멘트 원문·인용이 쌓인다. 공개 저장소에 올리지 않는다.
 # 비공개 저장소로 여러 PC 에서 동기화하려면 아래 두 줄을 지운다.

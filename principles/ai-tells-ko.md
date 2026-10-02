@@ -207,7 +207,7 @@
 
 ## 4. 바꾸지 않는 것
 
-검사기가 지적해도 아래에 해당하면 두고, 작업 기록의 「작성자 확인」 절(notes 넷째 절)에 근거 행을 적는다.
+검사기가 지적해도 아래에 해당하면 두고, 결과 끝의 작성자 확인 트레일러에 근거 행을 적는다.
 
 | 정당한 용법 | 구분 기준 | 근거 |
 |---|---|---|
@@ -230,7 +230,7 @@
 
 ## 5. 규칙 추가 절차
 
-제보·독서에서 새 표현이 나오면: 범주·심각도·검출 방식을 정한다 → §2·§3에 행을 추가한다(지양 예·권장 예 필수, 정당 용법이 많으면 S2 밀도나 S3) → `python -X utf8 .claude/skills/anti-workslop/scripts/check_ai_tells.py --selftest` → 자기 적용·코퍼스 기준선을 다시 돌려 0을 확인한다(`tests/run_acceptance.py`) → 픽스처 expected JSON과 인수 테스트의 규칙 수·버전 문자열을 갱신한다 → §6에 한 줄 적는다. human 행이면 서브에이전트 브리프(`.claude/skills/anti-workslop/references/subagent.md`) 두 곳(단계 3 의 목록과 §2 의 ③ 규칙 ID)에도 ID를 더한다. 인수 테스트 `test_diagnose_human_rules` 가 두 곳을 규칙표와 대조한다. 취향(`taste/` W-NN)과 섞지 않는다. 취향은 "이 저자가 싫어함", 이 목록은 "누구에게나 AI 티". S1 행을 더하거나 이름을 바꾸면 윤문 프롬프트의 원칙 요약(`principles/prompt-core.md`)에도 한 줄로 더한다. 인수 테스트 `test_prompt_core_covers_s1` 이 S1 ID 누락을 잡는다.
+제보·독서에서 새 표현이 나오면: 범주·심각도·검출 방식을 정한다 → §2·§3에 행을 추가한다(지양 예·권장 예 필수, 정당 용법이 많으면 S2 밀도나 S3) → `python -X utf8 .claude/skills/anti-workslop/scripts/check_ai_tells.py --selftest` → 자기 적용·코퍼스 기준선을 다시 돌려 0을 확인한다(`tests/run_acceptance.py`) → 픽스처 expected JSON과 인수 테스트의 규칙 수·버전 문자열을 갱신한다 → §6에 한 줄 적는다. human 행이면 서브에이전트 브리프(`.claude/skills/anti-workslop/references/subagent.md`) 두 곳(단계 2 의 목록과 §2 의 ③ 규칙 ID)에도 ID를 더한다. 인수 테스트 `test_diagnose_human_rules` 가 두 곳을 규칙표와 대조한다. 취향(`taste/` W-NN)과 섞지 않는다. 취향은 "이 저자가 싫어함", 이 목록은 "누구에게나 AI 티". S1 행을 더하거나 이름을 바꾸면 윤문 프롬프트의 원칙 요약(`principles/prompt-core.md`)에도 한 줄로 더한다. 인수 테스트 `test_prompt_core_covers_s1` 이 S1 ID 누락을 잡는다.
 
 ## 6. 변경 이력
 

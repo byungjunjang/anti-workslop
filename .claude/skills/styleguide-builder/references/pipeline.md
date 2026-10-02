@@ -12,7 +12,7 @@
 | 3 | `python -X utf8 $S/extract_reading_pack.py --kit $K` | posts.json, stats.json | `reading-pack.md` (+ batch) | 결정적 |
 | 3' | 에이전트가 `reading-worksheet.md` 작성 (템플릿: assets/reading-worksheet.template.md) | pack, posts | `reading-worksheet.md` | 유일한 정성 입력 |
 | 3'' | profile.json 수정 후 2a→2b 재실행 | | | 한 번만 |
-| 4 (선택) | `python -X utf8 $S/render_guideline.py --kit $K --version V --template assets/templates/profile-report.template.md --out $K/docs/style-profile.md` | 위 전부 | 프로파일 보고서 | |
+| 4 (선택) | `python -X utf8 $S/render_guideline.py --kit $K --version V --template .claude/skills/styleguide-builder/assets/templates/profile-report.template.md --out $K/docs/style-profile.md` | 위 전부 | 프로파일 보고서 | |
 | 5 | `python -X utf8 $S/render_guideline.py --kit $K --version <YYYY-MM-DD> [--allow-todo]` | template, worksheet, stats, targets, profile | `<표시명> 글쓰기 문체 가이드라인.md`, `render-manifest.json` | 같은 입력 → 같은 바이트 |
 | 6 | `python -X utf8 $S/verify_guideline.py --kit $K --report` | 전부 | `verification.json` | 8항목, 실패 시 exit 1 |
 | 검사 | `python -X utf8 $S/check_style.py --kit $K 초고.md [--strict] [--subset counts]` | targets, profile | (없음) | 읽기 전용 |

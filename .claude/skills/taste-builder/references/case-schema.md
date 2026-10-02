@@ -2,7 +2,7 @@
 
 ## raw 스냅샷 (`taste/cases/raw/<YYYY-MM-DD>-<slug>.json`)
 
-에이전트가 `Artifact action: comments` 결과를 옮겨 적는다. 코멘트 `text`는 원문 그대로.
+에이전트가 `ArtifactComments` `action: read` 결과를 옮겨 적는다. 코멘트 `text`는 원문 그대로.
 
 | 필드 | 내용 |
 |---|---|

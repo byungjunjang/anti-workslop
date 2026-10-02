@@ -18,6 +18,11 @@ docs/implementation-2026-09-17/pairs/** -text
 examples export-ignore
 
 docs export-ignore
+
+# 지침 파일은 내부용이다. 공개본에 없는 docs/ 를 가리킨다. 공개본의 루트 AGENTS.md·CLAUDE.md 는
+# tools/export_public.py 가 tools/public/AGENTS.md 로 따로 쓴다(2026-10-02).
+AGENTS.md export-ignore
+CLAUDE.md export-ignore
 tools export-ignore
 taste/** export-ignore
 taste/README.md -export-ignore

@@ -6,13 +6,19 @@
   python -X utf8 check_all.py --guide … --orig ORIG --taste-skip W-01 FILE # 사용자가 빼라고 한 취향 [규칙]은 보이되 막지 않음
   python -X utf8 check_all.py --guide … --pack FILE                        # 읽기 묶음: 가이드 §8·§11-2·§14(윤문 블록), 원칙 human 행·§4, 취향 §0~§6
   python -X utf8 check_all.py --guide … --bundle FILE                      # 서브에이전트가 읽을 것 전부: 브리프 + 읽기 묶음 + 진단
-  python -X utf8 check_all.py --guide 없음 --hint FILE                     # 장르 힌트(줄글·개조식·애매) + 레이어 한 줄(장르별 등록 가이드·취향 상태)
+  python -X utf8 check_all.py --guide 없음 --hint FILE                     # 힌트·용도·레이어 세 줄 + 「가이드: <이름>|묻는다 · <이유>」 + 고른 가이드의 「사전 검사:」 줄(물을 때는 없다)
+  python -X utf8 check_all.py --guide <가이드> --hint FILE                 # 고르지 않고 그 가이드로. 사용자가 가이드를 지정했거나 질문에 답한 뒤
   python -X utf8 check_all.py --guide … --prompt --record REC [--clean] FILE   # 윤문 담당의 한 장 프롬프트(P5). 진단 끝 「사전 검사:」 줄이 깨끗이면 --clean
 
-가이드 이름은 base-guidelines.json 의 밑줄 없는 최상위 키다(기본 둘 + register_guide.py 로 등록한 것).
+가이드 이름은 base-guidelines.json 의 밑줄 없는 최상위 키다(기본 셋 + register_guide.py 로 등록한 것).
 명령은 같은 파일에서 읽는다(_checks · _checks_short · _checks_common · _checker_kind · _pack_sections · _s14_blocks). 짧은 글 판정은
 스스로 한다(줄글이고 공백 제외 _short_chars 이하면 장르 명령을 _checks_short 로). 검사기 종료 코드는 보지 않고
 출력만 읽는다. 검사기가 exit 2 를 내거나 죽으면 그 stderr 를 흘리고 exit 2.
+
+검수의 FAIL 조건은 넷이다. 장르 hard > 0, 원칙 S1 > 0 또는 S2 finding > 0, 취향 [규칙] > 0(사용자가 뺀 것 제외), 대조 S1 > 0.
+마지막 줄은 `판정: PASS|FAIL · …` 이고 그 위에 조건부로 두 줄이 온다. 둘 다 판정과 종료 코드를 바꾸지 않는다.
+  빠진 것: 수치 N · 인용 N · 부정 N · 자리표시자 N · 링크 N · 각주 N     # check_fidelity 의 summary.dropped. 전부 0 이면 없다
+  경고: 많이 줄었다 · 글자 <비율> · 항목 <비율>                          # 결과 ÷ 원문 이 SHRINK_WARN 미만일 때. 원문에 항목이 없으면 항목 부분은 없다
 """
 from __future__ import annotations
 import argparse, json, re, shlex, subprocess, sys, tempfile, unicodedata
@@ -29,7 +35,7 @@ sys.path.insert(0, str(HERE))
 from check_ai_tells import (RULES_MD, TRAILER_MARK, explain_human, force_utf8_stdout, is_label,   # noqa: E402
                             load_rules, normalize_text, segment_html, segment_markdown,
                             split_sentences, strip_trailer)
-from check_fidelity import RULE_NAMES                                                          # noqa: E402
+from check_fidelity import DROP_KINDS, RULE_NAMES                                              # noqa: E402
 
 # 읽기 묶음에 싣는 가이드 절의 기본값. 가이드마다 base-guidelines.json 의 _pack_sections 가 우선한다.
 # §0(읽는 법)과 자동 계측 표(장피엠 §11-1·개조식 §11-2)는 검사기가 대신하므로 싣지 않는다.
@@ -37,6 +43,7 @@ PACK_SECTIONS = ("8", "14")
 HINT_MIN = 3                    # 이보다 문장·항목이 적으면 장르를 고르지 않는다(애매)
 HINT_NOMINAL = 0.6              # 개조식 판정에 필요한 명사형 종결 항목 비율
 HINT_PROSE_RATIO = 4            # 줄글 판정: 명사형 항목 × 이 값 ≤ 산문 문장 수
+SHRINK_WARN = 0.6               # 검수 경고: 공백 제외 글자 수나 목록 항목 수가 원문의 이 비율 미만이면 「많이 줄었다」. 손볼 수 있는 기본값
 
 
 # ---------------------------------------------------------------------------
@@ -158,23 +165,27 @@ def fidelity_lines(d: dict) -> tuple[dict, dict, list]:
     return s, d["stats"], lines
 
 
+def dropped_line(d: dict) -> str:
+    """'빠진 것: 수치 N · 인용 N · 부정 N · 자리표시자 N · 링크 N · 각주 N'. 전부 0 이면 빈 문자열. 판정에 쓰지 않는다."""
+    dr = d["summary"].get("dropped", {})
+    if not any(dr.get(k, 0) for k in DROP_KINDS):
+        return ""
+    return "빠진 것: " + " · ".join(f"{k} {dr.get(k, 0)}" for k in DROP_KINDS)
+
+
+def shrink_line(st: dict) -> str:
+    """'경고: 많이 줄었다 · 글자 0.45 · 항목 0.40'. 줄지 않았으면 빈 문자열. 판정에 쓰지 않는다.
+    글자는 공백 제외 글자 수의 결과 ÷ 원문, 항목은 목록 항목 수의 결과 ÷ 원문이다. 원문에 항목이 없으면 항목은 보지도 적지도 않는다."""
+    co, io = st.get("chars_orig", 0), st.get("list_items_orig", 0)
+    chars = st.get("chars_polished", 0) / co if co else 1.0
+    items = st.get("list_items_polished", 0) / io if io else None
+    if chars >= SHRINK_WARN and (items is None or items >= SHRINK_WARN):
+        return ""
+    return f"경고: 많이 줄었다 · 글자 {chars:.2f}" + ("" if items is None else f" · 항목 {items:.2f}")
+
+
 def _block(title: str, lines: list) -> list:
     return [f"## {title}"] + (lines if lines else ["(없음)"]) + [""]
-
-
-# Q3(2026-09-22) · 묶음에 목표 문체의 실물 예문을 싣는다. 베껴 쓰면 문체가 아니라 문장이 옮겨 오므로
-# 결과가 예문을 네 어절 이상 그대로 가져왔는지 센다. 원문에도 있는 말은 원문이 먼저라 세지 않는다.
-_WORD = re.compile(r"[^\w가-힣]+")
-
-
-def _windows(text: str, n: int = 4) -> set:
-    """마크다운 표식을 떼고 어절 n 개짜리 창을 만든다."""
-    words = [w for w in _WORD.sub(" ", text).split() if w]
-    return {" ".join(words[i:i + n]) for i in range(len(words) - n + 1)}
-
-
-def example_overlap(result: str, example: str, orig: str, n: int = 4) -> list:
-    return sorted((_windows(result, n) & _windows(example, n)) - _windows(orig, n))
 
 
 # ---------------------------------------------------------------------------
@@ -312,6 +323,37 @@ def hint(text: str, is_html: bool) -> str:
             f"· 항목 {L} (명사형 {pct(nominal, L)}) · 공백 제외 {chars:,}자")
 
 
+# 용도 · 줄글을 업무(공지·메일·설명문)와 블로그로 가른다(2026-09-23 Q9). 신호마다 1점, 업무가 2 이상이고 블로그보다 많으면 업무.
+_BIZ = (
+    re.compile(r"^\s*안녕하(?:세요|십니까)[,.! ]*\S*.*(?:님|여러분)", re.M),          # 받는 사람을 부르는 인사
+    re.compile(r"(?:안내|공지|알려|보내|회신|요청|전달)(?:해\s?)?드(?:립니다|리며|리니)"),  # 안내드립니다·보내드립니다
+    re.compile(r"^\s*[-•·*]?\s*(?:일시|일정|장소|대상|기간|기한|방법|신청\s?\S*|준비물|문의\S*|참석\S*)\s*[:：]", re.M),
+    re.compile(r"(?:감사합니다|고맙습니다)\.?\s*$", re.M),
+    re.compile(r"첨부|회신|까지\s(?:제출|신청|회신)"),
+    re.compile(r"드림\s*$", re.M),
+    # 표·소제목으로 정리한 공지·안내(2026-09-23 판정 초안). 「일시:」 줄 대신 제목과 소제목에 신호가 있다
+    re.compile(r"^#\s.*(?:안내|공지|알림|요청|모집)(?:\s*\S{0,6})?\s*$", re.M),
+    re.compile(r"^#{2,}\s*(?:일정|문의\S*|신청\S*|대상|장소|기간|준비\s?사항|결제\s?\S*|요금|변경\s?\S*)\s*$", re.M),
+    re.compile(r"(?:해|하여|해서)\s?주시기\s바랍니다|부탁드립니다"),
+)
+_BIZ_LABEL = _BIZ[2]
+_BLOG_SLANG = re.compile(r"짜치|현타|뚝딱|ㅋㅋ|ㅎㅎ|솔직히|꿀팁|찐")
+_BLOG_FIRST = re.compile(r"^(?:저는|제가|저도|저의|전)\s")
+
+
+def purpose(text: str, is_html: bool) -> str:
+    """'용도: 업무 N · 블로그 M → 업무|블로그|애매'. 줄글에서 장피엠(블로그)과 업무 가이드를 고르는 신호다."""
+    segs = segment_html(text, None) if is_html else segment_markdown(text, None)
+    sents = [s for seg in segs if seg.kind == "prose" for s in split_sentences(seg.text) if not is_label(s)]
+    biz = sum(1 for p in _BIZ if p.search(text)) + (1 if len(_BIZ_LABEL.findall(text)) >= 2 else 0)
+    haeyo = sum(1 for s in sents if _ending(s) == "해요") / max(1, len(sents))
+    blog = (2 if haeyo >= 0.35 else 1 if haeyo >= 0.2 else 0) + (1 if _BLOG_SLANG.search(text) else 0) \
+        + (1 if sum(1 for s in sents if _BLOG_FIRST.match(s.strip())) >= 2 else 0) \
+        + (1 if sum(1 for s in sents if s.rstrip().endswith("?")) >= 3 else 0)
+    verdict = "업무" if biz >= 2 and biz > blog else "블로그" if blog >= 2 and blog > biz else "애매"
+    return f"용도: 업무 {biz} · 블로그 {blog} → {verdict}"
+
+
 _TASTE_RULE = re.compile(r"^W-\d+ \[(규칙|경향|관찰)\] ", re.M)
 
 
@@ -336,6 +378,39 @@ def layers(bg: dict, taste_md: Path | None = None) -> str:
     return "레이어 · " + " · ".join(parts)
 
 
+# 가이드 고르기 — 힌트(장르)·용도·등록부로 정한다. 본 컨텍스트는 「가이드:」 줄만 읽는다
+ASK = "묻는다"
+ASK_AMBIGUOUS = "힌트 애매"
+ASK_MANY = "등록 가이드 둘 이상"
+
+
+def _genre_of_hint(line: str) -> str:
+    """hint() 한 줄에서 장르(줄글·개조식·애매)."""
+    return line.split(" · ", 1)[0].split(": ", 1)[1]
+
+
+def _use_of_purpose(line: str) -> str:
+    """purpose() 한 줄에서 판정(업무·블로그·애매)."""
+    return line.rsplit("→ ", 1)[1]
+
+
+def select_guide(bg: dict, genre: str, use: str) -> tuple[str | None, str]:
+    """(가이드, "") 또는 (None, 묻는 이유). genre 는 힌트 줄의 장르, use 는 용도 줄의 판정이다.
+    그 장르에 기본(_builtin)이 아닌 등록 가이드가 하나면 그것, 둘 이상이면 묻고, 없으면 기본을 쓴다.
+    기본이 여럿인 장르(줄글)는 용도 판정과 이름이 같은 기본 가이드(업무)를, 그런 것이 없으면 그 장르의 첫 기본 가이드(장피엠)를 쓴다.
+    힌트가 애매이면(그 장르에 가이드가 없으면) 묻는다."""
+    genre_of, builtin = bg.get("_genre_of", {}), bg.get("_builtin", [])
+    defaults = [g for g in builtin if genre_of.get(g) == genre]
+    if not defaults:
+        return None, ASK_AMBIGUOUS
+    mine = [g for g in guide_names(bg) if genre_of.get(g) == genre and g not in builtin]
+    if len(mine) >= 2:
+        return None, ASK_MANY
+    if mine:
+        return mine[0], ""
+    return (use if use in defaults else defaults[0]), ""
+
+
 # ---------------------------------------------------------------------------
 def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
     bg = load_bg() if bg is None else bg
@@ -346,13 +421,10 @@ def build_parser(bg: dict | None = None) -> argparse.ArgumentParser:
                    help="가이드 이름(base-guidelines.json 에 등록된 것) 또는 없음")
     p.add_argument("--genre", default=None, choices=["줄글", "개조식", "공통"], help="원칙 검사기 장르(기본 _genre_of[가이드], 없음이면 공통)")
     p.add_argument("--orig", default=None, help="원본 경로. 주면 검수 단계(불변식 포함, 막는 항목만)")
-    p.add_argument("--semantic-review", action="append", default=None,
-                   help="독립 검토 JSON 기록. 여러 번 줄 수 있다(뒤 기록이 같은 ID 를 덮는다)")
-    p.add_argument("--author-concern", action="store_true", help="재작성 담당이 의미 보존에 의문을 남김")
     p.add_argument("--taste-skip", default="", help="사용자가 빼라고 한 취향 W-NN(쉼표로). 판정에서 뺀다")
     p.add_argument("--pack", action="store_true", help="읽기 묶음만 출력")
     p.add_argument("--bundle", action="store_true", help="브리프 + 읽기 묶음 + 진단을 한 번에 출력(서브에이전트용)")
-    p.add_argument("--hint", action="store_true", help="장르 힌트 한 줄만 출력")
+    p.add_argument("--hint", action="store_true", help="힌트·용도·레이어 + 가이드 줄 + 사전 검사 줄만 출력")
     p.add_argument("--sections", default=None, help="--pack 에 실을 가이드 절(예: 8,11-2,14). 기본은 _pack_sections[가이드]")
     p.add_argument("--prompt", action="store_true", help="윤문 담당이 읽을 한 장 프롬프트를 출력(P5)")
     p.add_argument("--clean", action="store_true", help="--prompt 에 기권 줄을 싣는다(사전 검사가 깨끗할 때)")
@@ -383,20 +455,36 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if a.hint:
         text = strip_trailer(src.read_text(encoding="utf-8"))
-        print(hint(text, ext == "html"))
+        h, u = hint(text, ext == "html"), purpose(text, ext == "html")
+        print(h)
+        print(u)
         print(layers(bg))
-        # jev 는 키가 있을 때만 한 줄을 덧붙인다. 없거나 실패하면 위 두 줄이 지금까지와 같다.
-        import jev_gate
-        if jev_gate.enabled("gate"):
-            got = jev_gate.classify_input(text)
-            if isinstance(got, dict):
-                print(f"jev: 장르 {got['genre'][0]} {got['genre'][1]:.2f} · "
-                      f"유형 {got['doc_type'][0]} {got['doc_type'][1]:.2f} ({jev_gate.model_name()})")
-            else:
-                print(f"jev: 실패({got}) → 현행 경로")
+        guide, why = (a.guide, "") if a.guide != "없음" else select_guide(bg, _genre_of_hint(h), _use_of_purpose(u))
+        if guide is None:
+            print(f"가이드: {ASK} · {why}")
+            return 0
+        print(f"가이드: {guide}")
+        # 사전 검사 · 고른 가이드로 돌린 진단의 마지막 줄이다. 본 컨텍스트가 진단을 따로 부르지 않게 한다
+        rc, out = check(bg, guide, a.genre or bg["_genre_of"].get(guide, "공통"), src, ext)
+        if rc != 0:
+            return rc
+        print(out.splitlines()[-1])
         return 0
-    genre = a.genre or bg["_genre_of"].get(a.guide, "공통")
-    verify = a.orig is not None
+    if a.bundle:
+        # 서브에이전트가 읽을 것 전부. 원문은 Bash 출력 상한(30K자) 때문에 싣지 않고 따로 읽게 한다.
+        print(BRIEF.read_text(encoding="utf-8").rstrip("\n"), "\n", sep="")
+        print(pack(bg, a.guide, secs), "\n", sep="")
+    rc, out = check(bg, a.guide, a.genre or bg["_genre_of"].get(a.guide, "공통"), src, ext, a.orig, a.taste_skip)
+    if out:
+        print(out)
+    return rc
+
+
+def check(bg: dict, guide: str, genre: str, src: Path, ext: str,
+          orig: str | None = None, taste_skip: str = "") -> tuple[int, str]:
+    """(종료 코드, 출력). orig 가 없으면 진단(마지막 줄 「사전 검사:」), 있으면 검수(마지막 줄 「판정:」).
+    짧은 글 판정과 트레일러 떼기를 여기서 한다. --hint 의 사전 검사 줄은 이 진단의 마지막 줄이다."""
+    verify = orig is not None
     # 작성자 확인 트레일러는 본문이 아니다. 네 검사기 모두 그것을 뗀 사본에 대고 돌린다.
     raw = src.read_text(encoding="utf-8")
     body = strip_trailer(raw)
@@ -405,33 +493,30 @@ def main(argv: list[str] | None = None) -> int:
         tmp = Path(tempfile.mkdtemp(prefix="check_all-")) / src.name
         tmp.write_bytes(body.encode("utf-8"))
     file_posix = (tmp or src).as_posix()
-    if a.bundle:
-        # 서브에이전트가 읽을 것 전부. 원문은 Bash 출력 상한(30K자) 때문에 싣지 않고 따로 읽게 한다.
-        print(BRIEF.read_text(encoding="utf-8").rstrip("\n"), "\n", sep="")
-        print(pack(bg, a.guide, secs), "\n", sep="")
 
     ai = _json(run_cmd(bg["_checks_common"]["ai_tells"], genre=genre, file=file_posix), "check_ai_tells")
     chars = ai["stats"].get("chars_nospace", 0)
     short = genre == "줄글" and chars <= bg["_short_chars"]
-    out = [f"# check_all · {'검수' if verify else '진단'} · {a.guide} ({ext}) · 짧은 글 {'예' if short else '아니오'} "
+    out = [f"# check_all · {'검수' if verify else '진단'} · {guide} ({ext}) · 짧은 글 {'예' if short else '아니오'} "
            f"(공백 제외 {chars:,}자){' · 작성자 확인 트레일러 뗌' if tmp else ''}", ""]
 
     g_hard = g_soft = 0
-    if a.guide != "없음":
-        kind = bg.get("_checker_kind", {}).get(a.guide)
+    kind = bg.get("_checker_kind", {}).get(guide) if guide != "없음" else None
+    # none · 장르 검사기가 없는 가이드(업무, 2026-09-23). 장르 단계를 건너뛰고 원칙·취향·불변식만 본다
+    if guide != "없음" and kind != "none":
         if kind not in ("style", "report"):
-            print(f"입력 오류: base-guidelines.json 의 _checker_kind 에 {a.guide!r} 가 없다. "
+            print(f"입력 오류: base-guidelines.json 의 _checker_kind 에 {guide!r} 가 없다. "
                   f"styleguide-builder 의 register_guide.py 로 등록한다", file=sys.stderr)
-            return 2
+            return 2, ""
         table = bg["_checks_short"] if short else bg["_checks"]
-        g_hard, g_soft, glines = genre_lines(kind, run_cmd(table[a.guide][ext], file=file_posix), verify)
-        out += _block(f"장르 · {a.guide}{' (짧은 글 명령)' if short else ''} · hard {g_hard} / soft {g_soft}", glines)
+        g_hard, g_soft, glines = genre_lines(kind, run_cmd(table[guide][ext], file=file_posix), verify)
+        out += _block(f"장르 · {guide}{' (짧은 글 명령)' if short else ''} · hard {g_hard} / soft {g_soft}", glines)
 
     s1, s2, s3, demoted, alines = ai_lines(ai, verify)
     out += _block(f"원칙 · check_ai_tells --genre {genre} · S1 {s1} · S2 {s2} · S3 {s3} · 강등 {demoted}", alines)
 
     td = _json(run_cmd(bg["_checks_common"]["taste"], file=file_posix), "check_taste")
-    skip = frozenset(x.strip() for x in a.taste_skip.split(",") if x.strip())
+    skip = frozenset(x.strip() for x in taste_skip.split(",") if x.strip())
     g, t_block, human, tlines = taste_lines(td, verify, skip)
     skipped = f" (사용자 지시로 뺌 {g['규칙'] - t_block})" if g["규칙"] != t_block else ""
     state = " · 문서 없음" if td.get("doc_state") == "missing" else ""
@@ -441,34 +526,18 @@ def main(argv: list[str] | None = None) -> int:
         pre = g_hard + s1 + s2 + t_block
         out.append(f"사전 검사: {'깨끗' if pre == 0 else f'막을 것 {pre}'} · 장르 hard {g_hard} · "
                    f"원칙 S1 {s1} / S2 {s2} · 취향 규칙 {t_block}")
-        print("\n".join(out).rstrip("\n"))
-        return 0
+        return 0, "\n".join(out).rstrip("\n")
 
-    fd = _json(run_cmd(bg["_checks_common"]["fidelity"], orig=Path(a.orig).as_posix(), file=file_posix), "check_fidelity")
+    fd = _json(run_cmd(bg["_checks_common"]["fidelity"], orig=Path(orig).as_posix(), file=file_posix), "check_fidelity")
     fs, st, flines = fidelity_lines(fd)
     out += _block(f"불변식 · check_fidelity · S1 {fs['S1']} · S2 {fs['S2']} · 길이 {st['length_ratio']} · "
                   f"문단 {st['paragraph_ratio']} · 항목 {st['list_ratio']}", flines)
-    ex_hits = []
-    exp_path = bg.get("_examples", {}).get(a.guide)
-    if exp_path and (ROOT / exp_path).exists():
-        ex_hits = example_overlap(body,
-                                  (ROOT / exp_path).read_text(encoding="utf-8"),
-                                  Path(a.orig).read_text(encoding="utf-8"))
-        out += _block(f"예문 겹침 · {len(ex_hits)}자리",
-                      [f'"{h}"' for h in ex_hits[:5]] + (["…"] if len(ex_hits) > 5 else []))
-    from semantic_review import review_status
-    semantic = review_status(fd["semantic_review"], a.semantic_review, a.author_concern)
-    c = semantic["counts"]
-    by = " · ".join(f"{k} {v}" for k, v in sorted(c["by_method"].items())) or "-"
-    out += [f"의미 검토: {semantic['status']} · 위험 구간 {len(fd['semantic_review']['risks'])}개 · "
-            f"보존 {c['preserved']} · 변경 {c['changed']} · 판단 불가 {c['unsure']} · 담당 {by}"]
-    out += [f"작성자 확인: {item}" for item in semantic['issues']]
-    out += ["자동 판정은 문맥의 의미 보존을 보증하지 않습니다."]
-    fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0 or bool(ex_hits)
+    # 아래 두 줄은 알리기만 한다. 판정과 종료 코드에 들어가지 않는다.
+    out += [l for l in (dropped_line(fd), shrink_line(st)) if l]
+    fail = g_hard > 0 or s1 > 0 or s2 > 0 or t_block > 0 or fs["S1"] > 0
     out.append(f"판정: {'FAIL' if fail else 'PASS'} · 장르 hard {g_hard} · 원칙 S1 {s1} / S2 {s2} · "
-               f"취향 규칙 {t_block} · 불변식 S1 {fs['S1']} · 예문 겹침 {len(ex_hits)}")
-    print("\n".join(out))
-    return 1 if fail else 0
+               f"취향 규칙 {t_block} · 불변식 S1 {fs['S1']}")
+    return (1 if fail else 0), "\n".join(out)
 
 
 if __name__ == "__main__":

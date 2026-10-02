@@ -19,7 +19,7 @@ metadata:
 
 anti-workslop 의 기본 줄글 가이드(장피엠)를 내 문체로 바꾸는 방법이 이 스킬이다. 내 글 코퍼스로 키트를 만들고 Step 7 에서 등록하면 윤문이 그 가이드를 쓴다.
 
-산출물은 둘이다. (1) `styleguides/<slug>/<표시명> 글쓰기 문체 가이드라인.md` — 첨부 최종본과 같은 14개 절 구조. (2) 같은 폴더의 검사 키트 — `corpus/`, `stats.md`, `targets.json`, `profile.json`, 그리고 `check_style.py --kit`로 새 초고를 검사하는 능력.
+산출물은 둘이다. (1) `styleguides/<slug>/<표시명> 글쓰기 문체 가이드라인.md` — `assets/templates/blog.template.md` 의 14개 절 구조(기준 최종본은 `tests/fixtures/exemplar.md`). (2) 같은 폴더의 검사 키트 — `corpus/`, `stats.md`, `targets.json`, `profile.json`, 그리고 `check_style.py --kit`로 새 초고를 검사하는 능력.
 
 두 원칙이 이 스킬의 전부다.
 - **숫자는 render_guideline.py 만 적는다.** 가이드라인의 모든 수치는 stats.json / targets.json 에서 슬롯으로 채워진다. 손으로 숫자를 옮기지 않는다.

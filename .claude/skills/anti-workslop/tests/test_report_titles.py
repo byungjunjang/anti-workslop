@@ -22,7 +22,8 @@ def test_report_titles():
         packed = check_all.pack(bg, guide, ())
         assert packed.count(rule) == 1, guide
     brief = check_all.BRIEF.read_text(encoding="utf-8")
-    for token in ("RT-01", "자동 검사 통과만으로", "수정 전 제목", "수정 후 제목", "본문 근거", "확정 수준", "첫 문장 반복", "고친 제목 없이"):
+    # 브리프는 검토 탐지 전용이다(2026-09-30). 제목 수정 기록(수정 전·후 제목, 본문 근거)은 윤문 쪽 일이라 싣지 않는다.
+    for token in ("RT-01", "자동 검사 통과만으로", "고친 제목 없이", "검토 기록 필드"):
         assert token in brief, token
     # 실제 CLI도 Markdown/HTML에서 브리프 + 규칙을 함께 전달한다.
     with tempfile.TemporaryDirectory() as td:
@@ -35,11 +36,12 @@ def test_report_titles():
                                cwd=ROOT, capture_output=True, text=True, encoding="utf-8")
             assert r.returncode == 0, r.stderr
             assert rule in r.stdout and r.stdout.startswith("# 서브에이전트 브리프"), ext
-        # 제목의 기존 조건 경고(S2)·부정/수치 차단(S1)을 유지한다. 조건 의미는 담당이 반드시 대조한다.
+        # 제목의 조건 경고(S2)와 지어낸 수치 차단(S1)을 유지한다. 조건 의미는 담당이 반드시 대조한다.
+        # 사라진 부정은 2026-10-02 부터 S2 보고다. 뒤집기를 코드로 막지 않는 것은 받아들인 한계다.
         before = Path(td) / "before.md"
         after = Path(td) / "after.md"
         for original, changed, severity, code in (("예산을 확보한 경우에만 시행", "시행", "S2", 0),
-                                                  ("확대하지 않습니다", "확대합니다", "S1", 1),
+                                                  ("확대하지 않습니다", "확대합니다", "S2", 0),
                                                   ("지원 한도 20억 원", "지원 한도 30억 원", "S1", 1)):
             before.write_text("# " + original + "\n\n검토를 진행합니다.\n", encoding="utf-8")
             after.write_text("# " + changed + "\n\n검토를 진행합니다.\n", encoding="utf-8")

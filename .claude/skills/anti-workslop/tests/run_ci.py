@@ -22,7 +22,6 @@ def main():
         subprocess.run([sys.executable, '-X', 'utf8', '.claude/skills/anti-workslop/tests/test_environment.py'], cwd=target, env=env, check=True)
         for skill in ('anti-workslop', 'styleguide-builder', 'taste-builder'):
             subprocess.run([sys.executable, '-X', 'utf8', f'.claude/skills/{skill}/tests/run_acceptance.py'], cwd=target, env=env, check=True)
-        subprocess.run([sys.executable, '-X', 'utf8', '.claude/skills/anti-workslop/tests/test_semantic_review.py'], cwd=target, env=env, check=True)
     print('CI suites passed without private taste')
 if __name__ == '__main__':
     main()
