@@ -1,6 +1,6 @@
 # styleguides · 스타일가이드 레이어
 
-anti-workslop 윤문의 세 레이어(원칙·스타일가이드·취향) 가운데 스타일가이드다. 한 저자 또는 한 장르의 문체를 14절 고정 구조의 가이드라인 한 파일로 적고, 검사기가 §11-1 표를 그대로 센다. anti-workslop은 두 키트를 같은 레이어로 읽는다. 어느 키트로 고칠지는 글의 종류가 정한다. 줄글은 jangpm, 보고서는 report. 개인의 보고서 선호는 가이드가 아니라 `taste/`에 쌓는다.
+slop-rewrite 윤문의 세 레이어(원칙·스타일가이드·취향) 가운데 스타일가이드다. 한 저자 또는 한 장르의 문체를 14절 고정 구조의 가이드라인 한 파일로 적고, 검사기가 §11-1 표를 그대로 센다. slop-rewrite는 두 키트를 같은 레이어로 읽는다. 어느 키트로 고칠지는 글의 종류가 정한다. 줄글은 jangpm, 보고서는 report. 개인의 보고서 선호는 가이드가 아니라 `taste/`에 쌓는다.
 
 | slug | 저자 | 출처 | 정본 | 검사기 | 재생성 |
 |---|---|---|---|---|---|
@@ -13,7 +13,7 @@ anti-workslop 윤문의 세 레이어(원칙·스타일가이드·취향) 가운
 
 1. 「내 블로그 문체 가이드 만들어줘」로 styleguide-builder 를 돌린다. 코퍼스는 사이트맵·RSS·URL 목록·로컬 `.md` 폴더 가운데 하나다. 결과는 `styleguides/<slug>/` 에 생긴다.
 2. 검증(`verify_guideline.py --report`)이 통과하면 `python -X utf8 .claude/skills/styleguide-builder/scripts/register_guide.py --kit styleguides/<slug>` 로 등록한다.
-3. 등록한 가이드는 anti-workslop 장르 힌트의 레이어 줄에 나오고, 줄글 윤문은 그 가이드를 쓴다. 뺄 때는 `--remove <표시명>`.
+3. 등록한 가이드는 slop-rewrite 장르 힌트의 레이어 줄에 나오고, 줄글 윤문은 그 가이드를 쓴다. 뺄 때는 `--remove <표시명>`.
 4. 위 표에 한 행을 더한다.
 
 styleguide-builder 는 블로그형 줄글만 만든다. 보고서형 가이드는 report 키트처럼 코퍼스 분석을 사람이 병합해 손으로 만들고 `base-guidelines.json` 에 직접 적는다.

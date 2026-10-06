@@ -28,7 +28,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-# tests/ -> anti-workslop -> skills -> .claude -> 프로젝트 루트.
+# tests/ -> slop-rewrite -> skills -> .claude -> 프로젝트 루트.
 # check_ai_tells.py·check_fidelity.py 와 같은 패턴(HERE -> SKILL_DIR -> ROOT)으로 구한다.
 # 파이프라인이 부르지 않는 평가 도구라 scripts/ 가 아니라 tests/ 에 둔다(2026-09-14).
 HERE = Path(__file__).resolve().parent
@@ -37,9 +37,9 @@ ROOT = SKILL_DIR.parents[2]
 
 STYLE_CHECK = ROOT / ".claude/skills/styleguide-builder/scripts/check_style.py"
 REPORT_CHECK = ROOT / "styleguides/report/scripts/check_report.py"
-AI_TELLS_CHECK = ROOT / ".claude/skills/anti-workslop/scripts/check_ai_tells.py"
-FIDELITY_CHECK = ROOT / ".claude/skills/anti-workslop/scripts/check_fidelity.py"
-TASTE_CHECK = ROOT / ".claude/skills/anti-workslop/scripts/check_taste.py"
+AI_TELLS_CHECK = ROOT / ".claude/skills/slop-rewrite/scripts/check_ai_tells.py"
+FIDELITY_CHECK = ROOT / ".claude/skills/slop-rewrite/scripts/check_fidelity.py"
+TASTE_CHECK = ROOT / ".claude/skills/slop-rewrite/scripts/check_taste.py"
 
 JANGPM_KIT = "styleguides/jangpm"
 

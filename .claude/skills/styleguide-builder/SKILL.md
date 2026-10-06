@@ -17,7 +17,7 @@ metadata:
 
 ## Overview
 
-anti-workslop 의 기본 줄글 가이드(장피엠)를 내 문체로 바꾸는 방법이 이 스킬이다. 내 글 코퍼스로 키트를 만들고 Step 7 에서 등록하면 윤문이 그 가이드를 쓴다.
+slop-rewrite 의 기본 줄글 가이드(장피엠)를 내 문체로 바꾸는 방법이 이 스킬이다. 내 글 코퍼스로 키트를 만들고 Step 7 에서 등록하면 윤문이 그 가이드를 쓴다.
 
 산출물은 둘이다. (1) `styleguides/<slug>/<표시명> 글쓰기 문체 가이드라인.md` — `assets/templates/blog.template.md` 의 14개 절 구조(기준 최종본은 `tests/fixtures/exemplar.md`). (2) 같은 폴더의 검사 키트 — `corpus/`, `stats.md`, `targets.json`, `profile.json`, 그리고 `check_style.py --kit`로 새 초고를 검사하는 능력.
 
@@ -121,7 +121,7 @@ python -X utf8 $S/verify_guideline.py --kit $K --report
 - 한 문단으로: 편수·기간·문장 수, `_flags` 처리, 기본값으로 정한 것(소스·slug·보일러플레이트 포함 여부), 저자 문체의 두드러진 세 가지.
 - 사용법: `python -X utf8 $S/check_style.py --kit $K 초고.md --strict`, 800자 이하 글은 `--subset counts`.
 - 가이드라인 §14 블록이 시스템 프롬프트에 붙일 압축본이라는 것을 알린다.
-- 등록: `python -X utf8 $S/register_guide.py --kit $K`. 검증을 통과한 키트만 받는다. 등록하면 anti-workslop 에서 `--guide <표시명>` 으로 윤문하고, 장르 힌트의 레이어 줄에 이름이 나온다. 뺄 때는 `--remove <표시명>`. `styleguides/README.md` 표에 한 행을 더하라고 알린다.
+- 등록: `python -X utf8 $S/register_guide.py --kit $K`. 검증을 통과한 키트만 받는다. 등록하면 slop-rewrite 에서 `--guide <표시명>` 으로 윤문하고, 장르 힌트의 레이어 줄에 이름이 나온다. 뺄 때는 `--remove <표시명>`. `styleguides/README.md` 표에 한 행을 더하라고 알린다.
 
 ## 갱신 모드 (기존 키트, 글이 늘었을 때)
 
@@ -137,7 +137,7 @@ python -X utf8 $S/verify_guideline.py --kit $K --report
 | 코퍼스 | `styleguides/<slug>/corpus/` (urls.txt, html/, posts/, posts.json, posts.sha256, sources.json, boilerplate.json) |
 | 정성 입력 | `styleguides/<slug>/reading-pack.md`, `reading-worksheet.md` |
 | 검증 기록 | `styleguides/<slug>/verification.json`, `render-manifest.json` |
-| 등록 | `.claude/skills/anti-workslop/references/base-guidelines.json` 에 그 가이드의 행 |
+| 등록 | `.claude/skills/slop-rewrite/references/base-guidelines.json` 에 그 가이드의 행 |
 | (선택) 프로파일 보고서 | `styleguides/<slug>/docs/style-profile.md` |
 
 ## Error Handling

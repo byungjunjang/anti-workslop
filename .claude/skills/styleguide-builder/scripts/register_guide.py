@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-register_guide.py — 검증을 통과한 키트를 anti-workslop 가이드로 등록한다.
+register_guide.py — 검증을 통과한 키트를 slop-rewrite 가이드로 등록한다.
 
   python -X utf8 register_guide.py --kit styleguides/<slug> [--name <가이드 이름>]
   python -X utf8 register_guide.py --remove <가이드 이름>
 
-등록하면 anti-workslop 에서 `check_all.py --guide <이름>` 으로 진단·검수·윤문할 수 있고,
-`--hint` 의 레이어 줄에 이름이 나온다. 쓰는 곳은 .claude/skills/anti-workslop/references/base-guidelines.json 하나다.
+등록하면 slop-rewrite 에서 `check_all.py --guide <이름>` 으로 진단·검수·윤문할 수 있고,
+`--hint` 의 레이어 줄에 이름이 나온다. 쓰는 곳은 .claude/skills/slop-rewrite/references/base-guidelines.json 하나다.
 
 - 이름 기본값은 kit.json 의 display(표시명). 가이드 파일이 없거나 verification.json 이 통과가 아니면 거부한다.
 - 같은 설정으로 이미 있으면 [skip] (멱등). 다른 설정으로 있으면 거부한다(--remove 뒤 다시).
@@ -21,14 +21,14 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[4]   # scripts → styleguide-builder → skills → .claude → 프로젝트 루트
-BASE = ROOT / ".claude" / "skills" / "anti-workslop" / "references" / "base-guidelines.json"
+BASE = ROOT / ".claude" / "skills" / "slop-rewrite" / "references" / "base-guidelines.json"
 
 # 블로그 템플릿(assets/templates/blog.template.md) §14 가운데 윤문에 쓰는 블록. 장피엠 기본 가이드와 같다.
-# [작업]·[보존]은 뺀다. anti-workslop 윤문에서는 불변식 셋이 그 자리를 대신한다(2026-09-17).
+# [작업]·[보존]은 뺀다. slop-rewrite 윤문에서는 불변식 셋이 그 자리를 대신한다(2026-09-17).
 BLOG_S14 = ["문장", "종결", "접속", "어휘", "금지", "AI 티"]
 BLOG_PACK = ["8", "11-2", "14"]
 STYLE = "python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit {kit} {extra}--json {{file}}"
-HTML = "python -X utf8 .claude/skills/anti-workslop/scripts/check_html.py --guide {name} {extra}{{file}}"
+HTML = "python -X utf8 .claude/skills/slop-rewrite/scripts/check_html.py --guide {name} {extra}{{file}}"
 
 
 class RegisterError(Exception):
@@ -123,7 +123,7 @@ def save(bg: dict, path: Path) -> None:
 def main(argv: list[str] | None = None) -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8")
-    ap = argparse.ArgumentParser(description="키트를 anti-workslop 가이드로 등록하거나 등록을 뺀다")
+    ap = argparse.ArgumentParser(description="키트를 slop-rewrite 가이드로 등록하거나 등록을 뺀다")
     g = ap.add_mutually_exclusive_group(required=True)
     g.add_argument("--kit", help="styleguides/<slug> (프로젝트 루트 기준)")
     g.add_argument("--remove", metavar="NAME", help="등록을 뺄 가이드 이름")
@@ -149,7 +149,7 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     save(new, base)
     print(f"[done] 가이드 등록: {name} ({guide})")
-    print(f"       anti-workslop 에서 --guide {name} 로 윤문한다. README 표에 올리려면 styleguides/README.md 에 한 행을 더한다.")
+    print(f"       slop-rewrite 에서 --guide {name} 로 윤문한다. README 표에 올리려면 styleguides/README.md 에 한 행을 더한다.")
     return 0
 
 

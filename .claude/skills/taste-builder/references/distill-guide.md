@@ -10,7 +10,7 @@
 - `[고침]` 케이스는 전(anchor.quote) → 후(rewrite)를 예로 붙인다.
 - `[좋]` 케이스는 "유지" 규칙이다. "짧은 판정문(10자 안팎)은 유지".
 - 기본 가이드라인의 특정 규칙을 덮는 취향은 그 번호를 적는다: "장피엠 §5-1 해요체 하한은 리포트에서 미적용".
-- 검출 방식을 정한다. 표현 하나면 `literal`, 형태가 여럿이면 `regex`, 빈도 취향이면 `density`, 읽어야 아는 것이면 `human`. 어휘와 literal 구분자(` · `)는 `principles/ai-tells-ko.md` 규칙표와 같다. anti-workslop 의 `check_taste.py`가 이 필드로 초고를 센다(regex·literal 은 매치마다, density 는 임계 이상일 때). `validate_taste.py`는 형식과 예 매치를 검증한다.
+- 검출 방식을 정한다. 표현 하나면 `literal`, 형태가 여럿이면 `regex`, 빈도 취향이면 `density`, 읽어야 아는 것이면 `human`. 어휘와 literal 구분자(` · `)는 `principles/ai-tells-ko.md` 규칙표와 같다. slop-rewrite 의 `check_taste.py`가 이 필드로 초고를 센다(regex·literal 은 매치마다, density 는 임계 이상일 때). `validate_taste.py`는 형식과 예 매치를 검증한다.
 
 ## 3. 기존 규칙과 대조
 - 같은 취향이면 그 규칙의 근거에 케이스를 추가하고 n을 다시 계산한다.
@@ -22,7 +22,7 @@
 - `[관찰]` n=1, `[경향]` n=2~3, `[규칙]` n≥4, `[보류]` 그 외 또는 찬반 갈림.
 
 ## 5. 적용 범위
-- 「적용: …」은 출처 표시다. 근거 케이스의 `doc.genre` 를 적고, 둘 이상이면 공통으로 올린다. anti-workslop 은 모든 문서에 댄다.
+- 「적용: …」은 출처 표시다. 근거 케이스의 `doc.genre` 를 적고, 둘 이상이면 공통으로 올린다. slop-rewrite 는 모든 문서에 댄다.
 - `doc.base_guideline`이 같으면 "적용: 장피엠 기반 문서"처럼 적을 수 있다.
 
 ## 6. 절 배치

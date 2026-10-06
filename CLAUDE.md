@@ -1,11 +1,11 @@
-# anti-workslop
+# slop-rewrite
 
 AI 가 쓴 한국어 글에서 AI 티를 줄이고, 쓰는 사람의 문체와 취향에 맞게 퇴고하는 스킬 셋과 검사기다. 겨냥하는 글은 업무 글과 학술 글(줄글, 개조식 보고서)이다. Python 표준 라이브러리 스크립트와 규칙·가이드 문서로 이루어져 있고 서버·DB 가 없다. 설치와 쓰는 법은 `README.md` 에 있다.
 
 ## 구조
 
 ```
-anti-workslop/
+slop-rewrite/
 ├── .claude/skills/<스킬>/SKILL.md   ← Claude Code 가 읽는 스킬 본체
 ├── .agents/skills/<스킬>/SKILL.md   ← Codex 진입 문서. 본체를 가리키기만 한다
 ├── principles/                       ← AI 티 규칙표, 불변식, 한 장 프롬프트 요약
@@ -13,7 +13,7 @@ anti-workslop/
 └── taste/                            ← 취향 문서. 쓰는 사람이 각자 만든다
 ```
 
-스킬은 셋이다. `anti-workslop` 은 윤문·검토·구조 진단, `styleguide-builder` 는 내 글에서 문체 가이드 만들기, `taste-builder` 는 결과물에 단 코멘트로 취향 문서 쌓기를 맡는다.
+스킬은 셋이다. `slop-rewrite` 는 윤문·검토·구조 진단, `styleguide-builder` 는 내 글에서 문체 가이드 만들기, `taste-builder` 는 결과물에 단 코멘트로 취향 문서 쌓기를 맡는다.
 
 ## 어기면 안 되는 것
 

@@ -6,7 +6,7 @@
 
 | 경로 | 역할 |
 |---|---|
-| `개조식 보고서 작성 가이드라인.md` | 정본. anti-workslop 스킬이 보고서 윤문의 기본 가이드로 읽는다 |
+| `개조식 보고서 작성 가이드라인.md` | 정본. slop-rewrite 스킬이 보고서 윤문의 기본 가이드로 읽는다 |
 | `kit.json` | 키트 메타 |
 | `corpus/sources.json` | 참고 문헌 25건의 URL·접근 상태·용도. `access`가 `auto`인 것만 스크립트가 받는다 |
 | `corpus/raw_hashes.json` | 원본 PDF 13개의 sha256 |
@@ -62,9 +62,9 @@ python -X utf8 styleguides/report/scripts/fetch_sources.py --verify   # sha256 �
 | 없음 | S1 | 항목 길이 25~70자, 중앙값 45~55자 |
 | 없음 | S5 | 3단이 '필요'로 끝나는 항목 |
 | 없음 | S8 | 표·그림 캡션·출처·요약 항목 |
-| 없음 | S9 | AI 티 공용 목록 (anti-workslop check_ai_tells.py) |
+| 없음 | S9 | AI 티 공용 목록 (slop-rewrite check_ai_tells.py) |
 
-빠진 네 항목은 사람이 본다. HTML 리포트는 anti-workslop 의 `check_html.py`가 산문 블록을 md 로 뽑아 이 검사기에 넘긴다.
+빠진 네 항목은 사람이 본다. HTML 리포트는 slop-rewrite 의 `check_html.py`가 산문 블록을 md 로 뽑아 이 검사기에 넘긴다.
 
 ## 수치의 한계
 

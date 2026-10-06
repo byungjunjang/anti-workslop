@@ -11,12 +11,12 @@ SKILL 수준 '수정 없음' 응답은 `tests/evals/cases.md` 05번 수동 케�
 
 ```
 python -X utf8 .claude/skills/styleguide-builder/scripts/check_style.py --kit styleguides/jangpm --strict \
-    .claude/skills/anti-workslop/tests/fixtures/abstain/already-clean.md
-python -X utf8 .claude/skills/anti-workslop/scripts/check_ai_tells.py --genre 줄글 --strict \
-    .claude/skills/anti-workslop/tests/fixtures/abstain/already-clean.md
-python -X utf8 .claude/skills/anti-workslop/scripts/check_fidelity.py --strict \
-    .claude/skills/anti-workslop/tests/fixtures/abstain/already-clean.md \
-    .claude/skills/anti-workslop/tests/fixtures/abstain/already-clean.md
+    .claude/skills/slop-rewrite/tests/fixtures/abstain/already-clean.md
+python -X utf8 .claude/skills/slop-rewrite/scripts/check_ai_tells.py --genre 줄글 --strict \
+    .claude/skills/slop-rewrite/tests/fixtures/abstain/already-clean.md
+python -X utf8 .claude/skills/slop-rewrite/scripts/check_fidelity.py --strict \
+    .claude/skills/slop-rewrite/tests/fixtures/abstain/already-clean.md \
+    .claude/skills/slop-rewrite/tests/fixtures/abstain/already-clean.md
 ```
 
 셋 다 exit 0 이면 기권이 옳은 판단이다. 고칠 것이 없는 글에 손대면 그 자체가 드리프트다.

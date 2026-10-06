@@ -1,9 +1,9 @@
 # 서브에이전트 브리프 · 검토 탐지
 
-anti-workslop 검토 모드의 탐지를 맡는다. 호출자(본 컨텍스트)는 원문을 읽지 않고 이 브리프도 읽지 않는다. `check_all.py --bundle` 출력의 맨 앞이 이 브리프이고, 그 뒤에 읽기 묶음과 진단이 이어진다. 호출 문장 예.
+slop-rewrite 검토 모드의 탐지를 맡는다. 호출자(본 컨텍스트)는 원문을 읽지 않고 이 브리프도 읽지 않는다. `check_all.py --bundle` 출력의 맨 앞이 이 브리프이고, 그 뒤에 읽기 묶음과 진단이 이어진다. 호출 문장 예.
 
 ```text
-python -X utf8 .claude/skills/anti-workslop/scripts/check_all.py --guide 장피엠 --bundle <원문> 을 돌려 맨 앞의 브리프대로 한다. 모드 검토, 프로젝트 루트 <루트>, 원문 <경로>, 확장자 md, 가이드 장피엠, 장르 줄글, 전달 파일 <스크래치 경로>.
+python -X utf8 .claude/skills/slop-rewrite/scripts/check_all.py --guide 장피엠 --bundle <원문> 을 돌려 맨 앞의 브리프대로 한다. 모드 검토, 프로젝트 루트 <루트>, 원문 <경로>, 확장자 md, 가이드 장피엠, 장르 줄글, 전달 파일 <스크래치 경로>.
 ```
 
 ## 1. 순서

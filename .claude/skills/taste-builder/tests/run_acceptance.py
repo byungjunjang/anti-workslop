@@ -216,7 +216,7 @@ def test_skill_docs():
     skill_md = (SKILL / "SKILL.md").read_text(encoding="utf-8")
     assert skill_md.startswith("---\nname: taste-builder\n"), skill_md[:60]
     assert "description:" in skill_md.splitlines()[2]
-    for h in ("## Step 1", "collect", "publish", "anti-workslop", "ingest_comments.py", "validate_taste.py", "to_artifact.py", "artifacts.json"):
+    for h in ("## Step 1", "collect", "publish", "slop-rewrite", "ingest_comments.py", "validate_taste.py", "to_artifact.py", "artifacts.json"):
         assert h in skill_md, h
     for f in ("case-schema.md", "distill-guide.md", "taste-template.md"):
         assert (SKILL / "references" / f).exists(), f

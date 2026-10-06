@@ -13,4 +13,4 @@ description: 한 저자의 한국어 블로그나 로컬 Markdown 글에서 문�
 - HTML 수집에 필요한 Python 패키지가 없으면 해당 기능에 필요한 의존성만 설치한다. 로컬 Markdown 처리에 웹 수집용 패키지를 요구하지 않는다.
 - 웹 수집은 사용자가 지정한 소스 범위에서 수행하고, 네트워크 제한이 있으면 확보된 로컬 자료로 진행 가능한 부분을 처리한다. 가져오지 못한 글을 읽었다고 하지 않는다.
 - 본체가 정한 분할 읽기는 현재 세션의 서브에이전트 도구가 있고 위임이 허용될 때만 사용한다. 그렇지 않으면 같은 읽기 절차를 순차 수행한다.
-- 검증을 통과한 키트만 기존 `register_guide.py`로 등록한다. 공용 등록부는 `.claude/skills/anti-workslop/references/base-guidelines.json`이다.
+- 검증을 통과한 키트만 기존 `register_guide.py`로 등록한다. 공용 등록부는 `.claude/skills/slop-rewrite/references/base-guidelines.json`이다.

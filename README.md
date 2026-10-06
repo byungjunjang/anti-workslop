@@ -1,4 +1,4 @@
-# anti-workslop
+# slop-rewrite
 
 한국어 글에서 AI 티를 줄이고, 장르·저자 문체·개인 취향에 맞게 퇴고합니다. 누구에게나 AI 티인 것, 문체 가이드, 내 취향을 프롬프트 한 장으로 모아 글을 한 번에 다시 쓰고, 숫자·인용·부정이 사라지지 않았는지는 코드 검사기가 확인합니다.
 
@@ -47,14 +47,14 @@
 1. **바로 써 보기.** Claude Code 또는 Codex 에서 이 폴더를 열고 「이 글 윤문해줘」라고 한다. 줄글은 장피엠 가이드(이 저장소 저자의 블로그 문체), 보고서는 개조식 가이드(공공 기관 보고서 문체)로 고친다. 취향 문서가 없어도 돈다.
 2. **내 문체 가이드 만들기.** 내가 쓴 글 다섯 편 이상을 모은다. 블로그 주소나 로컬 `.md` 폴더면 된다. 「내 블로그 문체 가이드 만들어줘」로 styleguide-builder 를 돌리고, 검증이 끝나면 `register_guide.py` 로 등록한다. 그 뒤 줄글은 내 가이드로 고친다. 지금은 블로그형 줄글만 만든다.
 3. **내 취향 쌓기.** AI 결과물 하나를 「코멘트 달 수 있게 올려줘」로 올린다. 읽다가 걸리는 문장마다 「내가 쓴다면 이렇게 쓴다」를 코멘트로 단다. 「코멘트 반영해줘」로 모으면 `taste/writing-taste.md` 에 규칙이 생긴다. 같은 방향의 코멘트가 모일수록 규칙이 단단해지고 다음 윤문에 들어간다.
-4. **다른 프로젝트에서 부르기.** 스킬은 이 폴더 안에서만 보인다. 어디서든 쓰려면 `~/.claude/skills/anti-workslop/SKILL.md` 에 경로만 알려 주는 진입 스킬을 둔다.
+4. **다른 프로젝트에서 부르기.** 스킬은 이 폴더 안에서만 보인다. 어디서든 쓰려면 `~/.claude/skills/slop-rewrite/SKILL.md` 에 경로만 알려 주는 진입 스킬을 둔다.
 
 ```markdown
 ---
-name: anti-workslop
-description: 한국어 문서 윤문·퇴고·AI 티 제거·검토는 anti-workslop 파이프라인으로 한다. 트리거 · "윤문해줘", "퇴고해줘", "AI 티 없애줘", "검토만", "/anti-workslop".
+name: slop-rewrite
+description: 한국어 문서 윤문·퇴고·AI 티 제거·검토는 slop-rewrite 파이프라인으로 한다. 트리거 · "윤문해줘", "퇴고해줘", "AI 티 없애줘", "검토만", "/slop-rewrite".
 ---
-본체는 `<이 폴더 경로>/.claude/skills/anti-workslop/SKILL.md` 다. 그 파일을 읽고 따르며, 상대 경로 명령은 `<이 폴더 경로>` 에서 돌린다. 원칙·스타일가이드·취향은 그 폴더의 것을 쓴다.
+본체는 `<이 폴더 경로>/.claude/skills/slop-rewrite/SKILL.md` 다. 그 파일을 읽고 따르며, 상대 경로 명령은 `<이 폴더 경로>` 에서 돌린다. 원칙·스타일가이드·취향은 그 폴더의 것을 쓴다.
 ```
 
 `taste/` 에는 내 코멘트와 원문 인용이 쌓인다. 고객 문서를 다룬다면 이 폴더를 공개 저장소에 올리지 않는다. 배포본의 `.gitignore` 가 기본으로 막아 둔다.
@@ -68,9 +68,9 @@ Codex에서 이 프로젝트 폴더를 열고 새 작업을 시작한다. `AGENT
 - 「내 글 폴더로 문체 가이드 만들어줘」
 - 「이 표현은 다음부터 쓰지 않도록 취향으로 기록해줘」
 
-직접 선택하려면 `$anti-workslop`, `$styleguide-builder`, `$taste-builder`를 사용한다. 스킬이 목록에 보이지 않으면 Codex를 다시 시작한다. 프로젝트 지침은 새 작업에서 확인한다. [공식 스킬 안내](https://learn.chatgpt.com/docs/build-skills) · [AGENTS.md 안내](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+직접 선택하려면 `$slop-rewrite`, `$styleguide-builder`, `$taste-builder`를 사용한다. 스킬이 목록에 보이지 않으면 Codex를 다시 시작한다. 프로젝트 지침은 새 작업에서 확인한다. [공식 스킬 안내](https://learn.chatgpt.com/docs/build-skills) · [AGENTS.md 안내](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
 
-Codex와 Claude Code는 `.claude/skills/`의 Python 구현, `principles/`, `styleguides/`, `taste/`를 공유한다. `.agents/skills/`에는 진입 지침만 두므로 구현을 두 벌로 관리하지 않는다. 다른 프로젝트에 진입 스킬을 따로 설치할 때는 Codex의 `~/.agents/skills/anti-workslop/SKILL.md`에서 이 프로젝트의 `.agents/skills/anti-workslop/SKILL.md`를 가리킨다. 현재 설정은 이 프로젝트 범위다.
+Codex와 Claude Code는 `.claude/skills/`의 Python 구현, `principles/`, `styleguides/`, `taste/`를 공유한다. `.agents/skills/`에는 진입 지침만 두므로 구현을 두 벌로 관리하지 않는다. 다른 프로젝트에 진입 스킬을 따로 설치할 때는 Codex의 `~/.agents/skills/slop-rewrite/SKILL.md`에서 이 프로젝트의 `.agents/skills/slop-rewrite/SKILL.md`를 가리킨다. 현재 설정은 이 프로젝트 범위다.
 
 Python이 필요하며 기본 검사에는 추가 패키지가 없다. 블로그 HTML 을 수집하는 `styleguide-builder` 는 `beautifulsoup4` 와 `lxml` 을 쓰므로 클론한 뒤 한 번 설치한다.
 
@@ -96,7 +96,7 @@ Claude 전용 아티팩트 도구가 없는 Codex 환경에서는 `to_artifact.p
 
 | 스킬 | 하는 일 | 트리거 예 |
 |---|---|---|
-| `anti-workslop` | 세 레이어로 윤문·검토·구조 진단. 한 장 프롬프트로 쓰는 담당 1명과 검사기 넷 | 「윤문해줘」「검토만」「결론이 어디 있는지 봐줘」 |
+| `slop-rewrite` | 세 레이어로 윤문·검토·구조 진단. 한 장 프롬프트로 쓰는 담당 1명과 검사기 넷 | 「윤문해줘」「검토만」「결론이 어디 있는지 봐줘」 |
 | `styleguide-builder` | 코퍼스에서 문체 가이드라인 키트를 만들고 렌더·검증한다 | 「이 블로그 문체 가이드 만들어줘」 |
 | `taste-builder` | 산출물을 코멘트용 아티팩트로 발행하고 코멘트를 취향 규칙으로 증류한다 | 「코멘트 달 수 있게 올려줘」「taste 갱신」 |
 
@@ -104,9 +104,9 @@ Claude 전용 아티팩트 도구가 없는 Codex 환경에서는 `to_artifact.p
 
 프로젝트 루트에서 `python -X utf8` 로 돌린다. 표준 라이브러리만 쓴다.
 
-- 검수 한 번에 · `python -X utf8 .claude/skills/anti-workslop/scripts/check_all.py --guide 장피엠 --orig 원문.md 결과.md`
-- 장르 힌트 · `python -X utf8 .claude/skills/anti-workslop/scripts/check_all.py --guide 없음 --hint 원문.md`
-- 테스트 · `python -X utf8 .claude/skills/anti-workslop/tests/run_acceptance.py`. styleguide-builder·taste-builder 도 같은 자리에 `tests/run_acceptance.py` 가 있다
+- 검수 한 번에 · `python -X utf8 .claude/skills/slop-rewrite/scripts/check_all.py --guide 장피엠 --orig 원문.md 결과.md`
+- 장르 힌트 · `python -X utf8 .claude/skills/slop-rewrite/scripts/check_all.py --guide 없음 --hint 원문.md`
+- 테스트 · `python -X utf8 .claude/skills/slop-rewrite/tests/run_acceptance.py`. styleguide-builder·taste-builder 도 같은 자리에 `tests/run_acceptance.py` 가 있다
 - 스킬 문서와 가이드는 원칙 검사기로 S3 까지 0 이어야 한다. 테스트가 본다(`tests/fixtures/self-application.txt`)
 
 ## 기록
@@ -116,7 +116,7 @@ Claude 전용 아티팩트 도구가 없는 Codex 환경에서는 `to_artifact.p
 ## 변경 시 검사
 
 ```bash
-python -X utf8 .claude/skills/anti-workslop/tests/run_ci.py
+python -X utf8 .claude/skills/slop-rewrite/tests/run_ci.py
 ```
 
 개인 취향을 제외한 임시 복사본에서 세 스킬 인수 테스트를 돌립니다. 외부 모델을 호출하지 않고 네트워크도 쓰지 않습니다. 일반 원고의 문체를 이유로 배포를 막지 않습니다.

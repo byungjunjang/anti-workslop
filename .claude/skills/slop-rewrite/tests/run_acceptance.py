@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""anti-workslop 인수 테스트. python tests/run_acceptance.py — 가이드라인 경로·검사 스크립트 존재, SKILL.md 형식."""
+"""slop-rewrite 인수 테스트. python tests/run_acceptance.py — 가이드라인 경로·검사 스크립트 존재, SKILL.md 형식."""
 import json
 import re
 import subprocess
@@ -9,11 +9,11 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 SKILL = HERE.parent
-ROOT = SKILL.parents[2]  # anti-workslop 프로젝트 루트
+ROOT = SKILL.parents[2]  # slop-rewrite 프로젝트 루트
 
-CHECK = ".claude/skills/anti-workslop/scripts/check_ai_tells.py"
-FIX = ".claude/skills/anti-workslop/tests/fixtures"
-FID = ".claude/skills/anti-workslop/scripts/check_fidelity.py"
+CHECK = ".claude/skills/slop-rewrite/scripts/check_ai_tells.py"
+FIX = ".claude/skills/slop-rewrite/tests/fixtures"
+FID = ".claude/skills/slop-rewrite/scripts/check_fidelity.py"
 PRINCIPLES = ROOT / "principles"
 BRIEF = SKILL / "references" / "subagent.md"
 SKILL_DOCS = (SKILL / "SKILL.md", SKILL / "references" / "modes.md", BRIEF, PRINCIPLES / "invariants.md")
@@ -26,7 +26,7 @@ def run(*args, cwd=None):
 
 def test_skill_doc():
     md = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    assert md.startswith("---\nname: anti-workslop\n"), md[:60]
+    assert md.startswith("---\nname: slop-rewrite\n"), md[:60]
     assert "description:" in md.splitlines()[2]
     assert len(md.splitlines()) <= 150, len(md.splitlines())
     for h in ("## Step 1", "## Step 5", "애매하면", "taste-builder", "base-guidelines.json",
@@ -108,8 +108,8 @@ def test_base_guidelines_common():
 
 def test_skill_docs_no_s3():
     r = run(CHECK, "--genre", "all", "--json",
-            ".claude/skills/anti-workslop/SKILL.md", ".claude/skills/anti-workslop/references/modes.md",
-            ".claude/skills/anti-workslop/references/subagent.md", "principles/invariants.md")
+            ".claude/skills/slop-rewrite/SKILL.md", ".claude/skills/slop-rewrite/references/modes.md",
+            ".claude/skills/slop-rewrite/references/subagent.md", "principles/invariants.md")
     for d in json.loads(r.stdout):
         assert d["summary"]["total"] == 0, (d["file"], d["findings"][:3])
     print("PASS test_skill_docs_no_s3")
@@ -276,7 +276,7 @@ def test_ai_tells_html_nesting():
 
 def test_html_exempt_consumers():
     """면제 구역은 장르·원칙·힌트에서 빠지고, 불변식 검사기는 md 와 같이 계속 견준다."""
-    ex = run(".claude/skills/anti-workslop/scripts/check_html.py", "--extract-only", f"{FIX}/html-exempt.html")
+    ex = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--extract-only", f"{FIX}/html-exempt.html")
     assert "논의가 부족" not in ex.stdout and "보정" in ex.stdout, ex.stdout
     h = run(ALL, "--guide", "없음", "--hint", f"{FIX}/html-exempt.html")
     assert "문장 1 " in h.stdout, h.stdout                      # 면제 구역의 세 문장은 세지 않는다
@@ -535,23 +535,23 @@ def test_check_html_wrapper():
     임계값은 md 검사기(targets.json·§11-2)와 같은 것 하나만 남는다."""
     for gone in ("check_jangpm.py", "check_report.py"):
         assert not (SKILL / "scripts" / gone).exists(), gone
-    ex = run(".claude/skills/anti-workslop/scripts/check_html.py", "--extract-only", f"{FIX}/html-sample.html")
+    ex = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--extract-only", f"{FIX}/html-sample.html")
     assert ex.returncode == 0, ex.stderr
     assert "## HTML 오프셋 검사용" in ex.stdout and "- 목록 항목 하나" in ex.stdout, ex.stdout
     assert "결론적으로 표는" not in ex.stdout, ex.stdout           # 표는 검사 대상이 아니다
-    j = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "장피엠", f"{FIX}/html-sample.html")
+    j = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "장피엠", f"{FIX}/html-sample.html")
     assert j.returncode in (0, 1), j.stderr
     d = json.loads(j.stdout)
     d = d[0] if isinstance(d, list) else d
     assert "hard_fail" in d, d
-    s = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "장피엠", "--short", f"{FIX}/html-sample.html")
+    s = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "장피엠", "--short", f"{FIX}/html-sample.html")
     ds = json.loads(s.stdout)
     ds = ds[0] if isinstance(ds, list) else ds
     # Q1(2026-09-22) 뒤로 장피엠은 보통 경로도 개수·불리언 규칙만 본다. 짧은 글 명령과 같아졌다.
     assert len(ds["rows"]) == len(d["rows"]), (len(ds["rows"]), len(d["rows"]))
     all_rules = json.loads((ROOT / "styleguides/jangpm/targets.json").read_text(encoding="utf-8"))["rules"]
     assert len(d["rows"]) < len(all_rules), (len(d["rows"]), len(all_rules))   # 분포 규칙이 빠졌다
-    g = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-sample.html")
+    g = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-sample.html")
     assert "[반드시 고칠 것]" in g.stdout, g.stdout + g.stderr
     print("PASS test_check_html_wrapper")
 
@@ -559,12 +559,12 @@ def test_check_html_wrapper():
 def test_check_html_levels():
     """개조식은 □(1단)·○(2단)·들여쓴 -(3단)으로, 장피엠은 들여쓴 '- ' 로 뽑는다.
     층위가 살아야 H6(2·3단 숫자 비율)·H8(하위 1개)이 HTML 에서도 층위대로 센다."""
-    r = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식",
+    r = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "개조식",
             "--extract-only", f"{FIX}/html-nested.html")
     lines = [l for l in r.stdout.splitlines() if l.strip()]
     assert lines[1].startswith("□ 10월 전 매장"), lines
     assert lines[2].startswith("○ 원가율 38%"), lines
-    s = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "장피엠",
+    s = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "장피엠",
             "--extract-only", f"{FIX}/html-nested.html")
     sl = [l for l in s.stdout.splitlines() if l.strip()]
     assert sl[1].startswith("- 10월 전 매장") and sl[2].startswith("  - 원가율 38%"), sl
@@ -575,7 +575,7 @@ def test_check_html_line_map():
     """장르 검사기가 보고하는 줄 번호는 추출 md 가 아니라 HTML 줄이다."""
     src = (SKILL / "tests" / "fixtures" / "html-nested.html").read_text(encoding="utf-8").splitlines()
     want = next(i for i, l in enumerate(src, 1) if "프로모션 할인과 배송비" in l)
-    r = run(".claude/skills/anti-workslop/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-nested.html")
+    r = run(".claude/skills/slop-rewrite/scripts/check_html.py", "--guide", "개조식", f"{FIX}/html-nested.html")
     nums = [int(x) for x in re.findall(r"H4 (\d+)행", r.stdout)]
     assert nums and want in nums, (nums, want, r.stdout)   # 인용 항목은 Task 6 뒤 빠지므로 긴 무인용 항목으로 본다
     print("PASS test_check_html_line_map")
@@ -614,8 +614,8 @@ def test_check_taste():
         taste = _tmp_md(d, "taste.md", doc)
         hit = _tmp_md(d, "hit.md", "달러당 37배는 높다. 핵심 포인트: 속도. 문제는 도구가 아니라 습관이고 속도가 아니라 방향이다.\n")
         clean = _tmp_md(d, "clean.md", "가격 대비 성능이 높다. 속도가 중요합니다.\n")
-        r = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--doc", taste, "--strict", "--json", hit)
-        c = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--doc", taste, "--strict", "--json", clean)
+        r = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--doc", taste, "--strict", "--json", hit)
+        c = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--doc", taste, "--strict", "--json", clean)
     assert r.returncode == 1, r.stdout + r.stderr
     h = json.loads(r.stdout)
     assert h["rules_loaded"] == 4 and h["summary"]["human"] == ["W-03"], h["summary"]
@@ -629,14 +629,14 @@ def test_check_taste():
     assert c.returncode == 0, c.stdout + c.stderr
     k = json.loads(c.stdout)
     assert k["summary"]["total"] == 0 and k["summary"]["strict_fail"] is False, k["summary"]
-    live = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--list")
+    live = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--list")
     assert live.returncode == 0 and live.stdout.startswith("writing-taste "), live.stdout + live.stderr
     # 취향 문서가 없는 것은 오류가 아니다. 공개본을 받은 사람은 빈 상태에서 시작한다(2026-09-14).
     with tempfile.TemporaryDirectory() as d:
         none = f"{d}/none.md"
         clean = _tmp_md(d, "clean.md", "가격 대비 성능이 높다.\n")
-        ls = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--doc", none, "--list")
-        js = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--doc", none, "--strict", "--json", clean)
+        ls = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--doc", none, "--list")
+        js = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--doc", none, "--strict", "--json", clean)
     assert ls.returncode == 0 and ls.stdout.startswith("writing-taste 없음 · 규칙 0"), ls.stdout + ls.stderr
     m = json.loads(js.stdout)
     assert js.returncode == 0 and m["doc_state"] == "missing" and m["summary"]["total"] == 0, js.stdout + js.stderr
@@ -655,7 +655,7 @@ def test_ai_tells_explain_human():
     print("PASS test_ai_tells_explain_human")
 
 
-ALL = ".claude/skills/anti-workslop/scripts/check_all.py"
+ALL = ".claude/skills/slop-rewrite/scripts/check_all.py"
 
 
 def test_check_all_pack():
@@ -1006,7 +1006,7 @@ def test_abstain_fixture():
     g = run(".claude/skills/styleguide-builder/scripts/check_style.py", "--kit", "styleguides/jangpm",
             "--strict", f"{FIX}/abstain/already-clean.md")
     a = run(CHECK, "--genre", "줄글", "--strict", f"{FIX}/abstain/already-clean.md")
-    t = run(".claude/skills/anti-workslop/scripts/check_taste.py", "--strict", "--json", f"{FIX}/abstain/already-clean.md")
+    t = run(".claude/skills/slop-rewrite/scripts/check_taste.py", "--strict", "--json", f"{FIX}/abstain/already-clean.md")
     f = run(FID, "--strict", "--json", f"{FIX}/abstain/already-clean.md", f"{FIX}/abstain/already-clean.md")
     assert g.returncode == 0, g.stdout[-2000:] + g.stderr[-2000:]
     assert t.returncode == 0 and json.loads(t.stdout)["summary"]["by_grade"]["규칙"] == 0, t.stdout[-500:]
@@ -1015,7 +1015,7 @@ def test_abstain_fixture():
 
 
 def test_compare_polish():
-    r = run(".claude/skills/anti-workslop/tests/compare_polish.py", "--genre", "줄글",
+    r = run(".claude/skills/slop-rewrite/tests/compare_polish.py", "--genre", "줄글",
             "--orig", f"{FIX}/fidelity/orig.md", f"ok={FIX}/fidelity/ok.md", f"drift={FIX}/fidelity/drift.md", "--json")
     assert r.returncode == 0, r.stderr
     rows = json.loads(r.stdout)
@@ -1029,7 +1029,7 @@ def test_compare_polish():
 
 def test_compare_polish_bad_path():
     """없는 경로는 exit 2 와 한 줄 오류다. 자식 검사기의 JSON 아닌 출력으로 죽지 않는다."""
-    r = run(".claude/skills/anti-workslop/tests/compare_polish.py", "--genre", "줄글",
+    r = run(".claude/skills/slop-rewrite/tests/compare_polish.py", "--genre", "줄글",
             "--orig", f"{FIX}/fidelity/orig.md", f"x={FIX}/fidelity/does-not-exist.md", "--json")
     assert r.returncode == 2, (r.returncode, r.stderr[-300:])
     assert "Traceback" not in r.stderr, r.stderr[-500:]
@@ -1182,7 +1182,7 @@ def test_ai_tells_hortative_setup():
 
 
 def test_guides_defer_to_invariants():
-    """가이드 §10·§14 [작업]·[보존]은 가이드를 시스템 프롬프트로 쓰거나 손으로 편집할 때의 규칙이다. anti-workslop 윤문은
+    """가이드 §10·§14 [작업]·[보존]은 가이드를 시스템 프롬프트로 쓰거나 손으로 편집할 때의 규칙이다. slop-rewrite 윤문은
     그 자리를 불변식 셋이 대신하므로 묶음에 싣지 않고, 가이드 §10 은 불변식 셋을 가리킨다(2026-09-17).
     두 블록이 묶음에 남으면 「문단 순서 유지 · 문제 자리만 고친다」가 재작성을 다시 묶는다."""
     bg = json.loads((SKILL / "references" / "base-guidelines.json").read_text(encoding="utf-8"))
@@ -1192,7 +1192,7 @@ def test_guides_defer_to_invariants():
     import register_guide as rg
     assert "작업" not in rg.BLOG_S14 and "보존" not in rg.BLOG_S14, rg.BLOG_S14
     assert "이 윤문에서는 불변식 셋이 그 자리를 대신한다" in BRIEF.read_text(encoding="utf-8")
-    line = "anti-workslop 윤문은 이 절 대신 `principles/invariants.md`의 불변식 셋을 따른다."
+    line = "slop-rewrite 윤문은 이 절 대신 `principles/invariants.md`의 불변식 셋을 따른다."
     for p in (ROOT / ".claude" / "skills" / "styleguide-builder" / "assets" / "templates" / "blog.template.md",
               ROOT / "styleguides" / "jangpm" / "장피엠 글쓰기 문체 가이드라인.md",
               ROOT / "styleguides" / "report" / "개조식 보고서 작성 가이드라인.md"):
@@ -1213,14 +1213,14 @@ def test_check_all_taste_skip():
     assert block == 1 and g["규칙"] == 2 and human == ["W-03"], (block, g)
     assert len(lines) == 2 and "막지 않음" in lines[0] and "막지 않음" not in lines[1], lines
     assert check_all.taste_lines(d, True)[1] == 2
-    r = run(".claude/skills/anti-workslop/scripts/check_all.py", "--guide", "장피엠", "--orig", f"{FIX}/clean-control.md",
+    r = run(".claude/skills/slop-rewrite/scripts/check_all.py", "--guide", "장피엠", "--orig", f"{FIX}/clean-control.md",
             "--taste-skip", "W-01,W-02", f"{FIX}/clean-control.md")
     assert r.returncode in (0, 1) and "판정:" in r.stdout, r.stdout[-500:] + r.stderr[-500:]
     print("PASS test_check_all_taste_skip")
 
 
 def test_taste_scope_is_provenance():
-    """취향의 「적용: …」은 규칙이 나온 장르일 뿐이고 anti-workslop 은 모든 문서에 댄다(2026-09-17).
+    """취향의 「적용: …」은 규칙이 나온 장르일 뿐이고 slop-rewrite 는 모든 문서에 댄다(2026-09-17).
     범위 판단을 호출자에게 맡기던 문구가 남으면 W-01·W-02 가 투자 분석 밖에서 다시 빠진다."""
     tb = ROOT / ".claude" / "skills" / "taste-builder" / "references"
     for p in (tb / "taste-template.md", tb / "distill-guide.md", SKILL / "references" / "base-guidelines.json",
@@ -1364,7 +1364,7 @@ def test_reader_removed():
     프롬프트 「쓰는 법」의 「처음 읽는 독자로 한 번 읽고」가 같은 일을 한다. 브리프·절·응답 항목이 되살아나지 않게 막는다."""
     assert not (SKILL / "references" / "reader.md").exists(), "reader.md 가 남아 있다"
     for p in (SKILL / "SKILL.md", SKILL / "references" / "modes.md", SKILL / "references" / "writer.md",
-              SKILL / "AGENTS.md", ROOT / ".agents" / "skills" / "anti-workslop" / "SKILL.md"):
+              SKILL / "AGENTS.md", ROOT / ".agents" / "skills" / "slop-rewrite" / "SKILL.md"):
         if not p.exists():          # 스킬 AGENTS.md 는 내부용이라 공개본에 없다(export-ignore)
             continue
         t = p.read_text(encoding="utf-8")
@@ -1404,7 +1404,7 @@ def test_author_trailer_is_not_body():
     import importlib
     ca = importlib.import_module("check_ai_tells")
     body = "# 제목\n\n본문 한 줄이다.\n"
-    tail = body + "\n<!-- anti-workslop:작성자 확인 · 제출 전에 이 줄부터 끝까지 지운다 -->\n\n- 근거 · 1문단 · 「30%」 · 출처 없음\n"
+    tail = body + "\n<!-- slop-rewrite:작성자 확인 · 제출 전에 이 줄부터 끝까지 지운다 -->\n\n- 근거 · 1문단 · 「30%」 · 출처 없음\n"
     assert ca.strip_trailer(tail).rstrip() == body.rstrip(), ca.strip_trailer(tail)
     assert ca.strip_trailer(body) == body                      # 표시가 없으면 그대로
 
@@ -1413,7 +1413,7 @@ def test_author_trailer_is_not_body():
         plain = _tmp_md(d, "p.md", "매출은 10억원이다. 다음 달 도입을 검토 중이다.\n")
         withtail = _tmp_md(d, "q.md",
                            "매출은 10억원이다. 다음 달 도입을 검토 중이다.\n\n"
-                           "<!-- anti-workslop:작성자 확인 -->\n\n"
+                           "<!-- slop-rewrite:작성자 확인 -->\n\n"
                            "- 근거 · 1문단 · 「10억원」 · 산정 근거가 본문에 없음\n"
                            "- 확신 낮음 · 1문단 · 「검토 중」 → 「검토 중」 · 확정 수준 유지\n")
         a = run(ALL, "--guide", "없음", "--orig", o, plain)
@@ -1429,7 +1429,7 @@ def test_brief_writes_trailer():
     """윤문 프롬프트가 트레일러 형식을 정하고, 작성자만 채울 수 있는 것만 적게 한다.
     2026-09-30 · 트레일러 형식은 subagent.md 가 아니라 prompt.py 「출력」 절에 있다."""
     _, b = _build("장피엠")
-    assert "anti-workslop:작성자 확인" in b
+    assert "slop-rewrite:작성자 확인" in b
     assert "작성자만 채울 수 있는 것" in b and "없으면 붙이지 않는다" in b
     assert "제출 전에 이 줄부터 끝까지 지운다" in b
     assert "작성자 확인 트레일러" not in BRIEF.read_text(encoding="utf-8")

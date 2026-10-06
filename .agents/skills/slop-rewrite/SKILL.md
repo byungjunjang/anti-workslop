@@ -1,15 +1,15 @@
 ---
-name: anti-workslop
+name: slop-rewrite
 description: 한국어 글을 윤문·퇴고하거나 AI 티를 제거하고 검토·구조 진단한다. "윤문해줘", "다듬어줘", "검토만", "두괄식인지 진단해줘"에 사용한다. 문체 가이드 생성이나 취향 저장은 별도 스킬을 쓴다.
 ---
 
-# anti-workslop — Codex
+# slop-rewrite — Codex
 
-먼저 프로젝트 루트의 `AGENTS.md`와 `.claude/skills/anti-workslop/SKILL.md`를 읽고 해당 모드의 절차를 따른다. 이 파일은 Codex 진입점이며 실행 구현은 기존 스킬을 공유한다.
+먼저 프로젝트 루트의 `AGENTS.md`와 `.claude/skills/slop-rewrite/SKILL.md`를 읽고 해당 모드의 절차를 따른다. 이 파일은 Codex 진입점이며 실행 구현은 기존 스킬을 공유한다.
 
 ## 경로
 
-이 파일에서 세 단계 위가 프로젝트 루트다. 명령은 루트에서 실행한다. 본체 문서의 `references/`, `scripts/`, `tests/`는 `.claude/skills/anti-workslop/` 기준이다. `.agents/skills/`로 치환하지 않는다.
+이 파일에서 세 단계 위가 프로젝트 루트다. 명령은 루트에서 실행한다. 본체 문서의 `references/`, `scripts/`, `tests/`는 `.claude/skills/slop-rewrite/` 기준이다. `.agents/skills/`로 치환하지 않는다.
 
 ## Codex 도구 대응
 
