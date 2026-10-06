@@ -34,8 +34,11 @@ def test_skill_doc():
               "check_all", "check_fidelity", "references/modes.md", "principles/invariants.md", "principles/ai-tells-ko.md",
               "references/subagent.md", "스타일가이드", "우선권", "## Step 2. 사전 검사와 쓰기", "## Step 3. 검수", "## Step 4. notes",
               "사람이 판단할 것", "전달 파일", "--hint", "--bundle", "작업 기록", "--taste-skip",
-              "SendMessage", "불변식 셋", "사전 검사:", "references/writer.md", "--prompt", "꼼꼼히"):
+              "불변식 셋", "사전 검사:", "references/writer.md", "--prompt"):
         assert h in md, h
+    # 2026-10-06 · 읽기 검토(「꼼꼼히」)를 없앴다(결정 기록 0015)
+    for gone in ("꼼꼼히", "reader.md", "Step 3-1", "SendMessage", "읽기 검토"):
+        assert gone not in md, gone
     assert "## Step 3. 재작성" not in md and "읽는 것 다섯" not in md, "재작성 절은 브리프로 옮겼다"
     assert "references/ai-tells-ko.md" not in md and "references/invariants.md" not in md
     for bad in ("계약", "게이트"):
@@ -67,7 +70,9 @@ def test_base_guidelines_common():
         assert "{file}" in cmd, k
     assert "{orig}" in bg["_checks_common"]["fidelity"] and "{genre}" in bg["_checks_common"]["ai_tells"]
     assert "check_taste.py" in bg["_checks_common"]["taste"], bg["_checks_common"]
-    assert bg["_check_order"] == ["genre", "ai_tells", "taste", "fidelity"]
+    # 2026-10-06 · 코드가 읽지 않던 _pass·_loop·_check_all·_check_order 를 지웠다. 검수 순서와 통과 기준은 check_all.check 와 SKILL.md 표에 있다
+    for gone in ("_pass", "_loop", "_check_all", "_check_order"):
+        assert gone not in bg, gone
     # 가이드는 기본 셋 + 사용자가 register_guide.py 로 등록한 것. 표마다 등록된 이름이 빠짐없이 있어야 한다.
     # 업무(2026-09-23)는 장르 검사기가 없는 기본 가이드다(_checker_kind none, _checks 는 빈 표).
     names = [k for k in bg if not k.startswith("_")]
@@ -82,7 +87,6 @@ def test_base_guidelines_common():
     assert "--subset counts" in bg["_checks_short"]["장피엠"]["md"], bg["_checks_short"]
     assert bg["_checks_short"]["개조식"]["md"] == bg["_checks"]["개조식"]["md"]
     assert bg["_short_chars"] == 800
-    assert "check_all.py" in bg["_check_all"] and "{guide}" in bg["_check_all"] and "{orig}" in bg["_check_all"], bg.get("_check_all")
     for s in ("check_all", "--bundle", "--hint"):
         assert s in (SKILL / "SKILL.md").read_text(encoding="utf-8"), s
     assert "--bundle" in BRIEF.read_text(encoding="utf-8")
@@ -1348,31 +1352,25 @@ def test_brief_delivery_plan():
     P5(2026-09-23) 뒤로 전달 계획 절은 없고, 한 장 프롬프트 「쓰는 법」 첫 줄이 그 자리다."""
     P, b = _build("장피엠")
     plan = P.WRITE[0]
-    for s in ("누가 읽고", "핵심 판단은 첫 문단에", "시간순"):
+    for s in ("누가 읽고", "핵심 판단은 원문의 첫 문단 안으로", "시간순"):
         assert s in plan, s
     assert plan in b and b.index(plan) < b.index("## 출력"), "쓰는 법은 출력 절보다 앞이다"
     assert "## 전달 계획" not in BRIEF.read_text(encoding="utf-8")
     print("PASS test_brief_delivery_plan")
 
 
-READER = SKILL / "references" / "reader.md"
-
-
-def test_reader_brief():
-    """Q6 · 읽기 검토 담당은 결과만 읽고 넷을 적는다. 고치지 않고 SKILL 이 Step 2-1 로 부른다."""
-    assert READER.exists(), "reader.md 가 없다"
-    r = READER.read_text(encoding="utf-8")
-    assert len(r) <= 1200, len(r)
-    for s in ("①", "②", "③", "④", "결과 파일 하나만 Read"):
-        assert s in r, s
-    assert "원문·규칙·가이드·취향·작업 기록은 받지 않고" in r
-    assert "고치지 않고" in r and "점수를 매기지" in r
-    skill = (SKILL / "SKILL.md").read_text(encoding="utf-8")
-    # 2026-09-23 P5 · 읽기 검토는 기본 끔. 사용자가 켤 때만 Step 3-1 에서 부른다.
-    assert "## Step 3-1. 켤 때만" in skill and "references/reader.md" in skill, "SKILL 이 담당을 부르지 않는다"
-    assert "기본은 끔" in skill and "꼼꼼히" in skill, "켜는 조건이 없다"
-    assert "읽기 검토" in (SKILL / "references" / "modes.md").read_text(encoding="utf-8")
-    print("PASS test_reader_brief")
+def test_reader_removed():
+    """2026-10-06 · 읽기 검토(「꼼꼼히」)를 없앴다(결정 기록 0015). 효과를 잰 적이 없고, 트리거가 검토 모드와 헷갈렸으며,
+    프롬프트 「쓰는 법」의 「처음 읽는 독자로 한 번 읽고」가 같은 일을 한다. 브리프·절·응답 항목이 되살아나지 않게 막는다."""
+    assert not (SKILL / "references" / "reader.md").exists(), "reader.md 가 남아 있다"
+    for p in (SKILL / "SKILL.md", SKILL / "references" / "modes.md", SKILL / "references" / "writer.md",
+              SKILL / "AGENTS.md", ROOT / ".agents" / "skills" / "anti-workslop" / "SKILL.md"):
+        if not p.exists():          # 스킬 AGENTS.md 는 내부용이라 공개본에 없다(export-ignore)
+            continue
+        t = p.read_text(encoding="utf-8")
+        for gone in ("꼼꼼히", "reader.md", "읽기 검토"):
+            assert gone not in t, (p.name, gone)
+    print("PASS test_reader_removed")
 
 
 def test_check_all_pack_examples():
@@ -1507,7 +1505,7 @@ def test_business_guide():
     v = run(ALL, "--guide", "업무", "--orig", f"{FIX}/purpose/notice.md", f"{FIX}/purpose/notice.md")
     assert v.returncode == 0 and "판정: PASS · 장르 hard 0" in v.stdout, v.stdout[-400:]
     p = run(ALL, "--guide", "업무", "--prompt", "--record", "r", f"{FIX}/purpose/notice.md").stdout
-    for s in ("[구성]", "[문장]", "[종결]", "[어휘]", "[금지]", "## 예문", "완성 문단"):
+    for s in ("[구성]", "[문장]", "[종결]", "[어휘]", "[금지]"):
         assert s in p, s
     assert len(p) <= 6000, len(p)
     # 용도 줄 · 업무 셋은 업무. 장피엠 글은 업무로 가지 않는다(블로그든 애매든 장피엠을 쓴다).
@@ -1546,14 +1544,15 @@ def test_prompt_build():
     # 1 · 예산 — 기권 줄을 실은 경우와 걸린 곳 블록이 가득 찬 경우 둘 다 잰다(2026-10-02)
     many = [f"{i}행 · AT-18 줄표 남용 「" + "가" * 24 + "…」" for i in range(1, 40)]
     for g in C.guide_names(bg):
-        for kw in (dict(clean=True), dict(flags=many)):
+        for kw in (dict(clean=True), dict(flags=many), dict(flags=many, orig=ROOT / FIX / "form-plan.md")):
             _, text = _build(g, **kw)
             assert len(text) <= budget, (g, list(kw), len(text))
     P, jang = _build("장피엠")
-    # 4 · 사람 판단 규칙 ID 전부
+    # 4 · 판정 질문 블록과 예문 블록은 싣지 않는다(2026-10-06. 판정 질문은 다른 블록과 겹치고, 예문은 가이드 말투를 끌어온다)
     for r in load_rules().rules:
         if r.detect == "human":
-            assert f"- {r.id} · " in jang, r.id
+            assert f"- {r.id} · " not in jang, r.id
+    assert "## 읽어야 보이는 것" not in jang and "## 예문" not in jang
     # 6 · 기권 줄은 원문이 깨끗할 때만, 걸린 곳 블록은 걸린 것이 있을 때만
     assert P.ABSTAIN not in jang and P.ABSTAIN in _build("장피엠", clean=True)[1]
     assert P.FLAGS_HEAD in jang and P.FLAGS_HEAD not in _build("장피엠", clean=True)[1]
@@ -1578,9 +1577,71 @@ def test_prompt_build():
     first = next(l for l in src.splitlines() if len(l) > 20)
     assert first not in jang and "ai-draft-prose.md" in jang and "ai-draft-prose.taste.md" in jang
     assert "SCRATCH/rec.md" in jang
-    # 예문 · 전/후 줄과 완성 문단, 머리말 없음
-    assert "전 · " in jang and "완성 문단 · " in jang and "주제를 가져오지 말고" not in jang
     print("PASS test_prompt_build")
+
+
+def test_prompt_merge_strengths():
+    """2026-10-06 세 판 합치기(설계안 1·3·4·5·8). 먼저 잡는 것 셋이 맨 앞, 말끝은 원문의 주된 말끝 하나,
+    장피엠 「문단 끝 해요체」 문장은 싣지 않고, 개조식은 서술 문단을 불릿으로 나누며 기권 줄을 쓰지 않고,
+    양식 문서는 소제목·굵은 글씨를 지키며, 원문에 없던 요약 줄을 만들지 않는다."""
+    P, jang = _build("장피엠")
+    # 8 · 먼저 잡는 것 셋이 첫 블록이다
+    assert P.FIRST3_HEAD in jang and jang.index(P.FIRST3_HEAD) < jang.index("## 지키는 것"), jang[:400]
+    assert re.findall(r"^## .+$", jang, re.M)[0] == P.FIRST3_HEAD
+    for s in ("1. 비유로 말하기.", "2. 돌려 말하기.", "3. 뻔한 말을 길게 하기."):
+        assert s in jang, s
+    # 1 · 말끝 한 줄. 합쇼체 원문은 합쇼체, 해라체 원문은 해라체. 장피엠 §14 의 해요체 배치 문장은 빠진다
+    assert "해요체 두 문장 연속" not in jang and "문단 끝 한 문장만 해요체" not in jang and "해라체 금지" not in jang
+    assert "[종결]" in jang, "해요체 문장만 빠지고 [종결] 줄은 남는다"
+    assert re.search(r"^- 말끝 · 원문에서 가장 많은 말끝은 합쇼체", jang, re.M), jang
+    haera = _build("장피엠", orig=ROOT / FIX / "three-lessons.md")[1]
+    assert re.search(r"^- 말끝 · 원문에서 가장 많은 말끝은 해라체", haera, re.M)
+    # 5 · 요약 줄을 새로 만들지 않고 핵심 판단은 원문 첫 문단 안으로
+    assert "요약 줄" in jang and "첫 문단 안으로" in jang
+    # 3 · 개조식은 서술 문단을 불릿으로 나누고, 원문이 깨끗해도 기권 줄을 싣지 않는다
+    rep_clean = _build("개조식", clean=True, orig=ROOT / FIX / "ai-draft-report.md")[1]
+    assert P.ABSTAIN not in rep_clean and P.REPORT_BULLETS in rep_clean
+    assert P.REPORT_BULLETS not in jang and P.ABSTAIN in _build("장피엠", clean=True)[1]
+    # 4 · 양식 문서 · 힌트 줄에 표시가 붙고 프롬프트에 양식 줄이 실린다. RT-01(제목 고쳐 쓰기)은 싣지 않는다
+    form = ROOT / FIX / "form-plan.md"
+    h = run(ALL, "--guide", "없음", "--hint", f"{FIX}/form-plan.md").stdout.splitlines()[0]
+    assert h.endswith(" · 양식"), h
+    assert not run(ALL, "--guide", "없음", "--hint", f"{FIX}/ai-draft-report.md").stdout.splitlines()[0].endswith("양식")
+    fp = _build("개조식", orig=form)[1]
+    assert P.FORM_LINE in fp and "RT-01" not in fp, fp[-2500:]
+    assert P.FORM_LINE not in _build("개조식", orig=ROOT / FIX / "ai-draft-report.md")[1]
+    print("PASS test_prompt_merge_strengths")
+
+
+def test_prompt_list_keep():
+    """2026-10-06 설계안 2 · 문단 단위 재작성은 산문 문단에만 적용하고, 원문의 목록은 목록 모양으로 둔 채 항목 문장만 퇴고한다.
+    「문단 단위로 다시 쓴다」가 목록까지 문단으로 뭉개게 했다(4차 평가 iter 24 → 7줄). 모든 가이드·장르에 실린다."""
+    sys.path.insert(0, str(SKILL / "scripts"))
+    import check_all as C
+    P, jang = _build("장피엠")
+    assert "- 산문 문단은 자리를 땜질하지 말고 문단 단위로 다시 쓴다." in jang
+    assert P.LIST_KEEP in jang and P.LIST_KEEP in P.WRITE
+    for s in ("목록 모양으로 두고 항목 문장만 퇴고한다", "한 문단이나 한 문장으로 합치지 않고", "개수와 순서는 되도록 원문대로"):
+        assert s in P.LIST_KEEP, s
+    # 문단 재작성 줄 바로 다음에 온다(단서가 그 지시에 붙어 읽히게)
+    assert jang.index(P.LIST_KEEP) > jang.index("- 산문 문단은 자리를 땜질하지")
+    for g in C.guide_names(C.load_bg()):
+        assert P.LIST_KEEP in _build(g, clean=True)[1], g
+    print("PASS test_prompt_list_keep")
+
+
+def test_prompt_keep_hedges():
+    """2026-10-06 설계안 7(결정 기록 0017) · 원문이 질문·가정으로 쓴 것을 단정으로 바꾸지 않고 정도를 나타내는 말을 지워
+    강도를 바꾸지 않는다. 검수 코드가 뜻 뒤집기를 잡지 못해 지시 한 구가 유일한 장치다. 불변식 3 줄 안에 실린다."""
+    P, jang = _build("장피엠")
+    keep = jang.split("## 지키는 것")[1].split("## ")[0]
+    line3 = next(l for l in keep.splitlines() if l.startswith("3. 뜻 뒤집기 금지"))
+    for s in ("질문·가정으로 쓴 것을 단정으로 바꾸지 않고", "강도를 바꾸지 않는다"):
+        assert s in line3, s
+    inv = (PRINCIPLES / "invariants.md").read_text(encoding="utf-8").split("## 3. 뜻 뒤집기 금지")[1].split("## ")[0]
+    assert "질문·가정으로 쓴 것을 단정으로" in inv
+    assert P.FLAGS_BUDGET == 160, P.FLAGS_BUDGET
+    print("PASS test_prompt_keep_hedges")
 
 
 def test_prompt_taste_lines():
@@ -1714,7 +1775,7 @@ if __name__ == "__main__":
     test_fidelity_placeholder_added_s1()
     test_brief_places_holes_in_record()
     test_brief_delivery_plan()
-    test_reader_brief()
+    test_reader_removed()
     test_check_all_pack_examples()
     test_author_trailer_is_not_body()
     test_brief_writes_trailer()
@@ -1741,6 +1802,9 @@ if __name__ == "__main__":
     test_ai_tells_hortative_setup()
     test_prompt_core_covers_s1()
     test_prompt_build()
+    test_prompt_merge_strengths()
+    test_prompt_list_keep()
+    test_prompt_keep_hedges()
     test_prompt_taste_lines()
     test_check_all_prompt()
     test_writer_brief()

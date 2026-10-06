@@ -1,6 +1,6 @@
 # RT-01 의미 회귀 평가
 
-자동 테스트 `tests/test_report_titles.py`는 읽기 묶음 전달과 기존 불변식 탐지만 검증한다. 아래는 본문을 읽는 에이전트가 실제로 윤문·검토하여 판단할 항목이다. 정규식이나 제목 종결어미로 합격을 판정하지 않는다.
+자동 테스트(`tests/run_acceptance.py` 가 `title-claims.md` 의 묶음 전달과 개조식 프롬프트의 RT-01 줄을 본다)는 전달과 기존 불변식 탐지만 검증한다. 아래는 본문을 읽는 에이전트가 실제로 윤문·검토하여 판단할 항목이다. 정규식이나 제목 종결어미로 합격을 판정하지 않는다.
 
 새 세션에서 `fixtures/report-titles/decision.md`와 `personal.md`를 세션 임시 폴더에 복사한다. 저장소 픽스처는 수정하지 않는다. `.agents/skills/anti-workslop/SKILL.md` 진입점과 `check_all.py --guide 장피엠 --bundle <원문>`으로 수행한다. decision은 의사결정 보고서, personal은 개인 일기다. decision의 별도 원문 복사본에는 검토만 요청한다.
 

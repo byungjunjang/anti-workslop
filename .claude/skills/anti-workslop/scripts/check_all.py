@@ -8,7 +8,7 @@
   python -X utf8 check_all.py --guide … --bundle FILE                      # 서브에이전트가 읽을 것 전부: 브리프 + 읽기 묶음 + 진단
   python -X utf8 check_all.py --guide 없음 --hint FILE                     # 힌트·용도·레이어 세 줄 + 「가이드: <이름>|묻는다 · <이유>」 + 고른 가이드의 「사전 검사:」 줄(물을 때는 없다)
   python -X utf8 check_all.py --guide <가이드> --hint FILE                 # 고르지 않고 그 가이드로. 사용자가 가이드를 지정했거나 질문에 답한 뒤
-  python -X utf8 check_all.py --guide … --prompt --record REC FILE   # 윤문 담당의 한 장 프롬프트(P5). 원문 사전 검사에서 걸린 곳을 함께 싣는다. 「사전 검사:」 줄이 깨끗이면 --clean
+  python -X utf8 check_all.py --guide … --prompt --record REC FILE   # 윤문 담당의 한 장 프롬프트(P5). 원문 사전 검사에서 걸린 곳을, 없으면 「걸리는 문장만 고친다」를 싣는다
 
 가이드 이름은 base-guidelines.json 의 밑줄 없는 최상위 키다(기본 셋 + register_guide.py 로 등록한 것).
 명령은 같은 파일에서 읽는다(_checks · _checks_short · _checks_common · _checker_kind · _pack_sections · _s14_blocks). 짧은 글 판정은
@@ -316,16 +316,38 @@ def _ending(s: str) -> str:
     return "명사"
 
 
-def hint(text: str, is_html: bool) -> str:
-    """'힌트: 줄글|개조식|애매 · 문장 N (어체 비율) · 항목 M (명사형 %) · 공백 제외 K자'.
-    줄글 = 산문 문장이 셋 이상이고 명사형 종결 항목이 문장의 1/4 이하. 개조식 = 항목이 셋 이상, 명사형 60% 이상, 산문 문장이 항목보다 적음.
-    둘 다 아니면 애매(섞였거나 신호가 약함). 그때는 호출자가 사용자에게 묻는다."""
+def _prose_endings(text: str, is_html: bool) -> tuple[dict, list, list]:
+    """(산문 문장의 어체별 개수, 산문 문장, 목록 항목)."""
     segs = segment_html(text, None) if is_html else segment_markdown(text, None)
     sents = [s for seg in segs if seg.kind == "prose" for s in split_sentences(seg.text) if not is_label(s)]
     items = [seg.text for seg in segs if seg.kind == "list" and seg.text.strip()]
     end = {"합쇼": 0, "해요": 0, "해라": 0, "명사": 0}
     for s in sents:
         end[_ending(s)] += 1
+    return end, sents, items
+
+
+def main_ending(text: str, is_html: bool) -> str:
+    """목록 밖 문장에서 가장 많은 어체(합쇼·해요·해라·명사). 문장이 없으면 빈 문자열. 같으면 앞의 것."""
+    end = _prose_endings(text, is_html)[0]
+    top = max(end, key=lambda k: end[k])
+    return top if end[top] else ""
+
+
+# 양식 문서 · 고정 소제목(표제나 줄 전체 굵은 글씨가 □·■·◇·◆·◦·①~⑳ 로 시작)이 둘 이상이거나 「| 항목 | 내용 |」 표가 있다(2026-10-06)
+_FORM_HEAD = re.compile(r"^(?:#{1,6}[ \t]*|\*\*[ \t]*)[□■◇◆◦①-⑳]", re.M)
+_FORM_TABLE = re.compile(r"^\|[ \t]*(?:항목|구분)[ \t]*\|[ \t]*내용[ \t]*\|", re.M)
+
+
+def is_form(text: str) -> bool:
+    return len(_FORM_HEAD.findall(text)) >= 2 or bool(_FORM_TABLE.search(text))
+
+
+def hint(text: str, is_html: bool) -> str:
+    """'힌트: 줄글|개조식|애매 · 문장 N (어체 비율) · 항목 M (명사형 %) · 공백 제외 K자[ · 양식]'.
+    줄글 = 산문 문장이 셋 이상이고 명사형 종결 항목이 문장의 1/4 이하. 개조식 = 항목이 셋 이상, 명사형 60% 이상, 산문 문장이 항목보다 적음.
+    둘 다 아니면 애매(섞였거나 신호가 약함). 그때는 호출자가 사용자에게 묻는다. 양식 문서면 끝에 「· 양식」을 붙인다."""
+    end, sents, items = _prose_endings(text, is_html)
     nominal = sum(1 for t in items if _ending(t) == "명사")
     P, L = len(sents), len(items)
     if P >= HINT_MIN and nominal * HINT_PROSE_RATIO <= P:
@@ -337,7 +359,7 @@ def hint(text: str, is_html: bool) -> str:
     pct = (lambda n, d: f"{100 * n // d}%" if d else "-")
     chars = len("".join(normalize_text(text).split()))
     return (f"힌트: {genre} · 문장 {P} (합쇼체 {pct(end['합쇼'], P)} · 해요체 {pct(end['해요'], P)} · 해라체 {pct(end['해라'], P)}) "
-            f"· 항목 {L} (명사형 {pct(nominal, L)}) · 공백 제외 {chars:,}자")
+            f"· 항목 {L} (명사형 {pct(nominal, L)}) · 공백 제외 {chars:,}자" + (" · 양식" if is_form(text) else ""))
 
 
 # 용도 · 줄글을 업무(공지·메일·설명문)와 블로그로 가른다(2026-09-23 Q9). 신호마다 1점, 업무가 2 이상이고 블로그보다 많으면 업무.

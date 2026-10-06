@@ -48,10 +48,6 @@ def extract_md_mapped(html: str, kind: str = "style") -> tuple[str, dict]:
     return "\n\n".join(out) + ("\n" if out else ""), lines
 
 
-def extract_md(html: str, kind: str = "style") -> str:
-    return extract_md_mapped(html, kind)[0]
-
-
 def load_bg() -> dict:
     return json.loads(BASE.read_text(encoding="utf-8"))
 

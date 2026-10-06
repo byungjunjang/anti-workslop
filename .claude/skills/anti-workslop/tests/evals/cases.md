@@ -2,6 +2,8 @@
 
 픽스처는 `tests/fixtures/`에서 중립 경로로 복사해 돌린다(경로가 테스트임을 누설하지 않게).
 
+보고서 제목 규칙 RT-01 의 의미 판단 케이스는 `report-titles.md` 에 따로 있다.
+
 러너는 없다. 새 세션을 열어 아래 입력·요청을 그대로 주고, 응답이 기대 칸을 만족하는지 사람이 본다. 결과 기록에는 실행한 모델을 적는다(본 컨텍스트와 서브에이전트가 다르면 둘 다). 입력 파일은 전부 `tests/fixtures/`에 있다(06 `timeline.md`, 09 `explore-memo.md`, 10 `quoted-law.md`는 2026-09-09, 13 `no-ai-slop-ko.md`, 14·15 `three-lessons.md`, 16 `three-stages-gpt.md`는 2026-09-11 추가).
 
 | id | 범주 | 입력·요청 | 기대 |
